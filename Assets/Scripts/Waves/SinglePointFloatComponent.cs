@@ -18,14 +18,15 @@ namespace FishingPrototype.Waves
 
         void FixedUpdate()
         {
-            if (transform.position.y < 0)
-            {
-                float displacementMultiplier =
-                    Mathf.Clamp01(-transform.position.y / depthBeforeSubmerged) * displacementAmount;
+            float waveHeight = WaveManager.Get().GetWaveHeight(transform.position.x);
+            
+            if (transform.position.y > waveHeight) return;
 
-                _buoyancyForce.y = Mathf.Abs(Physics.gravity.y) * displacementMultiplier;
-                _rigidbody.AddForce(_buoyancyForce, ForceMode.Acceleration);
-            }
+            float yPosition = waveHeight - transform.position.y;
+            float displacementMultiplier = Mathf.Clamp01(yPosition / depthBeforeSubmerged) * displacementAmount;
+
+            _buoyancyForce.y = Mathf.Abs(Physics.gravity.y) * displacementMultiplier;
+            _rigidbody.AddForce(_buoyancyForce, ForceMode.Acceleration);
         }
     }
 }
