@@ -50,6 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accelerationSpeed: 2
   rotationSpeed: 1
+  fishingDistance: 5
+  fishingLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &5865199869560283718
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -55,6 +55,10 @@ MonoBehaviour:
   syncInterval: 0.1
   accelerationSpeed: 2
   rotationSpeed: 1
+  fishingDistance: 5
+  fishingLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1492692789819610502
 MonoBehaviour:
   m_ObjectHideFlags: 0
