@@ -10,13 +10,17 @@ namespace FishingPrototype.Test
         
         [SerializeField] private FishingSpotInitializationData[] initializationData;
 
-        private void Start()
+        public override void OnStartServer()
         {
-            if (!isServer) return;
-            
+            base.OnStartServer();
             foreach (var data in initializationData)
             {
-                data.fishingSpot.SetFishingSpot(data.fishingSpotType, data.amount);
+                NetworkFishingSpot fishingSpot = Instantiate(data.fishingSpot);
+                fishingSpot.onSpawned += delegate
+                {
+                    fishingSpot.SetFishingSpot(data.fishingSpotType, data.amount);
+                };
+                NetworkServer.Spawn(fishingSpot.gameObject);
             }
         }
 

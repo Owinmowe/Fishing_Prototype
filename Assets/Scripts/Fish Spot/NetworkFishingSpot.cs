@@ -6,27 +6,25 @@ namespace FishingPrototype.Gameplay.FishingSpot
 {
     public class NetworkFishingSpot : NetworkBehaviour, IFishingSpot
     {
+        public Action onSpawned;
         public Action<bool> OnFishingRequestProcessed { get; set; }
-        public Action<int> UpdateFishAmount { get; set; }
+        public Action<int> OnFishAmountChanged { get; set; }
 
-        private FishingSpotType _fishingSpotType;
-        private int _amount;
+        [SyncVar] private FishingSpotType _fishingSpotType;
+        [SyncVar(hook = nameof(UpdateFishAmount))] private int _amount;
         private bool _locked;
+
+        public void Start()
+        {
+            onSpawned?.Invoke();
+        }
 
         public void SetFishingSpot(FishingSpotType type, int amount)
         {
             _fishingSpotType = type;
             _amount = amount;
-            RpcSetFishingSpot(type, amount);
         }
 
-        [ClientRpc]
-        private void RpcSetFishingSpot(FishingSpotType type, int amount)
-        {
-            _fishingSpotType = type;
-            _amount = amount;
-        }
-        
         public Tuple<FishingSpotType, int> GetFishingSpotData()
         {
             return new Tuple<FishingSpotType, int>(_fishingSpotType, _amount);
@@ -58,7 +56,6 @@ namespace FishingPrototype.Gameplay.FishingSpot
 
         public void OnCompletedFishing()
         {
-            _amount--;
             CmdCompletedFishing();
         }
 
@@ -66,15 +63,13 @@ namespace FishingPrototype.Gameplay.FishingSpot
         private void CmdCompletedFishing()
         {
             _amount--;
-            RpcUpdateFishAmount(_amount);
             if(_amount <= 0)
                 NetworkServer.UnSpawn(gameObject);
         }
-
-        [ClientRpc]
-        private void RpcUpdateFishAmount(int amount)
+        
+        void UpdateFishAmount(int oldAmount, int newAmount)
         {
-            UpdateFishAmount?.Invoke(amount);
+            OnFishAmountChanged?.Invoke(newAmount);
         }
         
         public void OnCanceledFishing()

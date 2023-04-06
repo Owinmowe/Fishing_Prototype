@@ -7,7 +7,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
     public class LocalFishingSpot : MonoBehaviour, IFishingSpot
     {
         public Action<bool> OnFishingRequestProcessed { get; set; }
-        public Action<int> UpdateFishAmount { get; set; }
+        public Action<int> OnFishAmountChanged { get; set; }
 
         private FishingSpotType _fishingSpotType;
         private int _amount;
@@ -33,7 +33,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
         public void OnCompletedFishing()
         {
             _amount--;
-            UpdateFishAmount?.Invoke(_amount);
+            OnFishAmountChanged?.Invoke(_amount);
             if(_amount <= 0)
                 Destroy(gameObject);
         }
