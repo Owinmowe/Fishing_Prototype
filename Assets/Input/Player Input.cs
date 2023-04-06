@@ -44,6 +44,24 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Try Fishing"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7eed5d9-a02d-4188-88ba-5599d8cf1f56"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel Fishing"",
+                    ""type"": ""Button"",
+                    ""id"": ""63bd32de-f3cf-45b9-aa92-d5e208257f95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +130,50 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5fe76a0-3622-4cb6-b15c-18bd58fb792d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Try Fishing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f5bec14-e550-446e-ba67-c6b42fcf1420"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Try Fishing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d3156a0-1f92-4db9-8fba-d78d4f145856"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Cancel Fishing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bc3a344-949c-4f3e-9d04-1abcf7aa9f41"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel Fishing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -150,6 +212,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_BoatControl = asset.FindActionMap("Boat Control", throwIfNotFound: true);
         m_BoatControl_Accelerate = m_BoatControl.FindAction("Accelerate", throwIfNotFound: true);
         m_BoatControl_Rotate = m_BoatControl.FindAction("Rotate", throwIfNotFound: true);
+        m_BoatControl_TryFishing = m_BoatControl.FindAction("Try Fishing", throwIfNotFound: true);
+        m_BoatControl_CancelFishing = m_BoatControl.FindAction("Cancel Fishing", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -211,12 +275,16 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IBoatControlActions m_BoatControlActionsCallbackInterface;
     private readonly InputAction m_BoatControl_Accelerate;
     private readonly InputAction m_BoatControl_Rotate;
+    private readonly InputAction m_BoatControl_TryFishing;
+    private readonly InputAction m_BoatControl_CancelFishing;
     public struct BoatControlActions
     {
         private @PlayerInput m_Wrapper;
         public BoatControlActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Accelerate => m_Wrapper.m_BoatControl_Accelerate;
         public InputAction @Rotate => m_Wrapper.m_BoatControl_Rotate;
+        public InputAction @TryFishing => m_Wrapper.m_BoatControl_TryFishing;
+        public InputAction @CancelFishing => m_Wrapper.m_BoatControl_CancelFishing;
         public InputActionMap Get() { return m_Wrapper.m_BoatControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +300,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Rotate.started -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnRotate;
                 @Rotate.performed -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnRotate;
                 @Rotate.canceled -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnRotate;
+                @TryFishing.started -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnTryFishing;
+                @TryFishing.performed -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnTryFishing;
+                @TryFishing.canceled -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnTryFishing;
+                @CancelFishing.started -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnCancelFishing;
+                @CancelFishing.performed -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnCancelFishing;
+                @CancelFishing.canceled -= m_Wrapper.m_BoatControlActionsCallbackInterface.OnCancelFishing;
             }
             m_Wrapper.m_BoatControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -242,6 +316,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
+                @TryFishing.started += instance.OnTryFishing;
+                @TryFishing.performed += instance.OnTryFishing;
+                @TryFishing.canceled += instance.OnTryFishing;
+                @CancelFishing.started += instance.OnCancelFishing;
+                @CancelFishing.performed += instance.OnCancelFishing;
+                @CancelFishing.canceled += instance.OnCancelFishing;
             }
         }
     }
@@ -268,5 +348,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnAccelerate(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnTryFishing(InputAction.CallbackContext context);
+        void OnCancelFishing(InputAction.CallbackContext context);
     }
 }
