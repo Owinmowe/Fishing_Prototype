@@ -10,6 +10,7 @@ namespace FishingPrototype.Gameplay.Boat
         public event Action<IFishingSpot> OnFishingActionStarted;
         public event Action OnFishingActionFailed;
         public event Action OnFishingActionCanceled;
+        public GameObject BaseGameObject => gameObject;
 
         [Header("Base Movement Configurations")] 
         [SerializeField] private float accelerationSpeed = 1f;
@@ -76,7 +77,7 @@ namespace FishingPrototype.Gameplay.Boat
                 {
                     _currentFishingSpot = fishingSpot;
                     _currentFishingSpot.OnFishingRequestProcessed += OnFishingRequestProcessed;
-                    _currentFishingSpot.TryFishing();
+                    _currentFishingSpot.TryFishing(this);
                 }
             }
         }

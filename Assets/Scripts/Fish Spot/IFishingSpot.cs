@@ -9,7 +9,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
         Action<int> UpdateFishAmount { get; set; }
         void SetFishingSpot(FishingSpotType type, int amount);
         Tuple<FishingSpotType, int> GetFishingSpotData();
-        void TryFishing();
+        void TryFishing(IBoat boat);
         void OnCompletedFishing();
         void OnCanceledFishing();
     }

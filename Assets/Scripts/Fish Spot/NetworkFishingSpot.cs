@@ -32,16 +32,17 @@ namespace FishingPrototype.Gameplay.FishingSpot
             return new Tuple<FishingSpotType, int>(_fishingSpotType, _amount);
         }
         
-        public void TryFishing()
+        public void TryFishing(IBoat boat)
         {
-            int connectionId = NetworkClient.connection.connectionId;
-            CmdTryFishing(connectionId);
+            uint boatId = boat.BaseGameObject.GetComponent<NetworkIdentity>().netId;
+            CmdTryFishing(boatId);
         }
 
         [Command(requiresAuthority = false)]
-        private void CmdTryFishing(int connectionId)
+        private void CmdTryFishing(uint boatId)
         {
-            TargetFishingResponse(NetworkServer.connections[connectionId], !_locked);
+            NetworkIdentity boatNetworkIdentity = NetworkServer.spawned[boatId];
+            TargetFishingResponse(boatNetworkIdentity.connectionToClient, !_locked);
             
             if (!_locked)
             {

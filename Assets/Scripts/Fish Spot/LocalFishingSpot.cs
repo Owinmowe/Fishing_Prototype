@@ -24,7 +24,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
             return new Tuple<FishingSpotType, int>(_fishingSpotType, _amount);
         }
         
-        public void TryFishing()
+        public void TryFishing(IBoat boat)
         {
             OnFishingRequestProcessed?.Invoke(!_locked);
             _locked = true;
