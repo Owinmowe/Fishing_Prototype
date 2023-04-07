@@ -13,14 +13,21 @@ namespace FishingPrototype.Gameplay.Minigames
     {
 
         [SerializeField] private GameObject miniGamesPanel;
+        [SerializeField] private GameObject fishingDataPanel;
         private IMiniGameLogic[] _allMiniGames;
         private IMiniGameLogic _activeMiniGame;
+        
         private IBoat _localBoat;
+        private IFishingSpot _lastFishingSpot;
         
         [Header("Fishing Failed Configuration")] //TODO MOVE THIS TO MVP
         [SerializeField] private TextMeshProUGUI fishingFailedText;
         [SerializeField] private float failedFishingTextSpeed;
         [SerializeField] private float failedFishingTextTimeShowing;
+        
+        [Header("Fishing Data Configuration")] //TODO MOVE THIS TO MVP
+        [SerializeField] private TextMeshProUGUI fishTypeText;
+        [SerializeField] private TextMeshProUGUI fishAmountText;
         
         private WaitForSeconds _failedFishingWaitForSeconds;
         private IEnumerator _fishingActionFailedIEnumerator;
@@ -36,14 +43,23 @@ namespace FishingPrototype.Gameplay.Minigames
                 boat.OnFishingActionStarted += delegate(IFishingSpot spot)
                 {
                     miniGamesPanel.SetActive(true);
-                    Tuple<FishingSpotType, int> fishingSpotData = spot.GetFishingSpotData();
+                    fishingDataPanel.SetActive(true);
+
+                    _lastFishingSpot = spot;
+                    Tuple<FishingSpotType, int> fishingSpotData = _lastFishingSpot.GetFishingSpotData();
+
+                    fishTypeText.text = "Fish Type: " + Enum.GetName(typeof(FishingSpotType), fishingSpotData.Item1);
+                    fishAmountText.text = "Fish Amount: " + fishingSpotData.Item2;
+
+                    _lastFishingSpot.OnFishAmountChanged += OnFishAmountChange;
+                    
                     foreach (var miniGame in _allMiniGames)
                     {
                         if (miniGame.MiniGameType == fishingSpotData.Item1)
                         {
                             _activeMiniGame = miniGame;
                             _activeMiniGame.OnMiniGameComplete += CompleteMiniGame;
-                            _activeMiniGame.StartMiniGame(spot);
+                            _activeMiniGame.StartMiniGame(_lastFishingSpot);
                             return;
                         }
                     }
@@ -53,7 +69,11 @@ namespace FishingPrototype.Gameplay.Minigames
                 {
                     _activeMiniGame.CloseMiniGame();
                     miniGamesPanel.SetActive(false);
+                    fishingDataPanel.SetActive(false);
                     _activeMiniGame = null;
+                    
+                    _lastFishingSpot.OnFishAmountChanged -= OnFishAmountChange;
+                    _lastFishingSpot = null;
                 };
                 
                 boat.OnFishingActionFailed += delegate //TODO MOVE THIS TO MVP
@@ -85,7 +105,16 @@ namespace FishingPrototype.Gameplay.Minigames
             _localBoat.CompleteFishing();
             _activeMiniGame.CloseMiniGame();
             miniGamesPanel.SetActive(false);
+            fishingDataPanel.SetActive(false);
             _activeMiniGame = null;
+            
+            _lastFishingSpot.OnFishAmountChanged -= OnFishAmountChange;
+            _lastFishingSpot = null;
+        }
+
+        private void OnFishAmountChange(int fishAmount)
+        {
+            fishAmountText.text = "Fish Amount: " + fishAmount;
         }
         
         private IEnumerator FishingActionFailedCoroutine() //TODO MOVE THIS TO MVP
