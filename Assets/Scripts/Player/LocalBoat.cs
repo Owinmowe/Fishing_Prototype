@@ -10,6 +10,7 @@ namespace FishingPrototype.Gameplay.Boat
         public event Action OnFishingActionFailed;
         public event Action OnFishingActionCanceled;
         public GameObject BaseGameObject => gameObject;
+        public Transform FollowTarget => followTarget;
 
         [Header("Base Movement Configurations")] 
         [SerializeField] private float accelerationSpeed = 1f;
@@ -18,6 +19,9 @@ namespace FishingPrototype.Gameplay.Boat
         [Header("Fishing Configurations")]
         [SerializeField] private float fishingDistance = 5f;
         [SerializeField] private LayerMask fishingLayerMask;
+
+        [Space(10)] 
+        [SerializeField] private Transform followTarget;
         
         private Rigidbody _rigidbody;
         

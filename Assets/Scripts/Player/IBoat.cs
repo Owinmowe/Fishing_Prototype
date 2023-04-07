@@ -10,6 +10,7 @@ namespace FishingPrototype.Gameplay.Boat
         public event System.Action OnFishingActionFailed;
         public event System.Action OnFishingActionCanceled;
         public GameObject BaseGameObject { get; }
+        public Transform FollowTarget { get; }
         void ReceiveAcceleration(float accelerationRate);
         void ReceiveRotation(float rotationRate);
         void TryFishing();

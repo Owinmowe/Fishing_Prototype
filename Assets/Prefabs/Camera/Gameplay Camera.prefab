@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2854992591327231808}
   - component: {fileID: 2854992591327231813}
   - component: {fileID: 2854992591327231810}
-  - component: {fileID: 2854992591327231812}
+  - component: {fileID: 1428771186}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -62,8 +62,8 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
+  m_HorizontalDamping: 0
+  m_VerticalDamping: 0
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
---- !u!114 &2854992591327231812
+--- !u!114 &1428771186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,21 +82,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2854992591327231809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: -10, y: 4.5, z: 2}
-  VerticalArmLength: 0.4
-  CameraSide: 1
-  CameraDistance: 2
-  CameraCollisionFilter:
-    serializedVersion: 2
-    m_Bits: 0
-  IgnoreTag: 
-  CameraRadius: 0.2
-  DampingIntoCollision: 0
-  DampingFromCollision: 2
+  m_BindingMode: 3
+  m_FollowOffset: {x: 0, y: 5, z: -10}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!1 &2854992592151685536
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +120,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2854992592151685536}
-  m_LocalRotation: {x: 0.1596948, y: 0.6888379, z: -0.1596948, w: 0.6888379}
+  m_LocalRotation: {x: 0.15969563, y: 0.68883765, z: -0.15969563, w: 0.68883765}
   m_LocalPosition: {x: -10, y: 4.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -130,7 +128,7 @@ Transform:
   - {fileID: 2854992591327231808}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.105, y: 90, z: 0}
 --- !u!114 &2854992592151685539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,3 +179,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18eac61549b4ef546a5c30fa23359dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraRotationSpeed: 50
