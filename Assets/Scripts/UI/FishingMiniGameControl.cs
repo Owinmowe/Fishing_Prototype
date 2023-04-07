@@ -85,16 +85,16 @@ namespace FishingPrototype.Gameplay.Minigames
                 };
             };
             
-            CustomInput.Input.MiniGames.MiniGameInput1.performed += ReceiveInput1;
-            CustomInput.Input.MiniGames.MiniGameInput2.performed += ReceiveInput2;
+            CustomInput.Input.MiniGamesControl.MiniGameInput1.performed += ReceiveInput1;
+            CustomInput.Input.MiniGamesControl.MiniGameInput2.performed += ReceiveInput2;
             
             _failedFishingWaitForSeconds = new WaitForSeconds(failedFishingTextTimeShowing);
         }
 
         private void OnDestroy()
         {
-            CustomInput.Input.MiniGames.MiniGameInput1.performed -= ReceiveInput1;
-            CustomInput.Input.MiniGames.MiniGameInput2.performed -= ReceiveInput2;
+            CustomInput.Input.MiniGamesControl.MiniGameInput1.performed -= ReceiveInput1;
+            CustomInput.Input.MiniGamesControl.MiniGameInput2.performed -= ReceiveInput2;
         }
         
         private void ReceiveInput1(InputAction.CallbackContext context) => _activeMiniGame?.ReceiveMiniGameInput1();
