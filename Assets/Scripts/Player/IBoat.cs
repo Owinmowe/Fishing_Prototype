@@ -14,5 +14,6 @@ namespace FishingPrototype.Gameplay.Boat
         void ReceiveRotation(float rotationRate);
         void TryFishing();
         void CancelFishing();
+        void CompleteFishing();
     }
 }

@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 3015583859198504339}
   - component: {fileID: 3015583859198504335}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Fish Interaction Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

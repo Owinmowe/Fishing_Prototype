@@ -145,7 +145,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1f5bec14-e550-446e-ba67-c6b42fcf1420"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -167,11 +167,81 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7bc3a344-949c-4f3e-9d04-1abcf7aa9f41"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cancel Fishing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Mini Games"",
+            ""id"": ""1718f278-e04a-4993-9cec-ee303926a654"",
+            ""actions"": [
+                {
+                    ""name"": ""MiniGame Input 1"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d309f11-7164-43a1-9440-5a232ecec4ce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MiniGame Input 2"",
+                    ""type"": ""Button"",
+                    ""id"": ""3285ee52-ed78-4ce8-88d7-3ec0e1d3b625"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""51fdec3f-1a43-4862-be15-df433b1058f5"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""MiniGame Input 1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""393a7f5a-175b-4c9b-afe6-d07896340995"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MiniGame Input 1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3906230e-a838-4d2c-9e6d-ef9c7586e90d"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""MiniGame Input 2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb354431-863d-4d46-b381-f4c7a10b4ff3"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cancel Fishing"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MiniGame Input 2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -214,6 +284,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_BoatControl_Rotate = m_BoatControl.FindAction("Rotate", throwIfNotFound: true);
         m_BoatControl_TryFishing = m_BoatControl.FindAction("Try Fishing", throwIfNotFound: true);
         m_BoatControl_CancelFishing = m_BoatControl.FindAction("Cancel Fishing", throwIfNotFound: true);
+        // Mini Games
+        m_MiniGames = asset.FindActionMap("Mini Games", throwIfNotFound: true);
+        m_MiniGames_MiniGameInput1 = m_MiniGames.FindAction("MiniGame Input 1", throwIfNotFound: true);
+        m_MiniGames_MiniGameInput2 = m_MiniGames.FindAction("MiniGame Input 2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -326,6 +400,47 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public BoatControlActions @BoatControl => new BoatControlActions(this);
+
+    // Mini Games
+    private readonly InputActionMap m_MiniGames;
+    private IMiniGamesActions m_MiniGamesActionsCallbackInterface;
+    private readonly InputAction m_MiniGames_MiniGameInput1;
+    private readonly InputAction m_MiniGames_MiniGameInput2;
+    public struct MiniGamesActions
+    {
+        private @PlayerInput m_Wrapper;
+        public MiniGamesActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MiniGameInput1 => m_Wrapper.m_MiniGames_MiniGameInput1;
+        public InputAction @MiniGameInput2 => m_Wrapper.m_MiniGames_MiniGameInput2;
+        public InputActionMap Get() { return m_Wrapper.m_MiniGames; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MiniGamesActions set) { return set.Get(); }
+        public void SetCallbacks(IMiniGamesActions instance)
+        {
+            if (m_Wrapper.m_MiniGamesActionsCallbackInterface != null)
+            {
+                @MiniGameInput1.started -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput1;
+                @MiniGameInput1.performed -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput1;
+                @MiniGameInput1.canceled -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput1;
+                @MiniGameInput2.started -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput2;
+                @MiniGameInput2.performed -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput2;
+                @MiniGameInput2.canceled -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput2;
+            }
+            m_Wrapper.m_MiniGamesActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @MiniGameInput1.started += instance.OnMiniGameInput1;
+                @MiniGameInput1.performed += instance.OnMiniGameInput1;
+                @MiniGameInput1.canceled += instance.OnMiniGameInput1;
+                @MiniGameInput2.started += instance.OnMiniGameInput2;
+                @MiniGameInput2.performed += instance.OnMiniGameInput2;
+                @MiniGameInput2.canceled += instance.OnMiniGameInput2;
+            }
+        }
+    }
+    public MiniGamesActions @MiniGames => new MiniGamesActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -350,5 +465,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnRotate(InputAction.CallbackContext context);
         void OnTryFishing(InputAction.CallbackContext context);
         void OnCancelFishing(InputAction.CallbackContext context);
+    }
+    public interface IMiniGamesActions
+    {
+        void OnMiniGameInput1(InputAction.CallbackContext context);
+        void OnMiniGameInput2(InputAction.CallbackContext context);
     }
 }

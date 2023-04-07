@@ -111,5 +111,10 @@ namespace FishingPrototype.Gameplay.Boat
             _currentFishingSpot = null;
             OnFishingActionCanceled?.Invoke();
         }
+
+        public void CompleteFishing()
+        {
+            _currentFishingSpot = null;
+        }
     }
 }

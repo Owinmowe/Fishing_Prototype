@@ -91,6 +91,11 @@ namespace FishingPrototype.Gameplay.Boat
             OnFishingActionCanceled?.Invoke();
         }
 
+        public void CompleteFishing()
+        {
+            _currentFishingSpot = null;
+        }
+
         private void OnFishingRequestProcessed(bool okToFish)
         {
             _currentFishingSpot.OnFishingRequestProcessed -= OnFishingRequestProcessed;
