@@ -25,12 +25,6 @@ namespace FishingPrototype.Gameplay.Minigames
 
         private void Update()
         {
-            if (_currentFishingSpot == null)
-            {
-                CloseMiniGame();
-                return;
-            }
-            
             if (_centerLocalScale.x > 1f)
             {
                 InitializeCenterImage();
