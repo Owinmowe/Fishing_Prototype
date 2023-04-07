@@ -63,8 +63,11 @@ namespace FishingPrototype.Gameplay.FishingSpot
         private void CmdCompletedFishing()
         {
             _amount--;
-            if(_amount <= 0)
+            if (_amount <= 0)
+            {
                 NetworkServer.UnSpawn(gameObject);
+                Destroy(gameObject);
+            }
         }
         
         void UpdateFishAmount(int oldAmount, int newAmount)
