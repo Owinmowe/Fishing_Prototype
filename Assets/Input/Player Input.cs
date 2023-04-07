@@ -66,7 +66,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""1D Axis"",
+                    ""name"": ""Keyboard & Mouse"",
                     ""id"": ""9b27cc0d-774d-40aa-ae99-4a6cd746f8e0"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -99,7 +99,40 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""1D Axis"",
+                    ""name"": ""Gamepad"",
+                    ""id"": ""47191bd1-453a-47ed-8991-5de78d5026a7"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""59c56d7c-1072-4907-bbd6-f7564504168d"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""1bc0bfac-0dcd-46f6-8092-d01cded425e0"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard & Mouse"",
                     ""id"": ""649fc6fb-a2df-4656-adb0-483516d23b8c"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -127,6 +160,39 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""0fb4e631-a223-4e6b-bd91-9fa625cf2daf"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""4474f24c-24f7-437e-b123-8fe08b2a1a80"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""9614deeb-2e28-4d86-8cad-6a3214d7130d"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -178,7 +244,77 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Mini Games"",
+            ""name"": ""Camera Control"",
+            ""id"": ""21775a23-164d-4046-b16d-8a0d826e8e82"",
+            ""actions"": [
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""0dd853fa-5b11-4815-82af-e8e0cde7ece8"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""fe6982f7-7fe1-4cc9-a922-eb1c31c2c121"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""bbc5b8bd-da92-498f-94ea-7d2fe01996d2"",
+                    ""path"": ""<Gamepad>/leftStick/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""237cb0fe-3b17-4fc5-8ac8-7ac6add02c9b"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b5e7498-5825-434e-abbe-a7048d732dfa"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38914024-252f-4258-82af-6a57901fad8f"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Mini Games Control"",
             ""id"": ""1718f278-e04a-4993-9cec-ee303926a654"",
             ""actions"": [
                 {
@@ -284,10 +420,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_BoatControl_Rotate = m_BoatControl.FindAction("Rotate", throwIfNotFound: true);
         m_BoatControl_TryFishing = m_BoatControl.FindAction("Try Fishing", throwIfNotFound: true);
         m_BoatControl_CancelFishing = m_BoatControl.FindAction("Cancel Fishing", throwIfNotFound: true);
-        // Mini Games
-        m_MiniGames = asset.FindActionMap("Mini Games", throwIfNotFound: true);
-        m_MiniGames_MiniGameInput1 = m_MiniGames.FindAction("MiniGame Input 1", throwIfNotFound: true);
-        m_MiniGames_MiniGameInput2 = m_MiniGames.FindAction("MiniGame Input 2", throwIfNotFound: true);
+        // Camera Control
+        m_CameraControl = asset.FindActionMap("Camera Control", throwIfNotFound: true);
+        m_CameraControl_Rotate = m_CameraControl.FindAction("Rotate", throwIfNotFound: true);
+        m_CameraControl_Zoom = m_CameraControl.FindAction("Zoom", throwIfNotFound: true);
+        // Mini Games Control
+        m_MiniGamesControl = asset.FindActionMap("Mini Games Control", throwIfNotFound: true);
+        m_MiniGamesControl_MiniGameInput1 = m_MiniGamesControl.FindAction("MiniGame Input 1", throwIfNotFound: true);
+        m_MiniGamesControl_MiniGameInput2 = m_MiniGamesControl.FindAction("MiniGame Input 2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -401,34 +541,75 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     }
     public BoatControlActions @BoatControl => new BoatControlActions(this);
 
-    // Mini Games
-    private readonly InputActionMap m_MiniGames;
-    private IMiniGamesActions m_MiniGamesActionsCallbackInterface;
-    private readonly InputAction m_MiniGames_MiniGameInput1;
-    private readonly InputAction m_MiniGames_MiniGameInput2;
-    public struct MiniGamesActions
+    // Camera Control
+    private readonly InputActionMap m_CameraControl;
+    private ICameraControlActions m_CameraControlActionsCallbackInterface;
+    private readonly InputAction m_CameraControl_Rotate;
+    private readonly InputAction m_CameraControl_Zoom;
+    public struct CameraControlActions
     {
         private @PlayerInput m_Wrapper;
-        public MiniGamesActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MiniGameInput1 => m_Wrapper.m_MiniGames_MiniGameInput1;
-        public InputAction @MiniGameInput2 => m_Wrapper.m_MiniGames_MiniGameInput2;
-        public InputActionMap Get() { return m_Wrapper.m_MiniGames; }
+        public CameraControlActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Rotate => m_Wrapper.m_CameraControl_Rotate;
+        public InputAction @Zoom => m_Wrapper.m_CameraControl_Zoom;
+        public InputActionMap Get() { return m_Wrapper.m_CameraControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MiniGamesActions set) { return set.Get(); }
-        public void SetCallbacks(IMiniGamesActions instance)
+        public static implicit operator InputActionMap(CameraControlActions set) { return set.Get(); }
+        public void SetCallbacks(ICameraControlActions instance)
         {
-            if (m_Wrapper.m_MiniGamesActionsCallbackInterface != null)
+            if (m_Wrapper.m_CameraControlActionsCallbackInterface != null)
             {
-                @MiniGameInput1.started -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput1;
-                @MiniGameInput1.performed -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput1;
-                @MiniGameInput1.canceled -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput1;
-                @MiniGameInput2.started -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput2;
-                @MiniGameInput2.performed -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput2;
-                @MiniGameInput2.canceled -= m_Wrapper.m_MiniGamesActionsCallbackInterface.OnMiniGameInput2;
+                @Rotate.started -= m_Wrapper.m_CameraControlActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_CameraControlActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_CameraControlActionsCallbackInterface.OnRotate;
+                @Zoom.started -= m_Wrapper.m_CameraControlActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_CameraControlActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_CameraControlActionsCallbackInterface.OnZoom;
             }
-            m_Wrapper.m_MiniGamesActionsCallbackInterface = instance;
+            m_Wrapper.m_CameraControlActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
+            }
+        }
+    }
+    public CameraControlActions @CameraControl => new CameraControlActions(this);
+
+    // Mini Games Control
+    private readonly InputActionMap m_MiniGamesControl;
+    private IMiniGamesControlActions m_MiniGamesControlActionsCallbackInterface;
+    private readonly InputAction m_MiniGamesControl_MiniGameInput1;
+    private readonly InputAction m_MiniGamesControl_MiniGameInput2;
+    public struct MiniGamesControlActions
+    {
+        private @PlayerInput m_Wrapper;
+        public MiniGamesControlActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MiniGameInput1 => m_Wrapper.m_MiniGamesControl_MiniGameInput1;
+        public InputAction @MiniGameInput2 => m_Wrapper.m_MiniGamesControl_MiniGameInput2;
+        public InputActionMap Get() { return m_Wrapper.m_MiniGamesControl; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MiniGamesControlActions set) { return set.Get(); }
+        public void SetCallbacks(IMiniGamesControlActions instance)
+        {
+            if (m_Wrapper.m_MiniGamesControlActionsCallbackInterface != null)
+            {
+                @MiniGameInput1.started -= m_Wrapper.m_MiniGamesControlActionsCallbackInterface.OnMiniGameInput1;
+                @MiniGameInput1.performed -= m_Wrapper.m_MiniGamesControlActionsCallbackInterface.OnMiniGameInput1;
+                @MiniGameInput1.canceled -= m_Wrapper.m_MiniGamesControlActionsCallbackInterface.OnMiniGameInput1;
+                @MiniGameInput2.started -= m_Wrapper.m_MiniGamesControlActionsCallbackInterface.OnMiniGameInput2;
+                @MiniGameInput2.performed -= m_Wrapper.m_MiniGamesControlActionsCallbackInterface.OnMiniGameInput2;
+                @MiniGameInput2.canceled -= m_Wrapper.m_MiniGamesControlActionsCallbackInterface.OnMiniGameInput2;
+            }
+            m_Wrapper.m_MiniGamesControlActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @MiniGameInput1.started += instance.OnMiniGameInput1;
@@ -440,7 +621,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             }
         }
     }
-    public MiniGamesActions @MiniGames => new MiniGamesActions(this);
+    public MiniGamesControlActions @MiniGamesControl => new MiniGamesControlActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -466,7 +647,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnTryFishing(InputAction.CallbackContext context);
         void OnCancelFishing(InputAction.CallbackContext context);
     }
-    public interface IMiniGamesActions
+    public interface ICameraControlActions
+    {
+        void OnRotate(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
+    }
+    public interface IMiniGamesControlActions
     {
         void OnMiniGameInput1(InputAction.CallbackContext context);
         void OnMiniGameInput2(InputAction.CallbackContext context);
