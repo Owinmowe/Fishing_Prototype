@@ -123,7 +123,7 @@
                 {
                     "name": "",
                     "id": "1f5bec14-e550-446e-ba67-c6b42fcf1420",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -145,11 +145,81 @@
                 {
                     "name": "",
                     "id": "7bc3a344-949c-4f3e-9d04-1abcf7aa9f41",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Cancel Fishing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Mini Games",
+            "id": "1718f278-e04a-4993-9cec-ee303926a654",
+            "actions": [
+                {
+                    "name": "MiniGame Input 1",
+                    "type": "Button",
+                    "id": "5d309f11-7164-43a1-9440-5a232ecec4ce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MiniGame Input 2",
+                    "type": "Button",
+                    "id": "3285ee52-ed78-4ce8-88d7-3ec0e1d3b625",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "51fdec3f-1a43-4862-be15-df433b1058f5",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "MiniGame Input 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "393a7f5a-175b-4c9b-afe6-d07896340995",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MiniGame Input 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3906230e-a838-4d2c-9e6d-ef9c7586e90d",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "MiniGame Input 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb354431-863d-4d46-b381-f4c7a10b4ff3",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Cancel Fishing",
+                    "groups": "Gamepad",
+                    "action": "MiniGame Input 2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
