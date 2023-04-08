@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FishingPrototype.Waves
@@ -11,7 +12,7 @@ namespace FishingPrototype.Waves
         [SerializeField] private float speed = 1f;
 
         private float _offset;
-
+        
         public static WaveManager Get() => _instance;
         private static WaveManager _instance;
         
