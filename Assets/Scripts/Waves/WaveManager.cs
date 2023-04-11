@@ -13,6 +13,11 @@ namespace FishingPrototype.Waves
 
         private float _offset;
         
+        private Material _waterMaterial;
+        private int _offsetMaterialPropertyId;
+        private int _amplitudeMaterialPropertyId;
+        private int _lenghtMaterialPropertyId;
+
         public static WaveManager Get() => _instance;
         private static WaveManager _instance;
         
@@ -28,12 +33,29 @@ namespace FishingPrototype.Waves
             }
         }
 
+        private void Start()
+        {
+            _waterMaterial = GetComponent<MeshRenderer>().sharedMaterial;
+            _offsetMaterialPropertyId = Shader.PropertyToID("_Offset");
+            _amplitudeMaterialPropertyId = Shader.PropertyToID("_Amplitude");
+            _lenghtMaterialPropertyId = Shader.PropertyToID("_Lenght");
+        }
+
         private void Update()
         {
             _offset += speed * Time.deltaTime;
+            _waterMaterial.SetFloat(_offsetMaterialPropertyId, _offset);
         }
 
-        
-        public float GetWaveHeight(float x) => amplitude * Mathf.Sin(x / lenght + _offset);
+        private void OnValidate()
+        {
+            if (!_waterMaterial) return;
+            _waterMaterial.SetFloat(_offsetMaterialPropertyId, _offset);
+            _waterMaterial.SetFloat(_amplitudeMaterialPropertyId, amplitude);
+            _waterMaterial.SetFloat(_lenghtMaterialPropertyId, lenght);
+        }
+
+        public float GetWaveHeight(float x) => amplitude * Mathf.Sin((x / lenght) + _offset);
+
     }
 }

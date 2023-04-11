@@ -1,6 +1,5 @@
 using System;
 using FishingPrototype.Gameplay.FishingSpot;
-using FishingPrototype.Gameplay.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
