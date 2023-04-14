@@ -43,8 +43,8 @@ Material:
     - _Voronoi_Density: 10
     - _Voronoi_Strenght: 2
     m_Colors:
-    - _Deep_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
-    - _Glow_Color: {r: 0, g: 5.521569, b: 23.968628, a: 0}
+    - _Deep_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Glow_Color: {r: 0, g: 0.97608465, b: 4.237095, a: 0}
     - _Shallow_Color: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3170094080191566175
