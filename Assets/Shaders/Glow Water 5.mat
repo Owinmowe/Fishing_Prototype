@@ -37,7 +37,7 @@ Material:
     m_Floats:
     - _Amplitude: 0.17
     - _Lenght: 0.78
-    - _Offset: 86.331665
+    - _Offset: 5.9797444
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Voronoi_Density: 300

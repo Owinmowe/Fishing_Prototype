@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glow Water 2 Material
+  m_Name: Glow Water 2
   m_Shader: {fileID: -6465566751694194690, guid: 0b6330fa6f39700408073ca79b2186aa,
     type: 3}
   m_ValidKeywords: []
@@ -50,7 +50,7 @@ Material:
     m_Floats:
     - _Amplitude: 0.2
     - _Lenght: 0.3
-    - _Offset: 34.824127
+    - _Offset: 4.9136615
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Voronoi_Density: 300
