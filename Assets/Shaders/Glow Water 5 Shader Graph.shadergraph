@@ -155,6 +155,9 @@
         },
         {
             "m_Id": "28ab63fa5db246d8abdc7ce2c5bf485a"
+        },
+        {
+            "m_Id": "ee8f9ac6d1fc47879118bd9e4fe9239a"
         }
     ],
     "m_GroupDatas": [],
@@ -578,6 +581,20 @@
                     "m_Id": "09971677e1994b3293dbc5cd79097633"
                 },
                 "m_SlotId": 2
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "ee8f9ac6d1fc47879118bd9e4fe9239a"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "a627c912db644db799fcbd712b9c0c58"
+                },
+                "m_SlotId": 1
             }
         },
         {
@@ -1094,6 +1111,21 @@
         "y": 0.0,
         "z": 0.0
     },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "0b5239a7c66241ab96dc26843ffaff88",
+    "m_Id": 0,
+    "m_DisplayName": "Offset",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
     "m_Labels": []
 }
 
@@ -3237,7 +3269,7 @@
     },
     "m_Name": "Tiling And Offset",
     "m_DrawState": {
-        "m_Expanded": false,
+        "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -898.0001220703125,
@@ -4357,6 +4389,41 @@
         "y": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "ee8f9ac6d1fc47879118bd9e4fe9239a",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -753.2501220703125,
+            "y": 1054.550048828125,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "0b5239a7c66241ab96dc26843ffaff88"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "41e1e300cb034e44a66ef7b13d1e6f77"
+    }
 }
 
 {

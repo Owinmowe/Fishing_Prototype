@@ -12,7 +12,7 @@ namespace FishingPrototype.Waves
         [SerializeField] private float speed = 1f;
 
         private float _offset;
-        
+
         private Material _waterMaterial;
         private int _offsetMaterialPropertyId;
         private int _amplitudeMaterialPropertyId;
@@ -31,16 +31,13 @@ namespace FishingPrototype.Waves
             {
                 Destroy(gameObject);
             }
-        }
-
-        private void Start()
-        {
+            
             _waterMaterial = GetComponent<MeshRenderer>().sharedMaterial;
             _offsetMaterialPropertyId = Shader.PropertyToID("_Offset");
             _amplitudeMaterialPropertyId = Shader.PropertyToID("_Amplitude");
             _lenghtMaterialPropertyId = Shader.PropertyToID("_Lenght");
         }
-
+        
         private void Update()
         {
             _offset += speed * Time.deltaTime;
@@ -55,6 +52,11 @@ namespace FishingPrototype.Waves
             _waterMaterial.SetFloat(_lenghtMaterialPropertyId, lenght);
         }
 
+        public void UpdateMaterialReference()
+        {
+            _waterMaterial = GetComponent<MeshRenderer>().sharedMaterial;
+        }
+        
         public float GetWaveHeight(float x) => amplitude * Mathf.Sin((x / lenght) + _offset);
 
     }
