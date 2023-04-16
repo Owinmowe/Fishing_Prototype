@@ -7,7 +7,6 @@ namespace FishingPrototype.Gameplay.Input
     {
         private static PlayerInput _inputs;
         private static bool inited = false;
-
         public static void Init()
         {
             if (inited)

@@ -43,9 +43,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.17
-    - _Lenght: 0.78
-    - _Offset: 82.81852
+    - _Amplitude: 0.2
+    - _Lenght: 1
+    - _Offset: 18.46505
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Voronoi_Density: 600

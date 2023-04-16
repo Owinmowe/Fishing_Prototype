@@ -390,11 +390,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2913230483528187525, guid: ba0ee96c30d02d141a2c8275176be919,
         type: 3}
-      propertyPath: rigidbodyToMove
-      value: 
-      objectReference: {fileID: 7186925279202299909}
-    - target: {fileID: 2913230483528187525, guid: ba0ee96c30d02d141a2c8275176be919,
-        type: 3}
       propertyPath: transformToAlign
       value: 
       objectReference: {fileID: 5044940394857141493}
