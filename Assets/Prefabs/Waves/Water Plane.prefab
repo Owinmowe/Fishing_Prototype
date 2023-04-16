@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amplitude: 0.2
-  lenght: 0.3
+  lenght: 1
   speed: 1
