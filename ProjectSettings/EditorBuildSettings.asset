@@ -8,25 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Test/Movement/Movement Multiplayer Test.unity
-    guid: 6050736a696d37f4387cf881d21d6175
-  - enabled: 0
-    path: Assets/Test/Movement/Movement Single Player Test.unity
-    guid: 3cd17ddec80d2e24284a4f262e7dd66b
-  - enabled: 0
-    path: Assets/Test/Fish Interaction/Fish Interaction Multiplayer Test.unity
-    guid: f710ff9886c55c24fb94ffaf8bf5c179
-  - enabled: 0
-    path: Assets/Test/Fish Interaction/Fish Interaction Single Player Test.unity
-    guid: 49b6957ca9607e34badddbfce3698dc9
-  - enabled: 0
-    path: Assets/Test/MiniGames/Virus/Virus Minigame Multiplayer Test.unity
-    guid: fd57034e2a1ab474c8c6b69b03b1eee5
-  - enabled: 0
-    path: Assets/Test/MiniGames/Virus/Virus Minigame Single Player Test.unity
-    guid: b9c52f3f02bd52740935c0aba1a15abb
   - enabled: 1
-    path: Assets/Test/Water Shader/Water Shader Test.unity
-    guid: 7bf245e891d1d38448181e77e9e9acb9
+    path: Assets/Scenes/Game Scene.unity
+    guid: 028417d34af14c44285453ff9dafa2ea
   m_configObjects: {}
