@@ -12,6 +12,7 @@ namespace FishingPrototype.Gameplay.Boat
         public event Action OnFishingActionCanceled;
         public GameObject BaseGameObject => gameObject;
         public Transform FollowTarget => followTarget;
+        public bool Locked { get; set; } = true;
         
         [Header("Base Movement Configurations")] 
         [SerializeField] private float accelerationSpeed = 1f;
@@ -59,19 +60,19 @@ namespace FishingPrototype.Gameplay.Boat
 
         public void ReceiveAcceleration(float accelerationRate)
         {
-            if (_currentFishingSpot != null || !isLocalPlayer) return;
+            if (Locked || _currentFishingSpot != null || !isLocalPlayer) return;
                 CmdReceiveAcceleration(accelerationRate);
         }
 
         public void ReceiveRotation(float rotationRate)
         {
-            if (_currentFishingSpot != null || !isLocalPlayer) return;
+            if (Locked || _currentFishingSpot != null || !isLocalPlayer) return;
                 CmdReceiveRotation(rotationRate);
         }
 
         public void TryFishing()
         {
-            if (_currentFishingSpot != null || !isLocalPlayer) return;
+            if (Locked || _currentFishingSpot != null || !isLocalPlayer) return;
             
             int collidersSize = Physics.OverlapSphereNonAlloc(transform.position, fishingDistance, _fishingColliders, fishingLayerMask);
             for (int i = 0; i < collidersSize; i++)
@@ -88,7 +89,7 @@ namespace FishingPrototype.Gameplay.Boat
 
         public void CancelFishing()
         {
-            if (_currentFishingSpot == null) return;
+            if (Locked || _currentFishingSpot == null) return;
             
             _currentFishingSpot.OnCanceledFishing();
             _currentFishingSpot = null;

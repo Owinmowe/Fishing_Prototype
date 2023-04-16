@@ -16,5 +16,6 @@ namespace FishingPrototype.Gameplay.Boat
         void TryFishing();
         void CancelFishing();
         void CompleteFishing();
+        bool Locked { get; set; }
     }
 }
