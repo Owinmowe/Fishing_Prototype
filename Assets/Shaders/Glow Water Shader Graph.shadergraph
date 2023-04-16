@@ -1917,7 +1917,7 @@
     },
     "m_Name": "Tiling And Offset",
     "m_DrawState": {
-        "m_Expanded": false,
+        "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
             "x": -827.9999389648438,
@@ -2259,7 +2259,7 @@
     "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
-        "y": 0.0
+        "y": 0.05000000074505806
     },
     "m_DefaultValue": {
         "x": 0.0,

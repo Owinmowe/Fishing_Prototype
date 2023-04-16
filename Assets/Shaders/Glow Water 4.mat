@@ -37,10 +37,10 @@ Material:
     m_Floats:
     - _Amplitude: 0.2
     - _Lenght: 0.3
-    - _Offset: 5.643363
+    - _Offset: 27.293142
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Voronoi_Density: 300
+    - _Voronoi_Density: 600
     - _Voronoi_Strenght: 1.71
     m_Colors:
     - _Deep_Color: {r: 1, g: 1, b: 1, a: 1}

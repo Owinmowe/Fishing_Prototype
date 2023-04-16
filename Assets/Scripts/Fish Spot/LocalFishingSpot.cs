@@ -6,6 +6,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
 {
     public class LocalFishingSpot : MonoBehaviour, IFishingSpot
     {
+        public Action<Tuple<FishingSpotType, int>> OnFishingSpotSet { get; set; }
         public Action<bool> OnFishingRequestProcessed { get; set; }
         public Action<int> OnFishAmountChanged { get; set; }
 
@@ -17,6 +18,8 @@ namespace FishingPrototype.Gameplay.FishingSpot
         {
             _fishingSpotType = type;
             _amount = amount;
+            gameObject.name = "Local " + Enum.GetName(typeof(FishingSpotType), _fishingSpotType) + " Fishing Spot";
+            OnFishingSpotSet?.Invoke(new Tuple<FishingSpotType, int>(_fishingSpotType, _amount));
         }
 
         public Tuple<FishingSpotType, int> GetFishingSpotData()

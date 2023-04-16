@@ -51,10 +51,10 @@ Material:
     - _Amplitude: 0.2
     - _Depth_Color_Fade: 0.8
     - _Lenght: 0.3
-    - _Offset: 17.26763
+    - _Offset: 39.52074
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Voronoi_Density: 300
+    - _Voronoi_Density: 600
     - _Voronoi_Strenght: 5
     m_Colors:
     - _Deep_Depth: {r: 0, g: 0.007245887, b: 0.2735849, a: 0}

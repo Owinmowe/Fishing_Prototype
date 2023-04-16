@@ -382,6 +382,34 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Test Control"",
+            ""id"": ""2fea8ccb-0558-4c27-b9fc-5053b2f5e404"",
+            ""actions"": [
+                {
+                    ""name"": ""Test Button 1"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a67a28a-a2f2-41b2-9c71-28061d911ee6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3f67a6a7-f8f2-4068-b490-7e131dd6bfee"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Test Button 1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -428,6 +456,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_MiniGamesControl = asset.FindActionMap("Mini Games Control", throwIfNotFound: true);
         m_MiniGamesControl_MiniGameInput1 = m_MiniGamesControl.FindAction("MiniGame Input 1", throwIfNotFound: true);
         m_MiniGamesControl_MiniGameInput2 = m_MiniGamesControl.FindAction("MiniGame Input 2", throwIfNotFound: true);
+        // Test Control
+        m_TestControl = asset.FindActionMap("Test Control", throwIfNotFound: true);
+        m_TestControl_TestButton1 = m_TestControl.FindAction("Test Button 1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -622,6 +653,39 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public MiniGamesControlActions @MiniGamesControl => new MiniGamesControlActions(this);
+
+    // Test Control
+    private readonly InputActionMap m_TestControl;
+    private ITestControlActions m_TestControlActionsCallbackInterface;
+    private readonly InputAction m_TestControl_TestButton1;
+    public struct TestControlActions
+    {
+        private @PlayerInput m_Wrapper;
+        public TestControlActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @TestButton1 => m_Wrapper.m_TestControl_TestButton1;
+        public InputActionMap Get() { return m_Wrapper.m_TestControl; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestControlActions set) { return set.Get(); }
+        public void SetCallbacks(ITestControlActions instance)
+        {
+            if (m_Wrapper.m_TestControlActionsCallbackInterface != null)
+            {
+                @TestButton1.started -= m_Wrapper.m_TestControlActionsCallbackInterface.OnTestButton1;
+                @TestButton1.performed -= m_Wrapper.m_TestControlActionsCallbackInterface.OnTestButton1;
+                @TestButton1.canceled -= m_Wrapper.m_TestControlActionsCallbackInterface.OnTestButton1;
+            }
+            m_Wrapper.m_TestControlActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @TestButton1.started += instance.OnTestButton1;
+                @TestButton1.performed += instance.OnTestButton1;
+                @TestButton1.canceled += instance.OnTestButton1;
+            }
+        }
+    }
+    public TestControlActions @TestControl => new TestControlActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -656,5 +720,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMiniGameInput1(InputAction.CallbackContext context);
         void OnMiniGameInput2(InputAction.CallbackContext context);
+    }
+    public interface ITestControlActions
+    {
+        void OnTestButton1(InputAction.CallbackContext context);
     }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83366a7427490f648977f4770a19ebd6, type: 3}
+  m_Name: Fishing Spot Graphic Data
+  m_EditorClassIdentifier: 
+  fishingSpotGraphicPrefabs:
+  - {fileID: 2145041085662726844, guid: bfb443768f3ee71438f1f40b997df609, type: 3}
+  - {fileID: 1751740317142262314, guid: 96e78c95c8dbd8d4b903883982491705, type: 3}
+  - {fileID: 7891918366308323492, guid: 7421b590a55b12d4695b02afb8a32bc5, type: 3}
+  - {fileID: 6225592943559200608, guid: 0f804aa39f23f4040b95d6c34b3f1f40, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

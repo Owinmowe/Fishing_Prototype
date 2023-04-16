@@ -360,6 +360,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Test Control",
+            "id": "2fea8ccb-0558-4c27-b9fc-5053b2f5e404",
+            "actions": [
+                {
+                    "name": "Test Button 1",
+                    "type": "Button",
+                    "id": "9a67a28a-a2f2-41b2-9c71-28061d911ee6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3f67a6a7-f8f2-4068-b490-7e131dd6bfee",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Test Button 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

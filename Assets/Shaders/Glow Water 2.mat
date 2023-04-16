@@ -50,10 +50,10 @@ Material:
     m_Floats:
     - _Amplitude: 0.2
     - _Lenght: 0.3
-    - _Offset: 4.9136615
+    - _Offset: 18.221355
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Voronoi_Density: 300
+    - _Voronoi_Density: 600
     - _Voronoi_Strenght: 2.5
     m_Colors:
     - _Base_Glow_Color: {r: 0, g: 766.9961, b: 726.83923, a: 1}

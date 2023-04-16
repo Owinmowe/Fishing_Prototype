@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8993168313136174141}
   - component: {fileID: 2060909210423553564}
-  - component: {fileID: 8993168313136174140}
-  - component: {fileID: 8993168313136174143}
+  - component: {fileID: 1993448473332616761}
   - component: {fileID: 678116776730295523}
   m_Layer: 6
   m_Name: Local Fishing Spot
@@ -47,56 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968eea75774d5e643bf20ec4091d9c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!33 &8993168313136174140
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8993168313136174137}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8993168313136174143
-MeshRenderer:
+--- !u!114 &1993448473332616761
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8993168313136174137}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f2318e8d3a6ed4da8346d8e0481013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphicData: {fileID: 11400000, guid: 22130eda1c75ef947b970a3a692484a6, type: 2}
 --- !u!135 &678116776730295523
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -108,5 +70,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}

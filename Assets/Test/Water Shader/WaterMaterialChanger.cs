@@ -4,7 +4,6 @@ using FishingPrototype.Waves;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace FishingPrototype.Test
 {
