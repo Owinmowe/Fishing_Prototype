@@ -36,8 +36,6 @@ namespace FishingPrototype.Network
             Callback<LobbyMatchList_t>.Create(OnLobbyMatchListReturned);
             
             _serverMessageManager = new MirrorServerMessageManager();
-
-            RequestCreateLobby(true);
         }
 
         public override void OnStartHost()
