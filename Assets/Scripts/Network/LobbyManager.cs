@@ -1,4 +1,3 @@
-using System.Collections;
 using FishingPrototype.Gameplay.Boat;
 using UnityEngine;
 using Mirror;
