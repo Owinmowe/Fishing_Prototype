@@ -44,7 +44,7 @@ namespace FishingPrototype.Gameplay.Boat
 
         private void Start()
         {
-            if(isLocalPlayer)
+            if(isOwned)
                 IBoat.onLocalBoatSet?.Invoke(this);
         }
 
