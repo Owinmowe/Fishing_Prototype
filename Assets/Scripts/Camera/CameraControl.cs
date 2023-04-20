@@ -4,16 +4,19 @@ using Cinemachine;
 using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.Input;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace FishingPrototype.Gameplay.Camera
 {
     public class CameraControl : MonoBehaviour
     {
 
+        [Header("Menu Configurations")] 
+        [SerializeField] private CinemachineVirtualCamera startScreenCamera;
         [Header("Gameplay Configurations")]
-        [SerializeField] private float cameraRotationSpeed = 1f;
+        [SerializeField] private CinemachineVirtualCamera gameplayCamera;
+        [SerializeField] private float gameplayCameraRotationSpeed = 1f;
         
-        private CinemachineVirtualCamera _virtualCamera;
         
         private Transform _boatTransform;
         private Transform _followTargetTransform;
@@ -22,7 +25,8 @@ namespace FishingPrototype.Gameplay.Camera
 
         private void Awake()
         {
-            _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+            startScreenCamera.gameObject.SetActive(true);
+            gameplayCamera.gameObject.SetActive(false);
             
             IBoat.onLocalBoatSet += delegate(IBoat boat)
             {
@@ -37,8 +41,10 @@ namespace FishingPrototype.Gameplay.Camera
                     }
                 }.transform;
 
-                _virtualCamera.m_Follow = _followTargetTransform;
-                _virtualCamera.m_LookAt = _followTargetTransform;
+                startScreenCamera.gameObject.SetActive(false);
+                gameplayCamera.gameObject.SetActive(true);
+                gameplayCamera.m_Follow = _followTargetTransform;
+                gameplayCamera.m_LookAt = _followTargetTransform;
             };
 
             CustomInput.Input.CameraControl.Rotate.performed += StartCameraRotate;
@@ -62,7 +68,7 @@ namespace FishingPrototype.Gameplay.Camera
 
                 if (_rotating)
                 {
-                    _followTargetTransform.Rotate(Vector3.up, _rotatingAmount * cameraRotationSpeed * Time.fixedDeltaTime);
+                    _followTargetTransform.Rotate(Vector3.up, _rotatingAmount * gameplayCameraRotationSpeed * Time.fixedDeltaTime);
                 }
             }
         }
