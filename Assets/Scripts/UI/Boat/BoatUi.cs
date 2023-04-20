@@ -28,7 +28,7 @@ namespace FishingPrototype.Gameplay.Boat
         private void OnPlayerDataSet(PlayerData data)
         {
             playerNicknameText.text = data.nickname;
-            playerAvatarImage.texture = SteamUtilities.GetSteamImageAsTexture(data.iImage);
+            playerAvatarImage.texture = SteamUtilities.GetSteamImageAsTexture(data.iImage); //TODO Find a better alternative than call Steam Api from UI
         }
     }
 }
