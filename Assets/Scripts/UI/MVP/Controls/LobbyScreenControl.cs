@@ -9,8 +9,5 @@ namespace FishingPrototype.MVP.Control
         
         public void OpenScreen() => gameObject.SetActive(true);
         public void CloseScreen() => gameObject.SetActive(false);
-
-        public void HostLobby() => customNetworkManager.RequestCreateLobby(publicLobby: true);
-        public void JoinLobby(ulong lobbyId) => customNetworkManager.RequestJoinLobby(lobbyId: lobbyId);
     }
 }

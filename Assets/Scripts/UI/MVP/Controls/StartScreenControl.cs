@@ -1,3 +1,4 @@
+using FishingPrototype.Network;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,20 +12,24 @@ namespace FishingPrototype.MVP.Control
         public event System.Action OnJoinLobbyButtonPressed;
         
         [Header("Buttons")]
-        [SerializeField] private Button HostLobby;
-        [SerializeField] private Button JoinLobby;
-        [SerializeField] private Button ExitButton;
-
+        [SerializeField] private Button HostLobbyButton;
+        [SerializeField] private Button JoinLobbyButton;
+        [SerializeField] private Button ExitButtonButton;
+        [Header("References")]
+        [SerializeField] private CustomNetworkManager customNetworkManager;
+        
         private void Start()
         {
-            ExitButton.onClick.AddListener(delegate { OnExitButtonPressed?.Invoke(); });   
-            HostLobby.onClick.AddListener(delegate { OnHostLobbyButtonPressed?.Invoke(); });   
-            JoinLobby.onClick.AddListener(delegate { OnJoinLobbyButtonPressed?.Invoke(); });   
+            HostLobbyButton.onClick.AddListener(delegate { OnHostLobbyButtonPressed?.Invoke(); });   
+            JoinLobbyButton.onClick.AddListener(delegate { OnJoinLobbyButtonPressed?.Invoke(); });   
+            ExitButtonButton.onClick.AddListener(delegate { OnExitButtonPressed?.Invoke(); });   
         }
 
 
         public void OpenScreen() => gameObject.SetActive(true);
 
         public void CloseScreen() => gameObject.SetActive(false);
+        
+        public void HostLobby() => customNetworkManager.RequestCreateLobby(publicLobby: true);
     }
 }
