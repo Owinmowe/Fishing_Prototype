@@ -4,7 +4,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace FishingPrototype.Gameplay.FishingSpot
+namespace FishingPrototype.Gameplay.FishingSpot.Data
 {
     [CustomEditor(typeof(FishingSpotGraphicData))]
     public class FishingSpotGraphicDataEditor : Editor

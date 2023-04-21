@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace FishingPrototype.Gameplay.FishingSpot
+namespace FishingPrototype.Gameplay.FishingSpot.Data
 {
     [CreateAssetMenu(fileName = "Fishing Spot Graphic Data", menuName = "Fishing Spots/Graphic Data", order = 1)]
     public class FishingSpotGraphicData : ScriptableObject
