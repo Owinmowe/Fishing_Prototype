@@ -25,7 +25,7 @@ namespace FishingPrototype.Test
         
         private void Awake()
         {
-            IBoat.onLocalBoatSet += OnLocalFishingBoatSet;
+            IBoat.OnLocalBoatSet += OnLocalFishingBoatSet;
             _failedFishingWaitForSeconds = new WaitForSeconds(failedFishingTextTimeShowing);
         }
 
@@ -93,7 +93,7 @@ namespace FishingPrototype.Test
         
         private void OnDestroy()
         {
-            IBoat.onLocalBoatSet += OnLocalFishingBoatSet;
+            IBoat.OnLocalBoatSet += OnLocalFishingBoatSet;
         }
     }
 }

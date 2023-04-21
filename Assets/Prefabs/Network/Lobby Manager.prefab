@@ -45,9 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7381fc5fc016f40b9439c0cc5da532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
   networkManager: {fileID: 0}
   networkBoatPrefab: {fileID: 891426286095847951, guid: b0dee31ded107a14bb11265bb37c6692,
     type: 3}

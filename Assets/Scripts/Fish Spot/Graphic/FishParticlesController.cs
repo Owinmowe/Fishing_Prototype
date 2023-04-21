@@ -1,4 +1,5 @@
 using System;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using UnityEngine;
 
 namespace FishingPrototype.Gameplay.FishingSpot

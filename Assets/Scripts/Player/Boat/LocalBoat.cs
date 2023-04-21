@@ -11,7 +11,6 @@ namespace FishingPrototype.Gameplay.Boat
         public event Action OnFishingActionCanceled;
         public GameObject BaseGameObject => gameObject;
         public Transform FollowTarget => followTarget;
-        public bool Locked { get; set; } = false;
 
         [Header("Base Movement Configurations")] 
         [SerializeField] private float accelerationSpeed = 1f;
@@ -43,7 +42,7 @@ namespace FishingPrototype.Gameplay.Boat
 
         private void Start()
         {
-            IBoat.onLocalBoatSet?.Invoke(this);
+            IBoat.OnLocalBoatSet?.Invoke(this);
         }
 
         private void FixedUpdate()
@@ -55,9 +54,14 @@ namespace FishingPrototype.Gameplay.Boat
                 Rotate(transform.up * _rotationFloat);
         }
 
+        private void OnDestroy()
+        {
+            IBoat.OnLocalBoatRemoved?.Invoke(this);
+        }
+        
         public void ReceiveAcceleration(float accelerationRate)
         {
-            if (Locked || _currentFishingSpot != null) return;
+            if (_currentFishingSpot != null) return;
             
             _accelerationFloat = Mathf.Clamp(accelerationRate, -1, 1) * accelerationSpeed;
             _accelInThisFixedDelta = true;
@@ -66,7 +70,7 @@ namespace FishingPrototype.Gameplay.Boat
 
         public void ReceiveRotation(float rotationRate)
         {
-            if (Locked || _currentFishingSpot != null) return;
+            if (_currentFishingSpot != null) return;
             
             _rotationFloat = Mathf.Clamp(rotationRate, -1, 1) * rotationSpeed;
             _rotateInThisFixedDelta = true;
@@ -86,7 +90,7 @@ namespace FishingPrototype.Gameplay.Boat
         
         public void TryFishing()
         {
-            if (Locked || _currentFishingSpot != null) return;
+            if (_currentFishingSpot != null) return;
             
             int collidersSize = Physics.OverlapSphereNonAlloc(transform.position, fishingDistance, _fishingColliders, fishingLayerMask);
             for (int i = 0; i < collidersSize; i++)
@@ -110,7 +114,7 @@ namespace FishingPrototype.Gameplay.Boat
 
         public void CancelFishing()
         {
-            if (Locked || _currentFishingSpot == null) return;
+            if (_currentFishingSpot == null) return;
             
             _currentFishingSpot.OnCanceledFishing();
             _currentFishingSpot = null;

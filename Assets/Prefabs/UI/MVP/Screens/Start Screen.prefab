@@ -185,9 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfb6a64ae1dc874890853c5e5155963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HostLobby: {fileID: 4293814853756142928}
-  JoinLobby: {fileID: 6288403191341404146}
-  ExitButton: {fileID: 4982418434730387792}
+  HostLobbyButton: {fileID: 4293814853756142928}
+  JoinLobbyButton: {fileID: 6288403191341404146}
+  ExitButtonButton: {fileID: 4982418434730387792}
+  customNetworkManager: {fileID: 0}
 --- !u!1 &1618107004478137959
 GameObject:
   m_ObjectHideFlags: 0

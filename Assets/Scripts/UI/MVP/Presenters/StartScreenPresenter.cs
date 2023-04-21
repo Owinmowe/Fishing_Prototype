@@ -36,7 +36,7 @@ namespace FishingPrototype.MVP.Presenter
         private void OnJoinLobby()
         {
             view.CloseStartScreen();
-            view.OpenFindLobbiesScreen();;
+            view.OpenFindLobbiesScreen();
         }
         
         private void OnExit()

@@ -2,10 +2,8 @@ using System;
 using System.Collections;
 using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.FishingSpot;
-using FishingPrototype.Gameplay.Input;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace FishingPrototype.Gameplay.Minigames
 {
@@ -14,18 +12,18 @@ namespace FishingPrototype.Gameplay.Minigames
 
         [SerializeField] private GameObject miniGamesPanel;
         [SerializeField] private GameObject fishingDataPanel;
-        private IMiniGameLogic[] _allMiniGames;
-        private IMiniGameLogic _activeMiniGame;
+        private MiniGameBase[] _allMiniGames;
+        private MiniGameBase _activeMiniGame;
         
         private IBoat _localBoat;
         private IFishingSpot _lastFishingSpot;
         
-        [Header("Fishing Failed Configuration")] //TODO MOVE THIS TO MVP
+        [Header("Fishing Failed Configuration")]
         [SerializeField] private TextMeshProUGUI fishingFailedText;
         [SerializeField] private float failedFishingTextSpeed;
         [SerializeField] private float failedFishingTextTimeShowing;
         
-        [Header("Fishing Data Configuration")] //TODO MOVE THIS TO MVP
+        [Header("Fishing Data Configuration")]
         [SerializeField] private TextMeshProUGUI fishTypeText;
         [SerializeField] private TextMeshProUGUI fishAmountText;
         
@@ -34,40 +32,22 @@ namespace FishingPrototype.Gameplay.Minigames
 
         void Awake()
         {
-            _allMiniGames = GetComponentsInChildren<IMiniGameLogic>(includeInactive: true);
-            
-            CustomInput.Input.MiniGamesControl.MiniGameInput1.performed += ReceiveInput1; //TODO MOVE THIS TO MVP
-            CustomInput.Input.MiniGamesControl.MiniGameInput2.performed += ReceiveInput2; //TODO MOVE THIS TO MVP
-            
             _failedFishingWaitForSeconds = new WaitForSeconds(failedFishingTextTimeShowing);
-
-            IBoat.onLocalBoatSet += SetLocalBoat;
         }
-
-        private void OnDestroy()
+        
+        public void SetAllMiniGames(MiniGameBase[] miniGamesPrefabs)
         {
-            CustomInput.Input.MiniGamesControl.MiniGameInput1.performed -= ReceiveInput1; //TODO MOVE THIS TO MVP
-            CustomInput.Input.MiniGamesControl.MiniGameInput2.performed -= ReceiveInput2; //TODO MOVE THIS TO MVP
-            
-            IBoat.onLocalBoatSet -= SetLocalBoat;
-            if (_localBoat != null)
+            _allMiniGames = new MiniGameBase[miniGamesPrefabs.Length];
+            for (int i = 0; i < miniGamesPrefabs.Length; i++)
             {
-                _localBoat.OnFishingActionStarted -= SetFishingActionStarted;
-                _localBoat.OnFishingActionCanceled -= SetFishingActionCanceled;
-                _localBoat.OnFishingActionFailed -= SetFishingActionFailed;
+                if (miniGamesPrefabs[i] != null)
+                {
+                    _allMiniGames[i] = Instantiate(miniGamesPrefabs[i], miniGamesPanel.transform);
+                }
             }
         }
 
-        private void SetLocalBoat(IBoat boat)
-        {
-            _localBoat = boat;
-
-            boat.OnFishingActionStarted += SetFishingActionStarted;
-            boat.OnFishingActionCanceled += SetFishingActionCanceled;
-            boat.OnFishingActionFailed += SetFishingActionFailed;
-        }
-
-        private void SetFishingActionStarted(IFishingSpot spot)
+        public void StartFishing(IFishingSpot spot)
         {
             miniGamesPanel.SetActive(true);
             fishingDataPanel.SetActive(true);
@@ -92,7 +72,7 @@ namespace FishingPrototype.Gameplay.Minigames
             }
         }
 
-        private void SetFishingActionCanceled()
+        public void CancelFishing()
         {
             _activeMiniGame.CloseMiniGame();
             miniGamesPanel.SetActive(false);
@@ -103,7 +83,7 @@ namespace FishingPrototype.Gameplay.Minigames
             _lastFishingSpot = null;
         }
         
-        private void SetFishingActionFailed() //TODO MOVE THIS TO MVP
+        public void FailFishing()
         {
             if (_fishingActionFailedIEnumerator != null)
                 StopCoroutine(_fishingActionFailedIEnumerator);
@@ -111,8 +91,17 @@ namespace FishingPrototype.Gameplay.Minigames
             StartCoroutine(_fishingActionFailedIEnumerator);
         }
         
-        private void ReceiveInput1(InputAction.CallbackContext context) => _activeMiniGame?.ReceiveMiniGameInput1(); //TODO MOVE THIS TO MVP
-        private void ReceiveInput2(InputAction.CallbackContext context) => _activeMiniGame?.ReceiveMiniGameInput2(); //TODO MOVE THIS TO MVP
+        public void ReceiveInput1()
+        {
+            if(_activeMiniGame != null)
+                _activeMiniGame.ReceiveMiniGameInput1();
+        }
+
+        public void ReceiveInput2()
+        {
+            if(_activeMiniGame != null)
+                _activeMiniGame.ReceiveMiniGameInput2();
+        }
 
         private void CompleteMiniGame()
         {
@@ -131,7 +120,7 @@ namespace FishingPrototype.Gameplay.Minigames
             fishAmountText.text = "Fish Amount: " + fishAmount;
         }
         
-        private IEnumerator FishingActionFailedCoroutine() //TODO MOVE THIS TO MVP
+        private IEnumerator FishingActionFailedCoroutine()
         {
             fishingFailedText.gameObject.SetActive(true);
             

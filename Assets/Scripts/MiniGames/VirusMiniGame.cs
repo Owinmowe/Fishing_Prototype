@@ -1,17 +1,11 @@
-using System;
 using FishingPrototype.Gameplay.FishingSpot;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace FishingPrototype.Gameplay.Minigames
 {
-    public class VirusMiniGame : MonoBehaviour, IMiniGameLogic
+    public class VirusMiniGame : MiniGameBase
     {
-        public event Action OnMiniGameComplete;
-        public FishingSpotType MiniGameType => miniGameType;
-
-        [SerializeField] private FishingSpotType miniGameType;
-
         [Header("Virus MiniGame Configuration")] 
         [SerializeField] private float growPerPress = .1f;
         [SerializeField] private float reduceSpeed = 1f;
@@ -31,7 +25,7 @@ namespace FishingPrototype.Gameplay.Minigames
                 _miniGameAmount--;
                 
                 if(_miniGameAmount == 0)
-                    OnMiniGameComplete?.Invoke();
+                    CallMiniGameCompleteEvent();
             }
             else if (_centerLocalScale.x > .1f)
             {
@@ -41,7 +35,7 @@ namespace FishingPrototype.Gameplay.Minigames
             }
         }
         
-        public void StartMiniGame(IFishingSpot fishingSpot)
+        public override void StartMiniGame(IFishingSpot fishingSpot)
         {
             gameObject.SetActive(true);
             _currentFishingSpot = fishingSpot;
@@ -49,18 +43,18 @@ namespace FishingPrototype.Gameplay.Minigames
             InitializeCenterImage();
         }
 
-        public void CloseMiniGame()
+        public override void CloseMiniGame()
         {
             gameObject.SetActive(false);
         }
 
-        public void ReceiveMiniGameInput1()
+        public override void ReceiveMiniGameInput1()
         {
             _centerLocalScale.x += growPerPress;
             _centerLocalScale.y += growPerPress;
         }
 
-        public void ReceiveMiniGameInput2()
+        public override void ReceiveMiniGameInput2()
         {
             
         }

@@ -90,8 +90,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  accelerationSpeed: 2
-  rotationSpeed: 1
+  accelerationSpeed: 5
+  rotationSpeed: 2
   fishingDistance: 1
   fishingLayerMask:
     serializedVersion: 2
