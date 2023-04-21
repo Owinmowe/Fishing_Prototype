@@ -17,6 +17,8 @@ namespace FishingPrototype.Network
         public event System.Action OnLobbyCreateOk;
         public event System.Action OnLobbyCreateFailed;
         public event System.Action<List<SteamLobbyData>> OnLobbiesGet;
+        public event System.Action OnLobbyJoined; 
+        
 
         private const string HostNameKey = "HostName";
         private const string HostAddressKey = "HostAddress";
@@ -149,6 +151,7 @@ namespace FishingPrototype.Network
             CSteamID lobbyCSteamID = new CSteamID(callback.m_ulSteamIDLobby);
             networkAddress = SteamMatchmaking.GetLobbyData(lobbyCSteamID, HostAddressKey);
             StartClient();
+            OnLobbyJoined?.Invoke();
         }
 
         private void OnLobbyMatchListReturned(LobbyMatchList_t callback)
