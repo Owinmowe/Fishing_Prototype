@@ -19,7 +19,7 @@ namespace FishingPrototype.Gameplay.Input
 
         private void Start()
         {
-            if (!isLocalPlayer)
+            if (!isOwned)
             {
                 Destroy(this);
                 return;
