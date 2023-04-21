@@ -28,7 +28,7 @@ namespace FishingPrototype.Gameplay.Camera
             startScreenCamera.gameObject.SetActive(true);
             gameplayCamera.gameObject.SetActive(false);
             
-            IBoat.onLocalBoatSet += delegate(IBoat boat)
+            IBoat.OnLocalBoatSet += delegate(IBoat boat)
             {
                 _boatTransform = boat.BaseGameObject.transform;
                 _followTargetTransform = new GameObject
