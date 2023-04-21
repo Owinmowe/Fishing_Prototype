@@ -83,8 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a92d22270ed01c4aaac66b11af78107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationSpeed: 2
-  rotationSpeed: 1
+  accelerationSpeed: 5
+  rotationSpeed: 2
   fishingDistance: 1
   fishingLayerMask:
     serializedVersion: 2

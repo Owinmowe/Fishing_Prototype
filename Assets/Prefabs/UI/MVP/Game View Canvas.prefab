@@ -117,14 +117,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf3414baedbfd745bdbe8c966b44e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScreenData: {fileID: 0}
-  findLobbiesData: {fileID: 0}
-  lobbyData: {fileID: 0}
-  gameplayData: {fileID: 0}
+  startScreenData: {fileID: 11400000, guid: 2eafaab9181f11c44870403f68e52cf9, type: 2}
+  findLobbiesData: {fileID: 11400000, guid: 4a620ebb206d5544ea5d777ae087cfcc, type: 2}
+  lobbyData: {fileID: 11400000, guid: 86626a57385132d46bdecb462d7b1235, type: 2}
+  gameplayData: {fileID: 11400000, guid: aadfedc33ecfaae498a5ca37426fd762, type: 2}
   startScreenControl: {fileID: 8751935427428864067}
   findLobbiesScreenControl: {fileID: 8751935427859119286}
   lobbyScreenControl: {fileID: 8751935426385706384}
-  gameplayScreenScreenControl: {fileID: 8751935426571449619}
+  gameplayScreenControl: {fileID: 8751935426571449619}
 --- !u!1001 &3672067879576217477
 PrefabInstance:
   m_ObjectHideFlags: 0

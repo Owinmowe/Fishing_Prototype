@@ -5,7 +5,8 @@ namespace FishingPrototype.Gameplay.Boat
 {
     public interface IBoat
     {
-        public static System.Action<IBoat> onLocalBoatSet; 
+        public static System.Action<IBoat> OnLocalBoatSet; 
+        public static System.Action<IBoat> OnLocalBoatRemoved; 
         public event System.Action<IFishingSpot> OnFishingActionStarted;
         public event System.Action OnFishingActionFailed;
         public event System.Action OnFishingActionCanceled;
@@ -16,6 +17,5 @@ namespace FishingPrototype.Gameplay.Boat
         void TryFishing();
         void CancelFishing();
         void CompleteFishing();
-        bool Locked { get; set; }
     }
 }
