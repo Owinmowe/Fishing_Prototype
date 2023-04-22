@@ -49,3 +49,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8534d1e5c790c4da8bb8668cbd584b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customNetworkManager: {fileID: 0}

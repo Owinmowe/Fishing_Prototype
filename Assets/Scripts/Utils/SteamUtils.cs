@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FishingPrototype.Utils
 {
-    public class SteamUtilities : MonoBehaviour
+    public static class SteamUtilities
     {
         public static Texture2D GetSteamImageAsTexture(int iImage)
         {

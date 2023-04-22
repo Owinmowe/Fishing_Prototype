@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef99a1022e85e74fa11490aaa24c4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullscreen: 0
-  pixelsAmount: {x: 960, y: 540}
+  fullscreen: 1
+  pixelsAmount: {x: 1920, y: 1080}

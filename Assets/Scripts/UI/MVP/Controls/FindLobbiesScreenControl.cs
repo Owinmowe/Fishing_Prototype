@@ -10,26 +10,24 @@ namespace FishingPrototype.MVP.Control
 
         public System.Action<List<SteamLobbyData>> OnLobbiesGetEvent;
         public System.Action OnJoinedLobby;
-        
-        [SerializeField] private CustomNetworkManager customNetworkManager;
-        
+
         public void OpenScreen()
         {
             gameObject.SetActive(true);
-            customNetworkManager.OnLobbiesGet += OnLobbiesGetEvent;
-            customNetworkManager.OnLobbyJoined += OnJoinedLobby;
+            CustomNetworkManager.Instance.OnLobbiesGet += OnLobbiesGetEvent;
+            CustomNetworkManager.Instance.OnLobbyJoined += OnJoinedLobby;
         }
         
         public void CloseScreen()
         {
-            customNetworkManager.OnLobbiesGet -= OnLobbiesGetEvent;
-            customNetworkManager.OnLobbyJoined -= OnJoinedLobby;
+            CustomNetworkManager.Instance.OnLobbiesGet -= OnLobbiesGetEvent;
+            CustomNetworkManager.Instance.OnLobbyJoined -= OnJoinedLobby;
             gameObject.SetActive(false);
         }
 
 
-        public void RefreshLobbies() => customNetworkManager.RequestLobbiesList();
+        public void RefreshLobbies() => CustomNetworkManager.Instance.RequestLobbiesList();
         
-        public void JoinLobby(ulong lobbyId) => customNetworkManager.RequestJoinLobby(lobbyId: lobbyId);
+        public void JoinLobby(ulong lobbyId) => CustomNetworkManager.Instance.RequestJoinLobby(lobbyId: lobbyId);
     }
 }

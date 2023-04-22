@@ -1,4 +1,3 @@
-using FishingPrototype.Network;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +5,6 @@ namespace FishingPrototype.MVP.Control
 {
     public class StartScreenControl : MonoBehaviour, IScreenControl
     {
-
         public event System.Action OnExitButtonPressed;
         public event System.Action OnHostLobbyButtonPressed;
         public event System.Action OnJoinLobbyButtonPressed;
@@ -15,8 +13,6 @@ namespace FishingPrototype.MVP.Control
         [SerializeField] private Button HostLobbyButton;
         [SerializeField] private Button JoinLobbyButton;
         [SerializeField] private Button ExitButtonButton;
-        [Header("References")]
-        [SerializeField] private CustomNetworkManager customNetworkManager;
         
         private void Start()
         {
@@ -27,9 +23,6 @@ namespace FishingPrototype.MVP.Control
 
 
         public void OpenScreen() => gameObject.SetActive(true);
-
         public void CloseScreen() => gameObject.SetActive(false);
-        
-        public void HostLobby() => customNetworkManager.RequestCreateLobby(publicLobby: true);
     }
 }

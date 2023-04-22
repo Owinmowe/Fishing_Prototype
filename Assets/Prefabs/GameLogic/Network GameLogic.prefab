@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7167012368354645296
+--- !u!1 &751646803562291066
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7167012368354645263}
-  - component: {fileID: 7167012368354645262}
+  - component: {fileID: 751646803562291069}
+  - component: {fileID: 8389734448986012969}
   m_Layer: 0
-  m_Name: Lobby Manager
+  m_Name: Network GameLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7167012368354645263
+--- !u!4 &751646803562291069
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7167012368354645296}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 751646803562291066}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32,17 +32,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7167012368354645262
+--- !u!114 &8389734448986012969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7167012368354645296}
+  m_GameObject: {fileID: 751646803562291066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7381fc5fc016f40b9439c0cc5da532, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a50e5ddb6e2bab46b51c9f4c1d17520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkBoatPrefab: {fileID: 891426286095847951, guid: b0dee31ded107a14bb11265bb37c6692,
-    type: 3}

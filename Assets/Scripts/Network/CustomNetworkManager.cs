@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using FishingPrototype.Boat.Data;
 using FishingPrototype.Network.Data;
@@ -5,6 +6,7 @@ using FishingPrototype.Network.Messages;
 using FishingPrototype.Utils;
 using Mirror;
 using Steamworks;
+using UnityEngine;
 
 namespace FishingPrototype.Network
 {
@@ -17,16 +19,30 @@ namespace FishingPrototype.Network
         public event System.Action OnLobbyCreateOk;
         public event System.Action OnLobbyCreateFailed;
         public event System.Action<List<SteamLobbyData>> OnLobbiesGet;
-        public event System.Action OnLobbyJoined; 
+        public event System.Action OnLobbyJoined;
         
-
         private const string HostNameKey = "HostName";
         private const string HostAddressKey = "HostAddress";
         private const string HostAvatarImageKey = "HostAvatar";
 
         private readonly Dictionary<int, PlayerReferences> _playersDictionary = new Dictionary<int, PlayerReferences>();
         private MirrorServerMessageManager _serverMessageManager;
+        public static CustomNetworkManager Instance { get; private set; }
         
+        public override void Awake()
+        {
+            base.Awake();
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         private void OnEnable()
         {
             if (!SteamManager.Initialized)
@@ -36,12 +52,12 @@ namespace FishingPrototype.Network
             Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequest);
             Callback<LobbyEnter_t>.Create(OnLobbyEntered);
             Callback<LobbyMatchList_t>.Create(OnLobbyMatchListReturned);
-            
             _serverMessageManager = new MirrorServerMessageManager();
         }
 
         public override void OnStartHost()
         {
+            Debug.Log("Starting Host");
             base.OnStartHost();
             _serverMessageManager.AuthenticationServerMessageHandler.BindHandler(OnClientAuthenticate);
             _serverMessageManager.AuthenticationServerMessageHandler.StartListening();
@@ -49,6 +65,7 @@ namespace FishingPrototype.Network
 
         public override void OnStartClient()
         {
+            Debug.Log("Starting Client");
             base.OnStartClient();
             CSteamID clientId = SteamUser.GetSteamID();
             AuthenticateMessage message = new AuthenticateMessage()
@@ -74,7 +91,7 @@ namespace FishingPrototype.Network
                 _playersDictionary[conn.connectionId].playerData = new PlayerData()
                 {
                     nickname = message.nickname,
-                    iImage = SteamFriends.GetSmallFriendAvatar(playerId)
+                    iImage = SteamFriends.GetMediumFriendAvatar(playerId)
                 };
                 OnPlayerIdentify?.Invoke(_playersDictionary[conn.connectionId], conn);
             }
@@ -83,9 +100,7 @@ namespace FishingPrototype.Network
         public override void OnServerConnect(NetworkConnectionToClient conn)
         {
             base.OnServerConnect(conn);
-
             PlayerReferences playerReferences = new PlayerReferences();
-            
             if (!_playersDictionary.ContainsKey(conn.connectionId))
             {
                 _playersDictionary.Add(conn.connectionId, playerReferences);
@@ -96,8 +111,11 @@ namespace FishingPrototype.Network
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             base.OnServerDisconnect(conn);
-            if(_playersDictionary.ContainsKey(conn.connectionId))
+            if (_playersDictionary.ContainsKey(conn.connectionId))
+            {
+                OnPlayerDisconnect?.Invoke(_playersDictionary[conn.connectionId]);
                 _playersDictionary.Remove(conn.connectionId);
+            }
         }
 
         public void RequestCreateLobby(bool publicLobby) //TODO Make possible all types of lobby
@@ -124,7 +142,6 @@ namespace FishingPrototype.Network
                 return;
             }
             
-            StartHost();
             SetLobbyExternalData(callback.m_ulSteamIDLobby);
             OnLobbyCreateOk?.Invoke();
         }
@@ -150,7 +167,6 @@ namespace FishingPrototype.Network
 
             CSteamID lobbyCSteamID = new CSteamID(callback.m_ulSteamIDLobby);
             networkAddress = SteamMatchmaking.GetLobbyData(lobbyCSteamID, HostAddressKey);
-            StartClient();
             OnLobbyJoined?.Invoke();
         }
 
@@ -175,12 +191,6 @@ namespace FishingPrototype.Network
                 lobbiesData.Add(steamLobbyData);
             }
             OnLobbiesGet?.Invoke(lobbiesData);
-        }
-
-        public class PlayerReferences
-        {
-            public CSteamID clientCSteamID;
-            public PlayerData playerData;
         }
     }
 }
