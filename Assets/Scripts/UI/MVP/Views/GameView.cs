@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FishingPrototype.Boat.Data;
 using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.FishingSpot;
 using FishingPrototype.Gameplay.Input;
@@ -8,7 +9,9 @@ using UnityEngine;
 using FishingPrototype.MVP.Data;
 using FishingPrototype.MVP.Presenter;
 using FishingPrototype.MVP.Control;
+using FishingPrototype.Network;
 using FishingPrototype.Network.Data;
+using Mirror;
 using UnityEngine.InputSystem;
 
 
@@ -44,10 +47,17 @@ namespace FishingPrototype.MVP.View
 
         #endregion
         
-        #region FIND_LOBBIES_EVENTS
+        #region FIND_LOBBIES_SCREEN_EVENTS
 
         public event Action<List<SteamLobbyData>> OnFindLobbiesEvent;
         public event Action OnJoinLobbyEvent;
+        
+        #endregion
+        
+        #region LOBBY_SCREEN_EVENTS
+        
+        public event Action<CustomNetworkManager.PlayerReferences, NetworkConnection> OnPlayerConnectEvent;
+        public event Action<CustomNetworkManager.PlayerReferences> OnPlayerDisconnectEvent;
         
         #endregion
         
@@ -92,6 +102,9 @@ namespace FishingPrototype.MVP.View
             
             CustomInput.Input.MiniGamesControl.MiniGameInput1.performed += OnPerformedCustomInput1Event;
             CustomInput.Input.MiniGamesControl.MiniGameInput2.performed += OnPerformedCustomInput2Event;
+
+            CustomNetworkManager.Instance.OnPlayerIdentify += OnPlayerConnectEvent;
+            CustomNetworkManager.Instance.OnPlayerDisconnect += OnPlayerDisconnectEvent;
             
             IBoat.OnLocalBoatSet += OnLocalBoatSetEvent;
             IBoat.OnLocalBoatRemoved += OnLocalBoatRemoveEvent;
@@ -109,6 +122,9 @@ namespace FishingPrototype.MVP.View
             CustomInput.Input.MiniGamesControl.MiniGameInput1.performed -= OnPerformedCustomInput1Event; 
             CustomInput.Input.MiniGamesControl.MiniGameInput2.performed -= OnPerformedCustomInput2Event; 
             
+            CustomNetworkManager.Instance.OnPlayerIdentify += OnPlayerConnectEvent;
+            CustomNetworkManager.Instance.OnPlayerDisconnect += OnPlayerDisconnectEvent;
+            
             IBoat.OnLocalBoatSet -= OnLocalBoatSetEvent;
             IBoat.OnLocalBoatRemoved -= OnLocalBoatRemoveEvent;
         }
@@ -125,6 +141,8 @@ namespace FishingPrototype.MVP.View
 
         public void OpenLobbyScreen() => lobbyScreenControl.OpenScreen();
         public void CloseLobbyScreen() => lobbyScreenControl.CloseScreen();
+        public void SetConnectedPlayersPanel(PlayerData[] connectedPlayersData)
+            => lobbyScreenControl.SetConnectedPlayersPanel(connectedPlayersData);
 
         #endregion
         

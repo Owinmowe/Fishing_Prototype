@@ -274,6 +274,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8751935426944509287}
     m_Modifications:
+    - target: {fileID: 1719835982256257100, guid: c07ac97237cc34548aee47f10414f09b,
+        type: 3}
+      propertyPath: _assetId
+      value: 3717630742
+      objectReference: {fileID: 0}
     - target: {fileID: 1749015331596736358, guid: c07ac97237cc34548aee47f10414f09b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -383,6 +388,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Lobby Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123077557416210778, guid: c07ac97237cc34548aee47f10414f09b,
+        type: 3}
+      propertyPath: _assetId
+      value: 3717630742
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502178240692079695, guid: c07ac97237cc34548aee47f10414f09b,
+        type: 3}
+      propertyPath: _assetId
+      value: 3717630742
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501773131715468117, guid: c07ac97237cc34548aee47f10414f09b,
+        type: 3}
+      propertyPath: _assetId
+      value: 3717630742
+      objectReference: {fileID: 0}
+    - target: {fileID: 8498951306895283887, guid: c07ac97237cc34548aee47f10414f09b,
+        type: 3}
+      propertyPath: _assetId
+      value: 3717630742
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696815133314924546, guid: c07ac97237cc34548aee47f10414f09b,
+        type: 3}
+      propertyPath: _assetId
+      value: 3717630742
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c07ac97237cc34548aee47f10414f09b, type: 3}

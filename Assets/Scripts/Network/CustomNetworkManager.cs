@@ -5,7 +5,6 @@ using FishingPrototype.Network.Messages;
 using FishingPrototype.Utils;
 using Mirror;
 using Steamworks;
-using UnityEngine;
 
 namespace FishingPrototype.Network
 {
@@ -91,7 +90,7 @@ namespace FishingPrototype.Network
                 _playersDictionary[conn.connectionId].playerData = new PlayerData()
                 {
                     nickname = message.nickname,
-                    iImage = SteamFriends.GetSmallFriendAvatar(playerId)
+                    iImage = SteamFriends.GetMediumFriendAvatar(playerId)
                 };
                 OnPlayerIdentify?.Invoke(_playersDictionary[conn.connectionId], conn);
             }
@@ -113,8 +112,11 @@ namespace FishingPrototype.Network
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             base.OnServerDisconnect(conn);
-            if(_playersDictionary.ContainsKey(conn.connectionId))
+            if (_playersDictionary.ContainsKey(conn.connectionId))
+            {
+                OnPlayerDisconnect?.Invoke(_playersDictionary[conn.connectionId]);
                 _playersDictionary.Remove(conn.connectionId);
+            }
         }
 
         public void RequestCreateLobby(bool publicLobby) //TODO Make possible all types of lobby
