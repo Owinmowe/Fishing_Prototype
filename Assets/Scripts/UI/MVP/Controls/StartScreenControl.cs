@@ -15,8 +15,6 @@ namespace FishingPrototype.MVP.Control
         [SerializeField] private Button HostLobbyButton;
         [SerializeField] private Button JoinLobbyButton;
         [SerializeField] private Button ExitButtonButton;
-        [Header("References")]
-        [SerializeField] private CustomNetworkManager customNetworkManager;
         
         private void Start()
         {
@@ -27,9 +25,7 @@ namespace FishingPrototype.MVP.Control
 
 
         public void OpenScreen() => gameObject.SetActive(true);
-
         public void CloseScreen() => gameObject.SetActive(false);
-        
-        public void HostLobby() => customNetworkManager.RequestCreateLobby(publicLobby: true);
+        public void HostLobby() => CustomNetworkManager.Instance.RequestCreateLobby(publicLobby: true);
     }
 }

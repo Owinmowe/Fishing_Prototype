@@ -6,17 +6,16 @@ namespace FishingPrototype.Network.Lobby
 {
     public class LobbyManager : MonoBehaviour
     {
-        [SerializeField] private CustomNetworkManager networkManager;
         [SerializeField] private NetworkBoat networkBoatPrefab;
 
-        private void Awake()
+        private void Start()
         {
-            networkManager.OnPlayerIdentify += CreatePlayerBoat;
+            CustomNetworkManager.Instance.OnPlayerIdentify += CreatePlayerBoat;
         }
 
         private void OnDestroy()
         {
-            networkManager.OnPlayerIdentify -= CreatePlayerBoat;
+            CustomNetworkManager.Instance.OnPlayerIdentify -= CreatePlayerBoat;
         }
 
         private void CreatePlayerBoat(CustomNetworkManager.PlayerReferences playerReferences, NetworkConnection conn = null)

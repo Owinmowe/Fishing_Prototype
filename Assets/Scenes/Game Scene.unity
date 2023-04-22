@@ -123,18 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &415995429 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9073766696978651611, guid: f309d076abab4a447912fa9563a6513b,
-    type: 3}
-  m_PrefabInstance: {fileID: 8635113305066689210}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0027235a93ce43e4ebaeacc62e582528, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &488055202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -677,16 +665,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5147726360139053139, guid: c94798ad1b7abf24496383c955e49db4,
-        type: 3}
-      propertyPath: sceneId
-      value: 2129862532
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167012368354645262, guid: c94798ad1b7abf24496383c955e49db4,
-        type: 3}
-      propertyPath: networkManager
-      value: 
-      objectReference: {fileID: 415995429}
     - target: {fileID: 7167012368354645263, guid: c94798ad1b7abf24496383c955e49db4,
         type: 3}
       propertyPath: m_RootOrder
@@ -865,11 +843,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6733088430714378464, guid: 167f880f9b15a1f49a674c1796ff517d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6945817524946693574, guid: 167f880f9b15a1f49a674c1796ff517d,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -890,11 +863,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8751935426385706384, guid: 167f880f9b15a1f49a674c1796ff517d,
-        type: 3}
-      propertyPath: customNetworkManager
-      value: 
-      objectReference: {fileID: 415995429}
     - target: {fileID: 8751935426944509283, guid: 167f880f9b15a1f49a674c1796ff517d,
         type: 3}
       propertyPath: m_Name
@@ -1005,10 +973,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8751935427428864067, guid: 167f880f9b15a1f49a674c1796ff517d,
-        type: 3}
-      propertyPath: customNetworkManager
-      value: 
-      objectReference: {fileID: 415995429}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 167f880f9b15a1f49a674c1796ff517d, type: 3}

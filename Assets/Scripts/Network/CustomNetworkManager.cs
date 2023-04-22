@@ -5,6 +5,7 @@ using FishingPrototype.Network.Messages;
 using FishingPrototype.Utils;
 using Mirror;
 using Steamworks;
+using UnityEngine;
 
 namespace FishingPrototype.Network
 {
@@ -17,7 +18,7 @@ namespace FishingPrototype.Network
         public event System.Action OnLobbyCreateOk;
         public event System.Action OnLobbyCreateFailed;
         public event System.Action<List<SteamLobbyData>> OnLobbiesGet;
-        public event System.Action OnLobbyJoined; 
+        public event System.Action OnLobbyJoined;
         
 
         private const string HostNameKey = "HostName";
@@ -26,7 +27,23 @@ namespace FishingPrototype.Network
 
         private readonly Dictionary<int, PlayerReferences> _playersDictionary = new Dictionary<int, PlayerReferences>();
         private MirrorServerMessageManager _serverMessageManager;
-        
+
+        public static CustomNetworkManager Instance { get; private set; }
+
+        public override void Awake()
+        {
+            base.Awake();
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         private void OnEnable()
         {
             if (!SteamManager.Initialized)
@@ -123,7 +140,7 @@ namespace FishingPrototype.Network
                 OnLobbyCreateFailed?.Invoke();
                 return;
             }
-            
+
             StartHost();
             SetLobbyExternalData(callback.m_ulSteamIDLobby);
             OnLobbyCreateOk?.Invoke();

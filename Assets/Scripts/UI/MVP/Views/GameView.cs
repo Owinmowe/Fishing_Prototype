@@ -36,15 +36,23 @@ namespace FishingPrototype.MVP.View
         private LobbyPresenter _lobbyPresenter;
         private FindLobbiesPresenter _findLobbiesPresenter;
 
-        #region EVENTS
+        #region START_SCREEN_EVENTS
 
         public event Action OnExitButtonEvent;
         public event Action OnHostLobbyButtonEvent;
         public event Action OnJoinLobbyButtonEvent;
 
+        #endregion
+        
+        #region FIND_LOBBIES_EVENTS
+
         public event Action<List<SteamLobbyData>> OnFindLobbiesEvent;
         public event Action OnJoinLobbyEvent;
-
+        
+        #endregion
+        
+        #region GAMEPLAY_SCREEN_EVENTS
+        
         public event Action<IBoat> OnLocalBoatSetEvent;
         public event Action<IBoat> OnLocalBoatRemoveEvent;
         public event Action<InputAction.CallbackContext> OnPerformedCustomInput1Event;
