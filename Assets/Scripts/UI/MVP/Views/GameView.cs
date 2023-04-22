@@ -4,6 +4,7 @@ using FishingPrototype.Boat.Data;
 using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.FishingSpot;
 using FishingPrototype.Gameplay.Input;
+using FishingPrototype.Gameplay.Logic;
 using FishingPrototype.Gameplay.Minigames;
 using UnityEngine;
 using FishingPrototype.MVP.Data;
@@ -19,7 +20,8 @@ namespace FishingPrototype.MVP.View
 {
     public class GameView : MonoBehaviour
     {
-
+        
+        
         [Header("Data")] 
         [SerializeField] private StartScreenData startScreenData;
         [SerializeField] private FindLobbiesData findLobbiesData;
@@ -38,6 +40,8 @@ namespace FishingPrototype.MVP.View
         private StartScreenPresenter _startScreenPresenter;
         private LobbyPresenter _lobbyPresenter;
         private FindLobbiesPresenter _findLobbiesPresenter;
+        
+        private IGameLogic _gameLogic;
 
         #region START_SCREEN_EVENTS
 
@@ -58,11 +62,15 @@ namespace FishingPrototype.MVP.View
         
         public event Action<CustomNetworkManager.PlayerReferences, NetworkConnection> OnPlayerConnectEvent;
         public event Action<CustomNetworkManager.PlayerReferences> OnPlayerDisconnectEvent;
+        public event Action OnStartGamePressed;
+        public event Action OnGameStarted;
         
         #endregion
         
         #region GAMEPLAY_SCREEN_EVENTS
-        
+
+        public event Action<IGameLogic> OnGameLogicSetEvent; 
+        public event Action OnGameLogicRemovedEvent; 
         public event Action<IBoat> OnLocalBoatSetEvent;
         public event Action<IBoat> OnLocalBoatRemoveEvent;
         public event Action<InputAction.CallbackContext> OnPerformedCustomInput1Event;
@@ -79,19 +87,21 @@ namespace FishingPrototype.MVP.View
             _startScreenPresenter = new StartScreenPresenter(this, startScreenData);
             _lobbyPresenter = new LobbyPresenter(this, lobbyData);
             _findLobbiesPresenter = new FindLobbiesPresenter(this, findLobbiesData);
+
+            IGameLogic.OnGameLogicSet += OnGameLogicSet;
         }
 
         private void Start()
         {
-            AddControlEvents();
+            AddEvents();
         }
         
         private void OnDestroy()
         {
-            RemoveControlEvents();
+            RemoveEvents();
         }
 
-        private void AddControlEvents()
+        private void AddEvents()
         {
             startScreenControl.OnExitButtonPressed += OnExitButtonEvent;
             startScreenControl.OnHostLobbyButtonPressed += OnHostLobbyButtonEvent;
@@ -105,13 +115,18 @@ namespace FishingPrototype.MVP.View
 
             CustomNetworkManager.Instance.OnPlayerIdentify += OnPlayerConnectEvent;
             CustomNetworkManager.Instance.OnPlayerDisconnect += OnPlayerDisconnectEvent;
+
+            lobbyScreenControl.OnStartButtonPressed += OnStartGamePressed;
             
             IBoat.OnLocalBoatSet += OnLocalBoatSetEvent;
             IBoat.OnLocalBoatRemoved += OnLocalBoatRemoveEvent;
         }
 
-        private void RemoveControlEvents()
+        private void RemoveEvents()
         {
+            IGameLogic.OnGameLogicSet -= OnGameLogicSet;
+            RemoveGameLogic();
+            
             startScreenControl.OnExitButtonPressed -= OnExitButtonEvent;
             startScreenControl.OnHostLobbyButtonPressed -= OnHostLobbyButtonEvent;
             startScreenControl.OnJoinLobbyButtonPressed -= OnJoinLobbyButtonEvent;
@@ -124,11 +139,27 @@ namespace FishingPrototype.MVP.View
             
             CustomNetworkManager.Instance.OnPlayerIdentify += OnPlayerConnectEvent;
             CustomNetworkManager.Instance.OnPlayerDisconnect += OnPlayerDisconnectEvent;
+
+            lobbyScreenControl.OnStartButtonPressed -= OnStartGamePressed;
             
             IBoat.OnLocalBoatSet -= OnLocalBoatSetEvent;
             IBoat.OnLocalBoatRemoved -= OnLocalBoatRemoveEvent;
         }
 
+        private void OnGameLogicSet(IGameLogic gameLogic)
+        {
+            _gameLogic = gameLogic;
+            _gameLogic.OnGameStarted += OnGameStarted;
+            OnGameLogicSetEvent?.Invoke(gameLogic);
+        }
+
+        private void RemoveGameLogic()
+        {
+            OnGameLogicRemovedEvent?.Invoke();
+            _gameLogic.OnGameStarted -= OnGameStarted;
+            _gameLogic = null;
+        }
+        
         #region START_SCREEN_CONTROL
         
         public void OpenStartScreen() => startScreenControl.OpenScreen();

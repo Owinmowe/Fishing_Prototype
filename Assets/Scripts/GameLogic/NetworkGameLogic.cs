@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
+using Mirror;
 
-public class NetworkGameLogic : MonoBehaviour
+namespace FishingPrototype.Gameplay.Logic
 {
-    // Start is called before the first frame update
-    void Start()
+    public class NetworkGameLogic : NetworkBehaviour, IGameLogic
     {
+        public Action OnGameStarted { get; set; }
+        public Action OnGameEnded { get; set; }
         
-    }
+        private void Start()
+        {
+            IGameLogic.OnGameLogicSet?.Invoke(this);
+        }
+        
+        public void StartGame()
+        {
+            OnGameStarted?.Invoke();
+            RpcStartGame();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [ClientRpc]
+        private void RpcStartGame()
+        {
+            OnGameStarted?.Invoke();
+        }
+
     }
 }

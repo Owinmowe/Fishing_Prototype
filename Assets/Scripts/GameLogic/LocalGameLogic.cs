@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class LocalGameLogic : MonoBehaviour
+namespace FishingPrototype.Gameplay.Logic
 {
-    // Start is called before the first frame update
-    void Start()
+    public class LocalGameLogic : MonoBehaviour, IGameLogic
     {
+        public Action OnGameStarted { get; set; }
+        public Action OnGameEnded { get; set; }
         
-    }
+        private void Start()
+        {
+            IGameLogic.OnGameLogicSet?.Invoke(this);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void StartGame()
+        {
+            OnGameStarted?.Invoke();
+        }
+
     }
 }

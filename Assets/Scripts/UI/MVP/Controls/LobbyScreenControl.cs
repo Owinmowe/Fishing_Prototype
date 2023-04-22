@@ -1,14 +1,23 @@
 using FishingPrototype.Boat.Data;
 using FishingPrototype.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FishingPrototype.MVP.Control
 {
     public class LobbyScreenControl : MonoBehaviour, IScreenControl
     {
+        public event System.Action OnStartButtonPressed;
+        
         [SerializeField] private ConnectedPanelUI[] connectedPanelUis;
+        [SerializeField] private Button startGameButton;
         public void OpenScreen() => gameObject.SetActive(true);
         public void CloseScreen() => gameObject.SetActive(false);
+
+        private void Start()
+        {
+            startGameButton.onClick.AddListener(delegate { OnStartButtonPressed?.Invoke(); });
+        }
 
         public void SetConnectedPlayersPanel(PlayerData[] connectedPlayersData)
         {

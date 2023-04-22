@@ -6,7 +6,6 @@ namespace FishingPrototype.MVP.Control
 {
     public class StartScreenControl : MonoBehaviour, IScreenControl
     {
-
         public event System.Action OnExitButtonPressed;
         public event System.Action OnHostLobbyButtonPressed;
         public event System.Action OnJoinLobbyButtonPressed;

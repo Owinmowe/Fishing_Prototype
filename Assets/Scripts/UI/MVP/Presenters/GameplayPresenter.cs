@@ -10,7 +10,7 @@ namespace FishingPrototype.MVP.Presenter
     public class GameplayPresenter: Presenter<GameView>
     {
         private GameplayData _scriptableData;
-        
+
         public GameplayPresenter(GameView view, GameplayData scriptableData) : base(view)
         {
             _scriptableData = scriptableData;
@@ -34,6 +34,9 @@ namespace FishingPrototype.MVP.Presenter
             view.OnPerformedCustomInput2Event -= OnPerformedCustomInput2;
             view.OnLocalBoatSetEvent -= OnLocalBoatSet;
             view.OnLocalBoatRemoveEvent -= OnLocalBoatRemove;
+            view.FishingActionStartedEvent -= OnFishingActionStarted;
+            view.FishingActionCanceledEvent -= OnFishingActionCanceled;
+            view.FishingActionFailedEvent -= OnFishingActionFailed;
         }
 
         private void InjectMiniGames(MiniGameBase[] miniGames) => view.InjectMiniGames(miniGames);
