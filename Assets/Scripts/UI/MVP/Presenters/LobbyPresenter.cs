@@ -4,6 +4,7 @@ using FishingPrototype.Gameplay.Logic;
 using FishingPrototype.MVP.Data;
 using FishingPrototype.MVP.View;
 using FishingPrototype.Network;
+using FishingPrototype.Network.Data;
 using Mirror;
 
 namespace FishingPrototype.MVP.Presenter
@@ -42,13 +43,13 @@ namespace FishingPrototype.MVP.Presenter
         private void OnGameLogicSet(IGameLogic gameLogic) => _gameLogic = gameLogic;
         private void OnGameLogicRemoved() => _gameLogic = null;
         
-        private void OnPlayerConnected(CustomNetworkManager.PlayerReferences playerReferences, NetworkConnection connection)
+        private void OnPlayerConnected(PlayerReferences playerReferences, NetworkConnection connection)
         {
             _playersData.Add(playerReferences.playerData);
             view.SetConnectedPlayersPanel(_playersData.ToArray());
         }
 
-        private void OnPlayerDisconnected(CustomNetworkManager.PlayerReferences playerReferences)
+        private void OnPlayerDisconnected(PlayerReferences playerReferences)
         {
             _playersData.Remove(playerReferences.playerData);
             view.SetConnectedPlayersPanel(_playersData.ToArray());

@@ -60,8 +60,8 @@ namespace FishingPrototype.MVP.View
         
         #region LOBBY_SCREEN_EVENTS
         
-        public event Action<CustomNetworkManager.PlayerReferences, NetworkConnection> OnPlayerConnectEvent;
-        public event Action<CustomNetworkManager.PlayerReferences> OnPlayerDisconnectEvent;
+        public event Action<PlayerReferences, NetworkConnection> OnPlayerConnectEvent;
+        public event Action<PlayerReferences> OnPlayerDisconnectEvent;
         public event Action OnStartGamePressed;
         public event Action OnGameStarted;
         
@@ -164,7 +164,6 @@ namespace FishingPrototype.MVP.View
         
         public void OpenStartScreen() => startScreenControl.OpenScreen();
         public void CloseStartScreen() => startScreenControl.CloseScreen();
-        public void HostLobby() => startScreenControl.HostLobby();
 
         #endregion
         

@@ -1,5 +1,7 @@
+using UnityEngine;
 using FishingPrototype.MVP.View;
 using FishingPrototype.MVP.Data;
+using FishingPrototype.Network;
 
 namespace FishingPrototype.MVP.Presenter
 {
@@ -28,9 +30,9 @@ namespace FishingPrototype.MVP.Presenter
 
         private void OnHostLobby()
         {
+            CustomNetworkManager.Instance.RequestCreateLobby(publicLobby: true);
             view.CloseStartScreen();
             view.OpenLobbyScreen();
-            view.HostLobby();
         }
         
         private void OnJoinLobby()
@@ -39,12 +41,12 @@ namespace FishingPrototype.MVP.Presenter
             view.OpenFindLobbiesScreen();
         }
         
-        private void OnExit()
+        private void OnExit() //TODO agregar boton de preguntar si estas seguro
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit(); //TODO agregar boton de preguntar si estas seguro
+            Application.Quit(); 
 #endif
         }
     }

@@ -1,4 +1,5 @@
 using FishingPrototype.Gameplay.Boat;
+using FishingPrototype.Network.Data;
 using UnityEngine;
 using Mirror;
 
@@ -7,7 +8,7 @@ namespace FishingPrototype.Network.Lobby
     public class LobbyManager : MonoBehaviour
     {
         [SerializeField] private NetworkBoat networkBoatPrefab;
-
+        
         private void Start()
         {
             CustomNetworkManager.Instance.OnPlayerIdentify += CreatePlayerBoat;
@@ -15,10 +16,10 @@ namespace FishingPrototype.Network.Lobby
 
         private void OnDestroy()
         {
-            CustomNetworkManager.Instance.OnPlayerIdentify -= CreatePlayerBoat;
+            CustomNetworkManager.Instance.OnPlayerIdentify -= CreatePlayerBoat;;
         }
 
-        private void CreatePlayerBoat(CustomNetworkManager.PlayerReferences playerReferences, NetworkConnection conn = null)
+        private void CreatePlayerBoat(PlayerReferences playerReferences, NetworkConnection conn = null)
         {
             NetworkBoat newBoat = Instantiate(networkBoatPrefab);
 
@@ -27,6 +28,8 @@ namespace FishingPrototype.Network.Lobby
 
             IPlayerDataControl playerDataControl = newBoat.GetComponent<IPlayerDataControl>();
             playerDataControl.SetPlayerData(playerReferences.playerData);
+
+            playerReferences.playerGameObject = newBoat.BaseGameObject;
         }
     }
 }

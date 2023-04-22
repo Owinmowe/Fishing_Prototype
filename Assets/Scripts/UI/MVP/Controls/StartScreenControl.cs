@@ -1,4 +1,3 @@
-using FishingPrototype.Network;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +24,5 @@ namespace FishingPrototype.MVP.Control
 
         public void OpenScreen() => gameObject.SetActive(true);
         public void CloseScreen() => gameObject.SetActive(false);
-        public void HostLobby() => CustomNetworkManager.Instance.RequestCreateLobby(publicLobby: true);
     }
 }
