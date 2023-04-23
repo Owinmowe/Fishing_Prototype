@@ -21,7 +21,6 @@ namespace FishingPrototype.MVP.View
     public class GameView : MonoBehaviour
     {
         
-        
         [Header("Data")] 
         [SerializeField] private StartScreenData startScreenData;
         [SerializeField] private FindLobbiesData findLobbiesData;
