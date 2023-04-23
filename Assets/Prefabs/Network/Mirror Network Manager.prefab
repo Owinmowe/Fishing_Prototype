@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 5555980832308923479}
   - component: {fileID: 9073766696978651611}
   - component: {fileID: 5374539412264957385}
-  - component: {fileID: 5517351383789448809}
   m_Layer: 0
-  m_Name: Network Manager
+  m_Name: Mirror Network Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,15 +79,3 @@ MonoBehaviour:
   Timeout: 25
   AllowSteamRelay: 1
   UseNextGenSteamNetworking: 1
---- !u!114 &5517351383789448809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3617528581550960136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 109136c7912ffcc439427f83b143c338, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
