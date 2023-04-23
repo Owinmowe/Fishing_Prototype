@@ -155,6 +155,8 @@ namespace FishingPrototype.MVP.View
 
         private void RemoveGameLogic()
         {
+            if (_gameLogic == null) return;
+            
             OnGameLogicRemovedEvent?.Invoke();
             _gameLogic.OnGameStarted -= OnGameStarted;
             _gameLogic = null;
