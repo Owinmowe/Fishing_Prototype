@@ -1018,7 +1018,7 @@ PrefabInstance:
     - target: {fileID: 3617528581550960136, guid: f309d076abab4a447912fa9563a6513b,
         type: 3}
       propertyPath: m_Name
-      value: Mirror Network Manager
+      value: Custom Network Manager
       objectReference: {fileID: 0}
     - target: {fileID: 5555980832308923479, guid: f309d076abab4a447912fa9563a6513b,
         type: 3}

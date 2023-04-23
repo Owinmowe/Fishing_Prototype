@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using FishingPrototype.Boat.Data;
 using FishingPrototype.Network.Data;
@@ -75,7 +73,6 @@ namespace FishingPrototype.Network
 
         public override void OnStartClient()
         {
-            Debug.Log("Starting Client");
             base.OnStartClient();
             CSteamID clientId = SteamUser.GetSteamID();
             AuthenticateMessage message = new AuthenticateMessage()

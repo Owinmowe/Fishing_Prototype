@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9073766696978651611}
   - component: {fileID: 5374539412264957385}
   m_Layer: 0
-  m_Name: Mirror Network Manager
+  m_Name: Custom Network Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
