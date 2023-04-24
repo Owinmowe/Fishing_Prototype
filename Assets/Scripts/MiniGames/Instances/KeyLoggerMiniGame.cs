@@ -1,20 +1,23 @@
 using FishingPrototype.Gameplay.FishingSpot;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace FishingPrototype.Gameplay.Minigames
 {
-    public class VirusMiniGame : MiniGameBase
+    public class KeyLoggerMiniGame : MiniGameBase
     {
-        [Header("Virus MiniGame Configuration")] 
+        [Header("Keylogger MiniGame Configuration")] 
         [SerializeField] private float growPerPress = .1f;
         [SerializeField] private float reduceSpeed = 1f;
         [SerializeField] private float centerImageStartSize = .1f;
         [SerializeField] private Image centerImage;
+        [SerializeField] private TextMeshProUGUI keyPressText;
         
         private Vector3 _centerLocalScale;
         private IFishingSpot _currentFishingSpot;
         private int _miniGameAmount;
+        private bool input1Correct = true;
 
         private void Update()
         {
@@ -34,7 +37,9 @@ namespace FishingPrototype.Gameplay.Minigames
                 centerImage.rectTransform.localScale = _centerLocalScale;
             }
         }
-        
+
+        public override FishingSpotType GetMiniGameType() => FishingSpotType.KeyLogger;
+
         public override void StartMiniGame(IFishingSpot fishingSpot)
         {
             gameObject.SetActive(true);
@@ -50,13 +55,42 @@ namespace FishingPrototype.Gameplay.Minigames
 
         public override void ReceiveMiniGameInput1()
         {
-            _centerLocalScale.x += growPerPress;
-            _centerLocalScale.y += growPerPress;
+            if (input1Correct)
+            {
+                keyPressText.text = "Press G Key";
+                input1Correct = false;
+                _centerLocalScale.x += growPerPress;
+                _centerLocalScale.y += growPerPress;
+            }
+            else
+            {
+                _centerLocalScale.x -= growPerPress;
+                _centerLocalScale.y -= growPerPress;
+                if (_centerLocalScale.x > .1f)
+                {
+                    InitializeCenterImage();
+                }
+            }
         }
 
         public override void ReceiveMiniGameInput2()
         {
-            
+            if (!input1Correct)
+            {
+                keyPressText.text = "Press F Key";
+                input1Correct = true;
+                _centerLocalScale.x += growPerPress;
+                _centerLocalScale.y += growPerPress;
+            }
+            else
+            {
+                _centerLocalScale.x -= growPerPress;
+                _centerLocalScale.y -= growPerPress;
+                if (_centerLocalScale.x > .1f)
+                {
+                    InitializeCenterImage();
+                }
+            }
         }
         
         private void InitializeCenterImage()

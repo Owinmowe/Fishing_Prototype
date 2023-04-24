@@ -62,7 +62,7 @@ namespace FishingPrototype.Gameplay.Minigames
 
             foreach (var miniGame in _allMiniGames)
             {
-                if (miniGame.MiniGameType == fishingSpotData.Item1)
+                if (miniGame.GetMiniGameType() == fishingSpotData.Item1)
                 {
                     _activeMiniGame = miniGame;
                     _activeMiniGame.OnMiniGameComplete += CompleteMiniGame;
