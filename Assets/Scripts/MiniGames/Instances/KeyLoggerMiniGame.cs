@@ -66,7 +66,7 @@ namespace FishingPrototype.Gameplay.Minigames
             {
                 _centerLocalScale.x -= growPerPress;
                 _centerLocalScale.y -= growPerPress;
-                if (_centerLocalScale.x > .1f)
+                if (_centerLocalScale.x < .1f)
                 {
                     InitializeCenterImage();
                 }
@@ -86,7 +86,7 @@ namespace FishingPrototype.Gameplay.Minigames
             {
                 _centerLocalScale.x -= growPerPress;
                 _centerLocalScale.y -= growPerPress;
-                if (_centerLocalScale.x > .1f)
+                if (_centerLocalScale.x < .1f)
                 {
                     InitializeCenterImage();
                 }
