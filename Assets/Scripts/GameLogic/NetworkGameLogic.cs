@@ -1,4 +1,5 @@
 using System;
+using FishingPrototype.Gameplay.FishingSpot;
 using FishingPrototype.Network;
 using FishingPrototype.Network.Data;
 using Mirror;
@@ -11,6 +12,7 @@ namespace FishingPrototype.Gameplay.Logic
         public Action OnGameStarted { get; set; }
         public Action OnGameEnded { get; set; }
 
+        [SerializeField] private GameObject networkFishingSpotPrefab;
         private readonly SyncDictionary<ulong, PlayerReferences> players = new SyncDictionary<ulong, PlayerReferences>();
 
         private void Start()
@@ -39,6 +41,7 @@ namespace FishingPrototype.Gameplay.Logic
         public void StartGame()
         {
             OnGameStarted?.Invoke();
+            SpawnTestFishingSpot();
             RpcStartGame();
         }
 
@@ -46,6 +49,32 @@ namespace FishingPrototype.Gameplay.Logic
         private void RpcStartGame()
         {
             OnGameStarted?.Invoke();
+        }
+
+        private void SpawnTestFishingSpot()
+        {
+            GameObject go = Instantiate(networkFishingSpotPrefab);
+            NetworkServer.Spawn(go);
+            HostSetFishingSpot(go, FishingSpotType.KeyLogger, 5);
+        }
+
+        private void HostSetFishingSpot(GameObject go, FishingSpotType type, int amount)
+        {
+            SetFishingSpotLocal(go, type, amount);
+            RpcSetFishingSpot(go, type, amount);
+        }
+        
+        [ClientRpc]
+        private void RpcSetFishingSpot(GameObject go, FishingSpotType type, int amount)
+        {
+            IFishingSpot fishingSpot = go.GetComponent<IFishingSpot>();
+            fishingSpot.SetFishingSpot(type, amount);
+        }
+
+        private void SetFishingSpotLocal(GameObject go, FishingSpotType type, int amount)
+        {
+            IFishingSpot fishingSpot = go.GetComponent<IFishingSpot>();
+            fishingSpot.SetFishingSpot(type, amount);
         }
 
     }
