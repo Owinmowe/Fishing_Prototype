@@ -19,9 +19,13 @@ namespace FishingPrototype.Gameplay.FishingSpot
             _fishingSpot = GetComponent<IFishingSpot>();
             
             _fishingSpot.OnFishingSpotSet += SetParticleSystem;
+        }
+
+        private void Start()
+        {
             _fishingSpot.OnFishAmountChanged += UpdateParticleSystemAmount;
         }
-        
+
         private void OnDestroy()
         {
             _fishingSpot.OnFishingSpotSet -= SetParticleSystem;
