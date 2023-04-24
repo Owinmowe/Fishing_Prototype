@@ -75,6 +75,7 @@ namespace FishingPrototype.MVP.View
         public event Action<InputAction.CallbackContext> OnPerformedCustomInput1Event;
         public event Action<InputAction.CallbackContext> OnPerformedCustomInput2Event;
         public event Action<IFishingSpot> FishingActionStartedEvent;
+        public event Action FishingActionCompletedEvent;
         public event Action FishingActionCanceledEvent;
         public event Action FishingActionFailedEvent;
         
@@ -115,6 +116,8 @@ namespace FishingPrototype.MVP.View
             CustomNetworkManager.Instance.OnPlayerIdentify += OnPlayerConnectEvent;
             CustomNetworkManager.Instance.OnPlayerDisconnect += OnPlayerDisconnectEvent;
 
+            gameplayScreenControl.OnFishingCompleted += FishingActionCompletedEvent;
+
             lobbyScreenControl.OnStartButtonPressed += OnStartGamePressed;
             
             IBoat.OnLocalBoatSet += OnLocalBoatSetEvent;
@@ -136,8 +139,10 @@ namespace FishingPrototype.MVP.View
             CustomInput.Input.MiniGamesControl.MiniGameInput1.performed -= OnPerformedCustomInput1Event; 
             CustomInput.Input.MiniGamesControl.MiniGameInput2.performed -= OnPerformedCustomInput2Event; 
             
-            CustomNetworkManager.Instance.OnPlayerIdentify += OnPlayerConnectEvent;
-            CustomNetworkManager.Instance.OnPlayerDisconnect += OnPlayerDisconnectEvent;
+            CustomNetworkManager.Instance.OnPlayerIdentify -= OnPlayerConnectEvent;
+            CustomNetworkManager.Instance.OnPlayerDisconnect -= OnPlayerDisconnectEvent;
+            
+            gameplayScreenControl.OnFishingCompleted -= FishingActionCompletedEvent;
 
             lobbyScreenControl.OnStartButtonPressed -= OnStartGamePressed;
             

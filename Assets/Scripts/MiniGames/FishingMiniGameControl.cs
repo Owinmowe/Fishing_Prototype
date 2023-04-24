@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.FishingSpot;
 using TMPro;
 using UnityEngine;
@@ -10,12 +9,13 @@ namespace FishingPrototype.Gameplay.Minigames
     public class FishingMiniGameControl : MonoBehaviour
     {
 
+        public Action OnFishingCompleted;
+        
         [SerializeField] private GameObject miniGamesPanel;
         [SerializeField] private GameObject fishingDataPanel;
         private MiniGameBase[] _allMiniGames;
         private MiniGameBase _activeMiniGame;
         
-        private IBoat _localBoat;
         private IFishingSpot _lastFishingSpot;
         
         [Header("Fishing Failed Configuration")]
@@ -43,6 +43,7 @@ namespace FishingPrototype.Gameplay.Minigames
                 if (miniGamesPrefabs[i] != null)
                 {
                     _allMiniGames[i] = Instantiate(miniGamesPrefabs[i], miniGamesPanel.transform);
+                    _allMiniGames[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -105,7 +106,6 @@ namespace FishingPrototype.Gameplay.Minigames
 
         private void CompleteMiniGame()
         {
-            _localBoat.CompleteFishing();
             _activeMiniGame.CloseMiniGame();
             miniGamesPanel.SetActive(false);
             fishingDataPanel.SetActive(false);
@@ -113,6 +113,7 @@ namespace FishingPrototype.Gameplay.Minigames
             
             _lastFishingSpot.OnFishAmountChanged -= OnFishAmountChange;
             _lastFishingSpot = null;
+            OnFishingCompleted?.Invoke();
         }
 
         private void OnFishAmountChange(int fishAmount)

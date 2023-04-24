@@ -10,6 +10,7 @@ namespace FishingPrototype.MVP.Presenter
     public class GameplayPresenter: Presenter<GameView>
     {
         private GameplayData _scriptableData;
+        private IBoat _localBoat;
 
         public GameplayPresenter(GameView view, GameplayData scriptableData) : base(view)
         {
@@ -26,6 +27,7 @@ namespace FishingPrototype.MVP.Presenter
             view.FishingActionStartedEvent += OnFishingActionStarted;
             view.FishingActionCanceledEvent += OnFishingActionCanceled;
             view.FishingActionFailedEvent += OnFishingActionFailed;
+            view.FishingActionCompletedEvent += OnFishingActionCompleted;
         }
 
         protected override void RemoveViewListeners()
@@ -37,6 +39,8 @@ namespace FishingPrototype.MVP.Presenter
             view.FishingActionStartedEvent -= OnFishingActionStarted;
             view.FishingActionCanceledEvent -= OnFishingActionCanceled;
             view.FishingActionFailedEvent -= OnFishingActionFailed;
+            view.FishingActionCompletedEvent -= OnFishingActionCompleted;
+
         }
 
         private void InjectMiniGames(MiniGameBase[] miniGames) => view.InjectMiniGames(miniGames);
@@ -53,11 +57,13 @@ namespace FishingPrototype.MVP.Presenter
 
         private void OnLocalBoatSet(IBoat boat)
         {
+            _localBoat = boat;
             view.RegisterLocalBoatEvent(boat);
         }
         
         private void OnLocalBoatRemove(IBoat boat)
         {
+            _localBoat = null;
             view.UnRegisterLocalBoatEvent(boat);
         }
 
@@ -74,6 +80,11 @@ namespace FishingPrototype.MVP.Presenter
         private void OnFishingActionFailed()
         {
             view.FishingActionFailed();
-        } 
+        }
+        
+        private void OnFishingActionCompleted()
+        {
+            _localBoat.CompleteFishing();
+        }
     }
 }
