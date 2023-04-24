@@ -1,5 +1,5 @@
 using System;
-using FishingPrototype.Gameplay.Boat;
+using UnityEngine;
 
 namespace FishingPrototype.Gameplay.FishingSpot
 {
@@ -10,7 +10,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
         Action<int> OnFishAmountChanged { get; set; }
         void SetFishingSpot(FishingSpotType type, int amount);
         Tuple<FishingSpotType, int> GetFishingSpotData();
-        void TryFishing(IBoat boat);
+        void TryFishing(GameObject fishingGameObject);
         void OnCompletedFishing();
         void OnCanceledFishing();
     }
