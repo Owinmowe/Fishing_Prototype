@@ -33,6 +33,7 @@ namespace FishingPrototype.Gameplay.Minigames
         void Awake()
         {
             _failedFishingWaitForSeconds = new WaitForSeconds(failedFishingTextTimeShowing);
+            miniGamesPanel.gameObject.SetActive(false);
         }
         
         public void SetAllMiniGames(MiniGameBase[] miniGamesPrefabs)
@@ -92,18 +93,30 @@ namespace FishingPrototype.Gameplay.Minigames
             StartCoroutine(_fishingActionFailedIEnumerator);
         }
         
-        public void ReceiveInput1()
+        public void PerformInput1()
         {
             if(_activeMiniGame != null)
-                _activeMiniGame.ReceiveMiniGameInput1();
+                _activeMiniGame.PerformMiniGameInput1();
         }
 
-        public void ReceiveInput2()
+        public void PerformInput2()
         {
             if(_activeMiniGame != null)
-                _activeMiniGame.ReceiveMiniGameInput2();
+                _activeMiniGame.PerformMiniGameInput2();
         }
 
+        public void CancelInput1()
+        {
+            if(_activeMiniGame != null)
+                _activeMiniGame.CancelMiniGameInput1();
+        }
+
+        public void CancelInput2()
+        {
+            if(_activeMiniGame != null)
+                _activeMiniGame.CancelMiniGameInput2();
+        }
+        
         private void CompleteMiniGame()
         {
             _activeMiniGame.CloseMiniGame();

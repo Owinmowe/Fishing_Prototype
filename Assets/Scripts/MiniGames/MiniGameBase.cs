@@ -11,8 +11,10 @@ namespace FishingPrototype.Gameplay.Minigames
         public abstract FishingSpotType GetMiniGameType();
         public abstract void StartMiniGame(IFishingSpot fishingSpot);
         public abstract void CloseMiniGame();
-        public abstract void ReceiveMiniGameInput1();
-        public abstract void ReceiveMiniGameInput2();
+        public abstract void PerformMiniGameInput1();
+        public abstract void PerformMiniGameInput2();
+        public abstract void CancelMiniGameInput1();
+        public abstract void CancelMiniGameInput2();
     }
 }
 

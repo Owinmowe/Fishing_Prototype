@@ -50,17 +50,27 @@ namespace FishingPrototype.Gameplay.Minigames
             gameObject.SetActive(false);
         }
 
-        public override void ReceiveMiniGameInput1()
+        public override void PerformMiniGameInput1()
         {
             _centerLocalScale.x += growPerPress;
             _centerLocalScale.y += growPerPress;
         }
 
-        public override void ReceiveMiniGameInput2()
+        public override void PerformMiniGameInput2()
         {
             
         }
-        
+
+        public override void CancelMiniGameInput1()
+        {
+            
+        }
+
+        public override void CancelMiniGameInput2()
+        {
+            
+        }
+
         private void InitializeCenterImage()
         {
             _centerLocalScale = new Vector3(centerImageStartSize, centerImageStartSize, 1);

@@ -22,6 +22,8 @@ namespace FishingPrototype.MVP.Presenter
         {
             view.OnPerformedCustomInput1Event += OnPerformedCustomInput1;
             view.OnPerformedCustomInput2Event += OnPerformedCustomInput2;
+            view.OnCanceledCustomInput1Event += OnCanceledCustomInput1;
+            view.OnCanceledCustomInput2Event += OnCanceledCustomInput2;
             view.OnLocalBoatSetEvent += OnLocalBoatSet;
             view.OnLocalBoatRemoveEvent += OnLocalBoatRemove;
             view.FishingActionStartedEvent += OnFishingActionStarted;
@@ -55,6 +57,16 @@ namespace FishingPrototype.MVP.Presenter
             view.PerformCustomInput2();
         }
 
+        private void OnCanceledCustomInput1(InputAction.CallbackContext context)
+        {
+            view.CancelCustomInput1();
+        }
+        
+        private void OnCanceledCustomInput2(InputAction.CallbackContext context)
+        {
+            view.CancelCustomInput2();
+        }
+        
         private void OnLocalBoatSet(IBoat boat)
         {
             _localBoat = boat;
