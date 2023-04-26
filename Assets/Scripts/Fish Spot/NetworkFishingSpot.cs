@@ -1,6 +1,6 @@
 using System;
-using FishingPrototype.Gameplay.Boat;
 using Mirror;
+using UnityEngine;
 
 namespace FishingPrototype.Gameplay.FishingSpot
 {
@@ -39,9 +39,9 @@ namespace FishingPrototype.Gameplay.FishingSpot
             return new Tuple<FishingSpotType, int>(_fishingSpotType, _amount);
         }
         
-        public void TryFishing(IBoat boat)
+        public void TryFishing(GameObject fishingGameObject)
         {
-            uint boatId = boat.BaseGameObject.GetComponent<NetworkIdentity>().netId;
+            uint boatId = fishingGameObject.GetComponent<NetworkIdentity>().netId;
             CmdTryFishing(boatId);
         }
 

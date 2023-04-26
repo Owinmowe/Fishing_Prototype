@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miniGamesPrefabs:
   - {fileID: 1923128097943701701, guid: c395571450728c74faa3349e3e40fdf7, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -3143787189638208775, guid: e240586c53443a242bf5927da0dccae1, type: 3}
+  - {fileID: 5730754529227477569, guid: 2a57d2a8546932249b76d06351cb6a46, type: 3}
+  - {fileID: -3379267377323456619, guid: 707651298d891f545a5f4c124f66cf96, type: 3}
+  - {fileID: 4761270910201864255, guid: ef0adcb7fbcbe7c469d15326d868a2dd, type: 3}
+  - {fileID: -8817891149303417284, guid: 49af6653f1dad3b43add7af422c07239, type: 3}
+  - {fileID: -1756959124195139001, guid: 22f258d77d0749a45b463afbe26450ed, type: 3}
