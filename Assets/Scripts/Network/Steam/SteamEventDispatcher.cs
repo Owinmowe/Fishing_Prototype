@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
 
@@ -12,6 +12,9 @@ namespace FishingPrototype.Network.Steam
         public static event Action<GameLobbyJoinRequested_t> JoinRequestEvent;
         public static event Action<LobbyEnter_t> LobbyEnteredEvent;
         public static event Action<LobbyMatchList_t> LobbyMatchListReturnedEvent;
+
+        private readonly Queue<SteamEvent> _steamEventsQueue = new Queue<SteamEvent>();
+        
         private void OnEnable()
         {
             if (!SteamManager.Initialized)
@@ -23,33 +26,56 @@ namespace FishingPrototype.Network.Steam
             Callback<LobbyMatchList_t>.Create(OnLobbyMatchListReturned);
         }
 
-        private void OnLobbyCreated(LobbyCreated_t callback) => StartCoroutine(OnLobbyCreatedCoroutine(callback));
-        private IEnumerator OnLobbyCreatedCoroutine(LobbyCreated_t callback)
+        private void Update()
         {
-            yield return null;
-            LobbyCreatedEvent?.Invoke(callback);
+            while (_steamEventsQueue.Count > 0)
+            {
+                _steamEventsQueue.Dequeue().CallEvent();
+            }
         }
 
-        private void OnJoinRequest(GameLobbyJoinRequested_t callback) => StartCoroutine(OnJoinRequestCoroutine(callback));
-        private IEnumerator OnJoinRequestCoroutine(GameLobbyJoinRequested_t callback)
+        private void OnLobbyCreated(LobbyCreated_t callback)
         {
-            yield return null;
-            JoinRequestEvent?.Invoke(callback);
-        }
-        
-        private void OnLobbyEntered(LobbyEnter_t callback) => StartCoroutine(OnLobbyEnteredCoroutine(callback));
-        private IEnumerator OnLobbyEnteredCoroutine(LobbyEnter_t callback)
-        {
-            yield return null;
-            LobbyEnteredEvent?.Invoke(callback);
-        }
-        
-        private void OnLobbyMatchListReturned(LobbyMatchList_t callback) => StartCoroutine(OnLobbyMatchListReturnedCoroutine(callback));
-        private IEnumerator OnLobbyMatchListReturnedCoroutine(LobbyMatchList_t callback)
-        {
-            yield return null;
-            LobbyMatchListReturnedEvent?.Invoke(callback);
+            SteamEvent steamEvent = new SteamEvent(callAction: LobbyCreatedEvent, actionObject: callback);
+            _steamEventsQueue.Enqueue(steamEvent);
         }
 
+        private void OnJoinRequest(GameLobbyJoinRequested_t callback)
+        {
+            SteamEvent steamEvent = new SteamEvent(callAction: JoinRequestEvent, actionObject: callback);
+            _steamEventsQueue.Enqueue(steamEvent);
+        }
+        
+        
+        private void OnLobbyEntered(LobbyEnter_t callback)
+        {
+            SteamEvent steamEvent = new SteamEvent(callAction: LobbyEnteredEvent, actionObject: callback);
+            _steamEventsQueue.Enqueue(steamEvent);
+        }
+
+        private void OnLobbyMatchListReturned(LobbyMatchList_t callback)
+        {
+            SteamEvent steamEvent = new SteamEvent(callAction: LobbyMatchListReturnedEvent, actionObject: callback);
+            _steamEventsQueue.Enqueue(steamEvent);
+        }
+        
+
+        private readonly struct SteamEvent
+        {
+            private readonly object _actionObject;
+            private readonly Delegate _callAction;
+
+            public SteamEvent(object actionObject, Delegate callAction)
+            {
+                _actionObject = actionObject;
+                _callAction = callAction;
+            }
+
+            public void CallEvent()
+            {
+                _callAction.DynamicInvoke(new[] { _actionObject });
+            }
+        }
+        
     }
 }
