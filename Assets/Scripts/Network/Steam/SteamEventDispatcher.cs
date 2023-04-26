@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using Steamworks;
 
@@ -37,54 +36,44 @@ namespace FishingPrototype.Network.Steam
 
         private void OnLobbyCreated(LobbyCreated_t callback)
         {
-            MethodInfo methodInfo = typeof(SteamEventDispatcher).GetMethod(nameof(LobbyCreatedMethod), BindingFlags.NonPublic | BindingFlags.Instance);
-            SteamEvent steamEvent = new SteamEvent(targetObject: this, actionObject: callback, callMethod: methodInfo);
+            SteamEvent steamEvent = new SteamEvent(callAction: LobbyCreatedEvent, actionObject: callback);
             _steamEventsQueue.Enqueue(steamEvent);
         }
-        private void LobbyCreatedMethod(LobbyCreated_t callback) => LobbyCreatedEvent?.Invoke(callback);
 
         private void OnJoinRequest(GameLobbyJoinRequested_t callback)
         {
-            MethodInfo methodInfo = typeof(SteamEventDispatcher).GetMethod(nameof(OnJoinRequestMethod), BindingFlags.NonPublic | BindingFlags.Instance);
-            SteamEvent steamEvent = new SteamEvent(targetObject: this, actionObject: callback, callMethod: methodInfo);
+            SteamEvent steamEvent = new SteamEvent(callAction: JoinRequestEvent, actionObject: callback);
             _steamEventsQueue.Enqueue(steamEvent);
         }
-        private void OnJoinRequestMethod(GameLobbyJoinRequested_t callback) => JoinRequestEvent?.Invoke(callback);
         
         
         private void OnLobbyEntered(LobbyEnter_t callback)
         {
-            MethodInfo methodInfo = typeof(SteamEventDispatcher).GetMethod(nameof(OnLobbyEnteredMethod), BindingFlags.NonPublic | BindingFlags.Instance);
-            SteamEvent steamEvent = new SteamEvent(targetObject: this, actionObject: callback, callMethod: methodInfo);
+            SteamEvent steamEvent = new SteamEvent(callAction: LobbyEnteredEvent, actionObject: callback);
             _steamEventsQueue.Enqueue(steamEvent);
         }
-        private void OnLobbyEnteredMethod(LobbyEnter_t callback) => LobbyEnteredEvent?.Invoke(callback);
 
         private void OnLobbyMatchListReturned(LobbyMatchList_t callback)
         {
-            MethodInfo methodInfo = typeof(SteamEventDispatcher).GetMethod(nameof(OnLobbyMatchListReturnedMethod), BindingFlags.NonPublic | BindingFlags.Instance);
-            SteamEvent steamEvent = new SteamEvent(targetObject: this, actionObject: callback, callMethod: methodInfo);
+            SteamEvent steamEvent = new SteamEvent(callAction: LobbyMatchListReturnedEvent, actionObject: callback);
             _steamEventsQueue.Enqueue(steamEvent);
         }
-        private void OnLobbyMatchListReturnedMethod(LobbyMatchList_t callback) => LobbyMatchListReturnedEvent?.Invoke(callback);
         
 
         private readonly struct SteamEvent
         {
-            private readonly object _targetObject;
             private readonly object _actionObject;
-            private readonly MethodInfo _callMethod;
+            private readonly Delegate _callAction;
 
-            public SteamEvent(object targetObject, object actionObject, MethodInfo callMethod)
+            public SteamEvent(object actionObject, Delegate callAction)
             {
-                _targetObject = targetObject;
                 _actionObject = actionObject;
-                _callMethod = callMethod;
+                _callAction = callAction;
             }
 
             public void CallEvent()
             {
-                _callMethod.Invoke(_targetObject, new[] {_actionObject});
+                _callAction.DynamicInvoke(new[] { _actionObject });
             }
         }
         
