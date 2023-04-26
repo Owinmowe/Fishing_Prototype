@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 namespace FishingPrototype.Gameplay.Minigames
 {
-    public class VirusMiniGame : MiniGameBase
+    public class RansomwareMiniGame : MiniGameBase
     {
-        [Header("Virus MiniGame Configuration")] 
+        [Header("Ransomware MiniGame Configuration")] 
         [SerializeField] private float growPerPress = .1f;
         [SerializeField] private float reduceSpeed = 1f;
         [SerializeField] private float centerImageStartSize = .1f;
@@ -34,7 +34,9 @@ namespace FishingPrototype.Gameplay.Minigames
                 centerImage.rectTransform.localScale = _centerLocalScale;
             }
         }
-        
+
+        public override FishingSpotType GetMiniGameType() => FishingSpotType.Ransomware;
+
         public override void StartMiniGame(IFishingSpot fishingSpot)
         {
             gameObject.SetActive(true);
@@ -48,17 +50,27 @@ namespace FishingPrototype.Gameplay.Minigames
             gameObject.SetActive(false);
         }
 
-        public override void ReceiveMiniGameInput1()
+        public override void PerformMiniGameInput1()
         {
             _centerLocalScale.x += growPerPress;
             _centerLocalScale.y += growPerPress;
         }
 
-        public override void ReceiveMiniGameInput2()
+        public override void PerformMiniGameInput2()
         {
             
         }
-        
+
+        public override void CancelMiniGameInput1()
+        {
+            
+        }
+
+        public override void CancelMiniGameInput2()
+        {
+            
+        }
+
         private void InitializeCenterImage()
         {
             _centerLocalScale = new Vector3(centerImageStartSize, centerImageStartSize, 1);

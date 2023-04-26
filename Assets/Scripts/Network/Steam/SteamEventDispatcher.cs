@@ -5,7 +5,7 @@ using Steamworks;
 
 namespace FishingPrototype.Network.Steam
 {
-    public class SteamEventDispatcher : MonoBehaviour
+    public class SteamEventDispatcher : MonoBehaviour //TODO Make a better dispatcher that ensures events order with Queues, dynamic delegates and reflection or something like that, i don't know, i'm an idiot with a computer
     {
 
         public static event Action<LobbyCreated_t> LobbyCreatedEvent;

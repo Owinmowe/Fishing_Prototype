@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8083626917263857034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -186,7 +186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137126ef2562cd6479e25c36f0505eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniGameType: 0
   growPerPress: 0.1
   reduceSpeed: 0.2
   centerImageStartSize: 0.1

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.FishingSpot;
 using TMPro;
 using UnityEngine;
@@ -10,12 +9,13 @@ namespace FishingPrototype.Gameplay.Minigames
     public class FishingMiniGameControl : MonoBehaviour
     {
 
+        public Action OnFishingCompleted;
+        
         [SerializeField] private GameObject miniGamesPanel;
         [SerializeField] private GameObject fishingDataPanel;
         private MiniGameBase[] _allMiniGames;
         private MiniGameBase _activeMiniGame;
         
-        private IBoat _localBoat;
         private IFishingSpot _lastFishingSpot;
         
         [Header("Fishing Failed Configuration")]
@@ -33,6 +33,7 @@ namespace FishingPrototype.Gameplay.Minigames
         void Awake()
         {
             _failedFishingWaitForSeconds = new WaitForSeconds(failedFishingTextTimeShowing);
+            miniGamesPanel.gameObject.SetActive(false);
         }
         
         public void SetAllMiniGames(MiniGameBase[] miniGamesPrefabs)
@@ -43,6 +44,7 @@ namespace FishingPrototype.Gameplay.Minigames
                 if (miniGamesPrefabs[i] != null)
                 {
                     _allMiniGames[i] = Instantiate(miniGamesPrefabs[i], miniGamesPanel.transform);
+                    _allMiniGames[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -62,7 +64,7 @@ namespace FishingPrototype.Gameplay.Minigames
 
             foreach (var miniGame in _allMiniGames)
             {
-                if (miniGame.MiniGameType == fishingSpotData.Item1)
+                if (miniGame.GetMiniGameType() == fishingSpotData.Item1)
                 {
                     _activeMiniGame = miniGame;
                     _activeMiniGame.OnMiniGameComplete += CompleteMiniGame;
@@ -91,21 +93,32 @@ namespace FishingPrototype.Gameplay.Minigames
             StartCoroutine(_fishingActionFailedIEnumerator);
         }
         
-        public void ReceiveInput1()
+        public void PerformInput1()
         {
             if(_activeMiniGame != null)
-                _activeMiniGame.ReceiveMiniGameInput1();
+                _activeMiniGame.PerformMiniGameInput1();
         }
 
-        public void ReceiveInput2()
+        public void PerformInput2()
         {
             if(_activeMiniGame != null)
-                _activeMiniGame.ReceiveMiniGameInput2();
+                _activeMiniGame.PerformMiniGameInput2();
         }
 
+        public void CancelInput1()
+        {
+            if(_activeMiniGame != null)
+                _activeMiniGame.CancelMiniGameInput1();
+        }
+
+        public void CancelInput2()
+        {
+            if(_activeMiniGame != null)
+                _activeMiniGame.CancelMiniGameInput2();
+        }
+        
         private void CompleteMiniGame()
         {
-            _localBoat.CompleteFishing();
             _activeMiniGame.CloseMiniGame();
             miniGamesPanel.SetActive(false);
             fishingDataPanel.SetActive(false);
@@ -113,6 +126,7 @@ namespace FishingPrototype.Gameplay.Minigames
             
             _lastFishingSpot.OnFishAmountChanged -= OnFishAmountChange;
             _lastFishingSpot = null;
+            OnFishingCompleted?.Invoke();
         }
 
         private void OnFishAmountChange(int fishAmount)

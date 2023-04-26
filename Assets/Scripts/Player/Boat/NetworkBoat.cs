@@ -86,7 +86,7 @@ namespace FishingPrototype.Gameplay.Boat
                 {
                     _currentFishingSpot = fishingSpot;
                     _currentFishingSpot.OnFishingRequestProcessed += OnFishingRequestProcessed;
-                    _currentFishingSpot.TryFishing(this);
+                    _currentFishingSpot.TryFishing(gameObject);
                 }
             }
         }
