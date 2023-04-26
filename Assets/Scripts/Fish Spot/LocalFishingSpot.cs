@@ -1,5 +1,4 @@
 using System;
-using FishingPrototype.Gameplay.Boat;
 using UnityEngine;
 
 namespace FishingPrototype.Gameplay.FishingSpot
@@ -27,7 +26,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
             return new Tuple<FishingSpotType, int>(_fishingSpotType, _amount);
         }
         
-        public void TryFishing(IBoat boat)
+        public void TryFishing(GameObject fishingGameObject)
         {
             OnFishingRequestProcessed?.Invoke(!_locked);
             _locked = true;
