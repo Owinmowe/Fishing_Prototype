@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc3f51b42b253624594d0c2174b95ed0, type: 3}
-  m_Name: Lobby Data
+  m_Script: {fileID: 11500000, guid: 957c67671cfe9dd4aa2bd902cb5cc4d9, type: 3}
+  m_Name: Tutorial Mode Data
   m_EditorClassIdentifier: 
-  gamesModeList: {fileID: 11400000, guid: e8633a244ee93a245928fa64edc5245f, type: 2}
+  gameModeName: Tutorial
+  gameModeBase: {fileID: 2737979173808843798, guid: f240258c16a7ce24ab8d076bfc43394d,
+    type: 3}
