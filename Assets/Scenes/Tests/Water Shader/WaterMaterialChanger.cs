@@ -9,7 +9,6 @@ namespace FishingPrototype.Test
 {
     public class WaterMaterialChanger : MonoBehaviour
     {
-        [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private List<MaterialData> materialsData;
         [SerializeField] private TextMeshProUGUI materialNameComponent;
         [SerializeField] private TextMeshProUGUI materialDescriptionComponent;
@@ -37,10 +36,9 @@ namespace FishingPrototype.Test
 
         private void SetNewMaterial()
         {
-            meshRenderer.material = materialsData[materialIndex].material;
             materialNameComponent.text = materialsData[materialIndex].material.name;
             materialDescriptionComponent.text = materialsData[materialIndex].materialDescription;
-            WaveManager.Get().UpdateMaterialReference();
+            WaveManager.Get().ChangeMaterial(materialsData[materialIndex].material);
         }
         
         [System.Serializable]
