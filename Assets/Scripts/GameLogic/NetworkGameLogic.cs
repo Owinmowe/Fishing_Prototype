@@ -77,7 +77,6 @@ namespace FishingPrototype.Gameplay.Logic
         {
             OnGameStarted?.Invoke();
         }
-
         
         private IFishingSpot NetworkSetFishingSpot(FishingSpotType type, int amount)
         {
