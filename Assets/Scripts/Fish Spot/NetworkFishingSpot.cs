@@ -10,6 +10,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
         public Action<Tuple<FishingSpotType, int>> OnFishingSpotSet { get; set; }
         public Action<bool> OnFishingRequestProcessed { get; set; }
         public Action<int> OnFishAmountChanged { get; set; }
+        public GameObject BaseGameObject => gameObject;
 
         [SyncVar] private FishingSpotType _fishingSpotType;
         [SyncVar(hook = nameof(UpdateFishAmount))] private int _amount;
@@ -19,7 +20,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
         {
             onSpawned?.Invoke();
         }
-
+        
         public void SetFishingSpot(FishingSpotType type, int amount)
         {
             _fishingSpotType = type;

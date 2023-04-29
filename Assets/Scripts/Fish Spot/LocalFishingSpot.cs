@@ -8,10 +8,12 @@ namespace FishingPrototype.Gameplay.FishingSpot
         public Action<Tuple<FishingSpotType, int>> OnFishingSpotSet { get; set; }
         public Action<bool> OnFishingRequestProcessed { get; set; }
         public Action<int> OnFishAmountChanged { get; set; }
-
+        public GameObject BaseGameObject => gameObject;
+        
         private FishingSpotType _fishingSpotType;
         private int _amount;
         private bool _locked;
+
 
         public void SetFishingSpot(FishingSpotType type, int amount)
         {
