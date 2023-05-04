@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glow Water 5
+  m_Name: Map 4 Water
   m_Shader: {fileID: -6465566751694194690, guid: 3c510ea363bab4142a3ed2ef0abbafbd,
     type: 3}
   m_ValidKeywords: []
@@ -52,7 +52,7 @@ Material:
     - _Voronoi_Strenght: 2.85
     m_Colors:
     - _Deep_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Glow_Color: {r: 0, g: 0.687696, b: 4.237095, a: 0}
+    - _Glow_Color: {r: 2.9960785, g: 0.5019608, b: 0, a: 0}
     - _Shallow_Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
     - _Voronoi_Offset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
