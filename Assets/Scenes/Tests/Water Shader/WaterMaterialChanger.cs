@@ -38,6 +38,7 @@ namespace FishingPrototype.Test
         {
             materialNameComponent.text = materialsData[materialIndex].material.name;
             materialDescriptionComponent.text = materialsData[materialIndex].materialDescription;
+            
             WaveManager.Get().ChangeMaterial(materialsData[materialIndex].material);
         }
         

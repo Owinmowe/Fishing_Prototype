@@ -1,4 +1,5 @@
 using FishingPrototype.Gameplay.GameMode.Data;
+using FishingPrototype.Gameplay.Maps.Data;
 using UnityEngine;
 
 namespace FishingPrototype.MVP.Data
@@ -7,5 +8,6 @@ namespace FishingPrototype.MVP.Data
     public class LobbyData : ScriptableData
     {
         public GamesModeList gamesModeList;
+        public MapsList mapsList;
     }
 }
