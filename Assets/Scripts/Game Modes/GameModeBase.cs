@@ -9,12 +9,15 @@ namespace FishingPrototype.Gameplay.GameMode
 {
     public abstract class GameModeBase : MonoBehaviour
     {
-        private Dictionary<ulong, PlayerReferences> _startingPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
-        private Dictionary<ulong, PlayerReferences> _currentPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
-        private event Func<FishingSpotType, int, IFishingSpot> SpawnFishingSpotSetAction;
+        protected Dictionary<ulong, PlayerReferences> _startingPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
+        protected Dictionary<ulong, PlayerReferences> _currentPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
+        public event Action<FishingSpotType, int> OnSpawnFishingSpot;
         public event Action<GameSessionReport> OnGameEnded;
 
         protected void CallGameEndedEvent(GameSessionReport report) => OnGameEnded?.Invoke(report);
+
+        protected void CallSpawnFishingSpot(FishingSpotType type, int amount) =>
+            OnSpawnFishingSpot?.Invoke(type, amount);
         
         public void StartGame(Dictionary<ulong, PlayerReferences> players)
         {
@@ -35,10 +38,5 @@ namespace FishingPrototype.Gameplay.GameMode
         }
 
         protected abstract void RemovePlayerInternal();
-        
-        public void SetFishingSpotSpawnMethod(Func<FishingSpotType, int, IFishingSpot> newFishingSpotMethod) =>
-            SpawnFishingSpotSetAction = newFishingSpotMethod;
-        protected IFishingSpot SpawnFishingSpot(FishingSpotType type, int amount) =>
-            SpawnFishingSpotSetAction?.Invoke(type, amount);
     }
 }
