@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e15326e0574809419ad659d805a44c5, type: 3}
+  m_Name: Map 5 Data
+  m_EditorClassIdentifier: 
+  mapName: Map 5
+  mapObject: {fileID: 8036708564275684858, guid: f3408b9744e202e49a5b7cd3903c69eb,
+    type: 3}
+  waterMaterial: {fileID: 2100000, guid: 3c6df12a95d14f449b9d6480fd23b353, type: 2}
+  waveConfiguration:
+    speed: 1
+    amplitude: 0.2
+    lenght: 1

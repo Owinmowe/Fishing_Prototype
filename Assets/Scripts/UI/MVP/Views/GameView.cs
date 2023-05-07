@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FishingPrototype.Boat.Data;
 using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.FishingSpot;
 using FishingPrototype.Gameplay.Input;
@@ -12,6 +11,7 @@ using FishingPrototype.MVP.Presenter;
 using FishingPrototype.MVP.Control;
 using FishingPrototype.Network;
 using FishingPrototype.Network.Data;
+using FishingPrototype.Player.Data;
 using Mirror;
 using UnityEngine.InputSystem;
 

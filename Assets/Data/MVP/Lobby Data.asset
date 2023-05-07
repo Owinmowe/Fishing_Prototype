@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc3f51b42b253624594d0c2174b95ed0, type: 3}
   m_Name: Lobby Data
   m_EditorClassIdentifier: 
+  gamesModeList: {fileID: 11400000, guid: e8633a244ee93a245928fa64edc5245f, type: 2}
+  mapsList: {fileID: 11400000, guid: 4a311702760f0a24380e42bc5a4cbb6a, type: 2}
