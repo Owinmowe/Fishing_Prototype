@@ -115,9 +115,9 @@ namespace FishingPrototype.Gameplay.Maps.Data
                 
                 _chanceListProperty.GetArrayElementAtIndex(i).intValue = EditorGUI.IntSlider(rectProperties, chanceLabel, chanceValue, 0, 100);
                 rectProperties.y += EditorGUI.GetPropertyHeight(SerializedPropertyType.Enum, enumLabel);
-                _minListProperty.GetArrayElementAtIndex(i).intValue = EditorGUI.IntSlider(rectProperties, minAmountLabel, minAmountValue, 1, maxAmountValue);
-                rectProperties.y += EditorGUI.GetPropertyHeight(SerializedPropertyType.Enum, enumLabel);
                 _maxListProperty.GetArrayElementAtIndex(i).intValue = EditorGUI.IntSlider(rectProperties, maxAmountLabel, maxAmountValue,  minAmountValue, 100);
+                rectProperties.y += EditorGUI.GetPropertyHeight(SerializedPropertyType.Enum, enumLabel);
+                _minListProperty.GetArrayElementAtIndex(i).intValue = EditorGUI.IntSlider(rectProperties, minAmountLabel, minAmountValue, 1, maxAmountValue);
             }
             
             EditorGUI.EndProperty();
