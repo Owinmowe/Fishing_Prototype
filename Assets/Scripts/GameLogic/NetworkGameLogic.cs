@@ -63,6 +63,8 @@ namespace FishingPrototype.Gameplay.Logic
         {
             _gameModeBase = Instantiate(data.gameModeBase, transform);
             _gameModeBase.OnSpawnFishingSpot += NetworkSpawnFishingSpot;
+            _gameModeBase.OnSpawnFishingSpotWithData += NetworkSpawnFishingSpotWithData;
+            _gameModeBase.OnSpawnAllFishingSpot += NetworkSpawnAllFishingSpots;
             _gameModeBase.OnSpawnBoss += SpawnBoss;
             _gameModeBase.OnGameEnded += GameEnded;
         }
@@ -83,6 +85,10 @@ namespace FishingPrototype.Gameplay.Logic
         
         private void RemoveGameMode()
         {
+            _gameModeBase.OnSpawnFishingSpot -= NetworkSpawnFishingSpot;
+            _gameModeBase.OnSpawnFishingSpotWithData -= NetworkSpawnFishingSpotWithData;
+            _gameModeBase.OnSpawnAllFishingSpot -= NetworkSpawnAllFishingSpots;
+            _gameModeBase.OnSpawnBoss -= SpawnBoss;
             _gameModeBase.OnGameEnded -= GameEnded;
             Destroy(_gameModeBase);
             _gameModeBase = null;
@@ -99,15 +105,48 @@ namespace FishingPrototype.Gameplay.Logic
         {
             OnGameStarted?.Invoke();
         }
+
+        private void NetworkSpawnAllFishingSpots()
+        {
+            NetworkSpawnAllFishingSpotsGeneric(_mapObject.EasyFishSpawnPositions.Count, SpawnDifficulty.Easy);
+            NetworkSpawnAllFishingSpotsGeneric(_mapObject.MediumFishSpawnPositions.Count, SpawnDifficulty.Medium);
+            NetworkSpawnAllFishingSpotsGeneric(_mapObject.HardFishSpawnPositions.Count, SpawnDifficulty.Hard);
+        }
+
+        private void NetworkSpawnAllFishingSpotsGeneric(int amount, SpawnDifficulty difficulty)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                FishingSpotData fishingSpotData = new FishingSpotData
+                {
+                    spawnDifficulty = difficulty
+                };
+                SpawnData spawnData = _mapObject.GetSpecificSpawnData(difficulty, i);
+                spawnData.spawnChanceData.RollChance(ref fishingSpotData);
+                SpawnFishingSpot(spawnData, fishingSpotData);
+            }
+        }
+
+        private void NetworkSpawnFishingSpotWithData(FishingSpotData fishingSpotData)
+        {
+            SpawnData spawnData = _mapObject.GetSpecificSpawnData(fishingSpotData.spawnDifficulty, fishingSpotData.spawnIndex);
+            spawnData.spawnChanceData.RollChance(ref fishingSpotData);
+            SpawnFishingSpot(spawnData, fishingSpotData);
+        }
         
         private void NetworkSpawnFishingSpot(SpawnDifficulty difficulty)
         {
-            FishingSpotData fishingSpotData = new FishingSpotData();
-            fishingSpotData.spawnDifficulty = difficulty;
+            FishingSpotData fishingSpotData = new FishingSpotData
+            {
+                spawnDifficulty = difficulty
+            };
             SpawnData spawnData = _mapObject.GetRandomSpawnData(difficulty, out fishingSpotData.spawnIndex);
             spawnData.spawnChanceData.RollChance(ref fishingSpotData);
-
-            
+            SpawnFishingSpot(spawnData, fishingSpotData);
+        }
+        
+        private void SpawnFishingSpot(SpawnData spawnData, FishingSpotData fishingSpotData)
+        {
             IFishingSpot fishingSpot = Instantiate(networkFishingSpot, spawnData.spawnPosition);
             NetworkServer.Spawn(fishingSpot.BaseGameObject);
             HostSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotData);
@@ -135,7 +174,7 @@ namespace FishingPrototype.Gameplay.Logic
         
         private void OnFishingSpotEmpty(FishingSpotData fishingSpotData)
         {
-            
+            _gameModeBase.OnFishingSpotEmpty(fishingSpotData);
         }
         
         private void GameEnded(GameSessionReport gameSessionReport)
