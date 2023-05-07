@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FishingPrototype.Gameplay.Data;
-using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using FishingPrototype.Gameplay.Maps.Data;
 using FishingPrototype.Network.Data;
 using UnityEngine;
@@ -13,6 +13,8 @@ namespace FishingPrototype.Gameplay.GameMode
         protected Dictionary<ulong, PlayerReferences> _startingPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
         protected Dictionary<ulong, PlayerReferences> _currentPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
         public event Action<SpawnDifficulty> OnSpawnFishingSpot;
+        public event Action<FishingSpotData> OnSpawnFishingSpotWithData;
+        public event Action OnSpawnAllFishingSpot;
         public event Action OnSpawnBoss;
         public event Action<GameSessionReport> OnGameEnded;
 
@@ -20,6 +22,10 @@ namespace FishingPrototype.Gameplay.GameMode
 
         protected void CallSpawnFishingSpot(SpawnDifficulty difficulty) =>
             OnSpawnFishingSpot?.Invoke(difficulty);
+        
+        protected void CallSpawnFishingSpotWithData(FishingSpotData fishingSpotData) =>
+            OnSpawnFishingSpotWithData?.Invoke(fishingSpotData);
+        protected void CallSpawnAllFishingSpot() => OnSpawnAllFishingSpot?.Invoke();
         protected void CallSpawnBoss() => OnSpawnBoss?.Invoke();
         
         public void StartGame(Dictionary<ulong, PlayerReferences> players)
@@ -41,5 +47,10 @@ namespace FishingPrototype.Gameplay.GameMode
         }
 
         protected abstract void RemovePlayerInternal();
+
+        public virtual void OnFishingSpotEmpty(FishingSpotData fishingSpotData)
+        {
+            OnSpawnFishingSpotWithData?.Invoke(fishingSpotData);
+        }
     }
 }
