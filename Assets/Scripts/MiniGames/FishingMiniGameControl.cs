@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using TMPro;
 using UnityEngine;
 
@@ -55,16 +56,16 @@ namespace FishingPrototype.Gameplay.Minigames
             fishingDataPanel.SetActive(true);
 
             _lastFishingSpot = spot;
-            Tuple<FishingSpotType, int> fishingSpotData = _lastFishingSpot.GetFishingSpotData();
+            FishingSpotData fishingSpotData = _lastFishingSpot.GetFishingSpotData();
 
-            fishTypeText.text = "Fish Type: " + Enum.GetName(typeof(FishingSpotType), fishingSpotData.Item1);
-            fishAmountText.text = "Fish Amount: " + fishingSpotData.Item2;
+            fishTypeText.text = "Fish Type: " + Enum.GetName(typeof(FishingSpotType), fishingSpotData.type);
+            fishAmountText.text = "Fish Amount: " + fishingSpotData.amount;
 
             _lastFishingSpot.OnFishAmountChanged += OnFishAmountChange;
 
             foreach (var miniGame in _allMiniGames)
             {
-                if (miniGame.GetMiniGameType() == fishingSpotData.Item1)
+                if (miniGame.GetMiniGameType() == fishingSpotData.type)
                 {
                     _activeMiniGame = miniGame;
                     _activeMiniGame.OnMiniGameComplete += CompleteMiniGame;

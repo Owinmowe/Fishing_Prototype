@@ -1,4 +1,5 @@
-using FishingPrototype.Boat.Data;
+using FishingPrototype.Player;
+using FishingPrototype.Player.Data;
 using FishingPrototype.Utils;
 using TMPro;
 using UnityEngine;

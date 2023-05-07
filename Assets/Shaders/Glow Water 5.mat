@@ -45,14 +45,14 @@ Material:
     m_Floats:
     - _Amplitude: 0.2
     - _Lenght: 1
-    - _Offset: 12.007554
+    - _Offset: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Voronoi_Density: 600
     - _Voronoi_Strenght: 2.85
     m_Colors:
     - _Deep_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Glow_Color: {r: 0, g: 0.3569693, b: 2.270603, a: 0}
+    - _Glow_Color: {r: 0, g: 0.687696, b: 4.237095, a: 0}
     - _Shallow_Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
     - _Voronoi_Offset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
