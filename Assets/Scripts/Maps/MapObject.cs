@@ -22,6 +22,17 @@ namespace FishingPrototype.Gameplay.Maps
         public List<SpawnData> MediumFishSpawnPositions => mediumFishSpawnPositions;
         public List<SpawnData> HardFishSpawnPositions => hardFishSpawnPositions;
 
+        public SpawnData GetSpecificSpawnData(SpawnDifficulty difficulty, int spawnIndex)
+        {
+            return difficulty switch
+            {
+                SpawnDifficulty.Easy => easyFishSpawnPositions[spawnIndex],
+                SpawnDifficulty.Medium => mediumFishSpawnPositions[spawnIndex],
+                SpawnDifficulty.Hard => hardFishSpawnPositions[spawnIndex],
+                _ => throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null)
+            };
+        }
+
         public SpawnData GetRandomSpawnData(SpawnDifficulty difficulty, out int spawnIndex)
         {
             return difficulty switch
