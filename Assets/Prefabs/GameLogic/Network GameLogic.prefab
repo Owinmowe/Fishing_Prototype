@@ -48,7 +48,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  networkFishingSpotPrefab: {fileID: 641601211936146948, guid: 0840f76547e1d0440a7a315c23339ec3,
+  networkFishingSpot: {fileID: 4082077187473740393, guid: 0840f76547e1d0440a7a315c23339ec3,
     type: 3}
 --- !u!114 &486561399256774239
 MonoBehaviour:

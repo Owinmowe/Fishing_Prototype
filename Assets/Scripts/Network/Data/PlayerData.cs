@@ -1,4 +1,4 @@
-namespace FishingPrototype.Boat.Data
+namespace FishingPrototype.Player.Data
 {
     public struct PlayerData
     {

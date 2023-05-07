@@ -1,6 +1,6 @@
-using FishingPrototype.Boat.Data;
+using FishingPrototype.Player.Data;
 
-namespace FishingPrototype.Gameplay.Boat
+namespace FishingPrototype.Player
 {
     public interface IPlayerDataControl
     {

@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using FishingPrototype.Boat.Data;
 using FishingPrototype.Gameplay.Logic;
 using FishingPrototype.MVP.Data;
 using FishingPrototype.MVP.View;
-using FishingPrototype.Network;
 using FishingPrototype.Network.Data;
+using FishingPrototype.Player.Data;
 using Mirror;
 
 namespace FishingPrototype.MVP.Presenter
@@ -14,10 +13,11 @@ namespace FishingPrototype.MVP.Presenter
 
         private readonly List<PlayerData> _playersData = new List<PlayerData>();
         private IGameLogic _gameLogic;
+        private LobbyData _lobbyData;
         
         public LobbyPresenter(GameView view, LobbyData scriptableData) : base(view)
         {
-            
+            _lobbyData = scriptableData;
         }
 
         protected override void AddViewListeners()
@@ -55,7 +55,10 @@ namespace FishingPrototype.MVP.Presenter
             view.SetConnectedPlayersPanel(_playersData.ToArray());
         }
 
-        private void OnStartGamePressed() => _gameLogic.StartGame();
+        private void OnStartGamePressed()
+        {
+            _gameLogic.InitializeGame(_lobbyData.gamesModeList.gameModes[0], _lobbyData.mapsList.maps[0]); // TODO Replace with real selection in UI
+        }
 
         private void OnGameStarted()
         {

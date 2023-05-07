@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using FishingPrototype.Boat.Data;
 using FishingPrototype.Network.Data;
 using FishingPrototype.Network.Messages;
 using FishingPrototype.Network.Steam;
+using FishingPrototype.Player.Data;
 using FishingPrototype.Utils;
 using Mirror;
 using Steamworks;
-using UnityEngine;
 
 namespace FishingPrototype.Network
 {

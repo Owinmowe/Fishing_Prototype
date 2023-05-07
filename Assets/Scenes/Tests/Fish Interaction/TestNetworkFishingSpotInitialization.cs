@@ -1,5 +1,6 @@
 using System;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using Mirror;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace FishingPrototype.Test
                 NetworkFishingSpot fishingSpot = Instantiate(data.fishingSpot);
                 fishingSpot.onSpawned += delegate
                 {
-                    fishingSpot.SetFishingSpot(data.fishingSpotType, data.amount);
+                    fishingSpot.SetFishingSpot(data.fishingSpotData);
                 };
                 NetworkServer.Spawn(fishingSpot.gameObject);
             }
@@ -28,8 +29,7 @@ namespace FishingPrototype.Test
         public struct FishingSpotInitializationData
         {
             public NetworkFishingSpot fishingSpot;
-            public FishingSpotType fishingSpotType;
-            public int amount;
+            public FishingSpotData fishingSpotData;
         }
     }
 }

@@ -1,5 +1,6 @@
 using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Network.Data;
+using FishingPrototype.Player;
 using UnityEngine;
 using Mirror;
 
