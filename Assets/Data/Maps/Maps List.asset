@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efcaaa0983aee6f4a850cc78a5548cf9, type: 3}
+  m_Name: Maps List
+  m_EditorClassIdentifier: Main:FishingPrototype.Gameplay.Maps.Data:MapsList
+  maps:
+  - {fileID: 11400000, guid: 497b538822b1f5347b5148c49d3d09c6, type: 2}
+  - {fileID: 11400000, guid: 1a3a644ea171360409237f95c4eccd8c, type: 2}
+  - {fileID: 11400000, guid: 0fd68eb13ab3c354f990fa76fd5682c9, type: 2}
+  - {fileID: 11400000, guid: ee5fd04dff13dbf4294bd80bb9c2a9e0, type: 2}
+  - {fileID: 11400000, guid: 34a0cbb029ef20c4a84547bc336d5d91, type: 2}

@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ef5707fb9346749a148d09c72ef95d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.2
-  lenght: 1
-  speed: 1
+  waveConfiguration:
+    speed: 1
+    amplitude: 0.2
+    lenght: 1
+  materialChangeSpeed: 0.01

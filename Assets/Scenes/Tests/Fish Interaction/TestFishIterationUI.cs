@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using TMPro;
 using UnityEngine;
 
@@ -34,9 +35,9 @@ namespace FishingPrototype.Test
             boat.OnFishingActionStarted += delegate(IFishingSpot fishingSpot)
             {
                 panel.SetActive(true);
-                Tuple<FishingSpotType, int> data = fishingSpot.GetFishingSpotData();
-                fishTypeText.text = "Fishing Type: " + Enum.GetName(typeof(FishingSpotType), data.Item1);
-                fishAmountText.text = "Amount: " + data.Item2;
+                FishingSpotData data = fishingSpot.GetFishingSpotData();
+                fishTypeText.text = "Fishing Type: " + Enum.GetName(typeof(FishingSpotType), data.type);
+                fishAmountText.text = "Amount: " + data.amount;
             }; 
             
             boat.OnFishingActionFailed += delegate

@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using FishingPrototype.Boat.Data;
-using FishingPrototype.Gameplay.GameMode;
-using FishingPrototype.Gameplay.GameMode.Data;
 using FishingPrototype.Gameplay.Logic;
 using FishingPrototype.MVP.Data;
 using FishingPrototype.MVP.View;
 using FishingPrototype.Network.Data;
+using FishingPrototype.Player.Data;
 using Mirror;
 
 namespace FishingPrototype.MVP.Presenter
@@ -59,7 +57,7 @@ namespace FishingPrototype.MVP.Presenter
 
         private void OnStartGamePressed()
         {
-            _gameLogic.StartGame(_lobbyData.gamesModeList.gameModes[0]); // TODO Replace with real game mode selection
+            _gameLogic.InitializeGame(_lobbyData.gamesModeList.gameModes[0], _lobbyData.mapsList.maps[0]); // TODO Replace with real selection in UI
         }
 
         private void OnGameStarted()

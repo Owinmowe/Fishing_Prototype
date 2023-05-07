@@ -1,5 +1,6 @@
 using System;
-using FishingPrototype.Boat.Data;
+using FishingPrototype.Player;
+using FishingPrototype.Player.Data;
 using UnityEngine;
 
 namespace FishingPrototype.Gameplay.Boat

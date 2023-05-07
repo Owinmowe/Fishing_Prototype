@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using FishingPrototype.Gameplay.Data;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using FishingPrototype.Gameplay.GameMode;
 using FishingPrototype.Gameplay.GameMode.Data;
+using FishingPrototype.Gameplay.Maps;
+using FishingPrototype.Gameplay.Maps.Data;
 using FishingPrototype.Network;
 using FishingPrototype.Network.Data;
+using FishingPrototype.Waves;
 using Mirror;
 using UnityEngine;
 
@@ -19,9 +23,10 @@ namespace FishingPrototype.Gameplay.Logic
 
         [SerializeField] private NetworkFishingSpot networkFishingSpot;
         
-        private readonly SyncDictionary<ulong, PlayerReferences> syncPlayers = new SyncDictionary<ulong, PlayerReferences>();
+        private readonly SyncDictionary<ulong, PlayerReferences> _syncPlayers = new SyncDictionary<ulong, PlayerReferences>();
 
         private GameModeBase _gameModeBase;
+        private MapObject _mapObject;
         
         private void Start()
         {
@@ -38,38 +43,55 @@ namespace FishingPrototype.Gameplay.Logic
 
         private void AddPlayer(PlayerReferences references, NetworkConnection connection)
         {
-            syncPlayers.Add(references.clientCSteamID.m_SteamID, references);
+            _syncPlayers.Add(references.clientCSteamID.m_SteamID, references);
         }
 
         private void RemovePlayer(PlayerReferences references)
         {
-            syncPlayers.Remove(references.clientCSteamID.m_SteamID);
+            _syncPlayers.Remove(references.clientCSteamID.m_SteamID);
             if(_gameModeBase != null) _gameModeBase.RemovePlayer(references.clientCSteamID.m_SteamID);
         }
         
-        public void StartGame(GameModeData gameModeData)
+        public void InitializeGame(GameModeData gameModeData, MapData mapData)
         {
-            SetGameMode(gameModeData.gameModeBase);
-            
+            SetGameMode(gameModeData);
+            SetMap(mapData);
+            StartGame();
+        }
+
+        private void SetGameMode(GameModeData data)
+        {
+            _gameModeBase = Instantiate(data.gameModeBase, transform);
+            _gameModeBase.OnSpawnFishingSpot += NetworkSpawnFishingSpot;
+            _gameModeBase.OnSpawnBoss += SpawnBoss;
+            _gameModeBase.OnGameEnded += GameEnded;
+        }
+
+        private void SetMap(MapData data)
+        {
+            _mapObject = Instantiate(data.mapObject, transform);
+            WaveManager.Get().ChangeMaterial(data.waterMaterial, data.waveConfiguration);
+        }
+
+        private void StartGame()
+        {
+            Dictionary<ulong, PlayerReferences> playersDictionary = _syncPlayers.ToDictionary(playerPair => playerPair.Key, playerPair => playerPair.Value);
+            _gameModeBase.StartGame(playersDictionary);
             OnGameStarted?.Invoke();
             RpcStartGame();
         }
-
-        private void SetGameMode(GameModeBase gameModeBase)
-        {
-            _gameModeBase = Instantiate(gameModeBase);
-            _gameModeBase.SetFishingSpotSpawnMethod(NetworkSetFishingSpot);
-            
-            _gameModeBase.OnGameEnded += GameEnded;
-
-            Dictionary<ulong, PlayerReferences> playersDictionary = syncPlayers.ToDictionary(playerPair => playerPair.Key, playerPair => playerPair.Value);
-            _gameModeBase.StartGame(playersDictionary);
-        }
-
+        
         private void RemoveGameMode()
         {
             _gameModeBase.OnGameEnded -= GameEnded;
+            Destroy(_gameModeBase);
             _gameModeBase = null;
+        }
+
+        private void RemoveMap()
+        {
+            Destroy(_mapObject);
+            _mapObject = null;
         }
         
         [ClientRpc]
@@ -78,31 +100,48 @@ namespace FishingPrototype.Gameplay.Logic
             OnGameStarted?.Invoke();
         }
         
-        private IFishingSpot NetworkSetFishingSpot(FishingSpotType type, int amount)
+        private void NetworkSpawnFishingSpot(SpawnDifficulty difficulty)
         {
-            IFishingSpot fishingSpot = Instantiate(networkFishingSpot);
+            FishingSpotData fishingSpotData = new FishingSpotData();
+            fishingSpotData.spawnDifficulty = difficulty;
+            SpawnData spawnData = _mapObject.GetRandomSpawnData(difficulty, out fishingSpotData.spawnIndex);
+            spawnData.spawnChanceData.RollChance(ref fishingSpotData);
+
+            
+            IFishingSpot fishingSpot = Instantiate(networkFishingSpot, spawnData.spawnPosition);
             NetworkServer.Spawn(fishingSpot.BaseGameObject);
-            SetFishingSpotLocal(fishingSpot.BaseGameObject, type, amount);
-            RpcSetFishingSpot(fishingSpot.BaseGameObject, type, amount);
-            return fishingSpot;
+            HostSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotData);
+            RpcSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotData);
         }
 
         [ClientRpc]
-        private void RpcSetFishingSpot(GameObject go, FishingSpotType type, int amount)
+        private void RpcSetFishingSpot(GameObject go, FishingSpotData fishingSpotData)
         {
             IFishingSpot fishingSpot = go.GetComponent<IFishingSpot>();
-            fishingSpot.SetFishingSpot(type, amount);
+            fishingSpot.SetFishingSpot(fishingSpotData);
         }
 
-        private void SetFishingSpotLocal(GameObject go, FishingSpotType type, int amount)
+        private void HostSetFishingSpot(GameObject go, FishingSpotData fishingSpotData)
         {
             IFishingSpot fishingSpot = go.GetComponent<IFishingSpot>();
-            fishingSpot.SetFishingSpot(type, amount);
+            fishingSpot.SetFishingSpot(fishingSpotData);
+            fishingSpot.OnFishingSpotEmpty += OnFishingSpotEmpty;
         }
 
+        private void SpawnBoss()
+        {
+            
+        }
+        
+        private void OnFishingSpotEmpty(FishingSpotData fishingSpotData)
+        {
+            
+        }
+        
         private void GameEnded(GameSessionReport gameSessionReport)
         {
             RemoveGameMode();
+            RemoveMap();
             OnGameEnded?.Invoke();
         }
         
