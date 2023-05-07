@@ -32,11 +32,11 @@ namespace FishingPrototype.Gameplay.FishingSpot
             _fishingSpot.OnFishAmountChanged -= UpdateParticleSystemAmount;
         }
 
-        private void SetParticleSystem(Tuple<FishingSpotType, int> fishingSpotData)
+        private void SetParticleSystem(FishingSpotData fishingSpotData)
         {
-            _fishParticleSystem = Instantiate(graphicData.GetFishingSpotGraphicPrefab(fishingSpotData.Item1), transform);
+            _fishParticleSystem = Instantiate(graphicData.GetFishingSpotGraphicPrefab(fishingSpotData.type), transform);
             _fishParticlesMainModule = _fishParticleSystem.main;
-            UpdateParticleSystemAmount(fishingSpotData.Item2);
+            UpdateParticleSystemAmount(fishingSpotData.amount);
         }
 
         private void UpdateParticleSystemAmount(int fishAmount)

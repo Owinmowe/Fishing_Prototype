@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using FishingPrototype.Gameplay.Maps.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -21,20 +22,21 @@ namespace FishingPrototype.Gameplay.Maps
         public List<SpawnData> MediumFishSpawnPositions => mediumFishSpawnPositions;
         public List<SpawnData> HardFishSpawnPositions => hardFishSpawnPositions;
 
-        public SpawnData GetRandomSpawnData(SpawnDifficulty difficulty)
+        public SpawnData GetRandomSpawnData(SpawnDifficulty difficulty, out int spawnIndex)
         {
             return difficulty switch
             {
-                SpawnDifficulty.Easy => GetRandomSpawnDataFromList(easyFishSpawnPositions),
-                SpawnDifficulty.Medium => GetRandomSpawnDataFromList(mediumFishSpawnPositions),
-                SpawnDifficulty.Hard => GetRandomSpawnDataFromList(hardFishSpawnPositions),
+                SpawnDifficulty.Easy => GetRandomSpawnDataFromList(easyFishSpawnPositions, out spawnIndex),
+                SpawnDifficulty.Medium => GetRandomSpawnDataFromList(mediumFishSpawnPositions, out spawnIndex),
+                SpawnDifficulty.Hard => GetRandomSpawnDataFromList(hardFishSpawnPositions, out spawnIndex),
                 _ => throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null)
             };
         }
 
-        private SpawnData GetRandomSpawnDataFromList(List<SpawnData> spawnDataList)
+        private SpawnData GetRandomSpawnDataFromList(List<SpawnData> spawnDataList, out int spawnIndex)
         {
             int index = Random.Range(0, spawnDataList.Count);
+            spawnIndex = index;
             return spawnDataList[index];
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using UnityEngine;
 
 namespace FishingPrototype.Test
@@ -13,7 +14,7 @@ namespace FishingPrototype.Test
         {
             foreach (var data in initializationData)
             {
-                data.fishingSpot.SetFishingSpot(data.fishingSpotType, data.amount);
+                data.fishingSpot.SetFishingSpot(data.fishingSpotData);
             }
         }
 
@@ -21,8 +22,7 @@ namespace FishingPrototype.Test
         public struct FishingSpotInitializationData
         {
             public LocalFishingSpot fishingSpot;
-            public FishingSpotType fishingSpotType;
-            public int amount;
+            public FishingSpotData fishingSpotData;
         }
     }
 }

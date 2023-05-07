@@ -1,32 +1,31 @@
 using System;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using UnityEngine;
 
 namespace FishingPrototype.Gameplay.FishingSpot
 {
     public class LocalFishingSpot : MonoBehaviour, IFishingSpot
     {
-        public Action<Tuple<FishingSpotType, int>> OnFishingSpotSet { get; set; }
+        public Action<FishingSpotData> OnFishingSpotSet { get; set; }
         public Action<bool> OnFishingRequestProcessed { get; set; }
         public Action<int> OnFishAmountChanged { get; set; }
-        public Action<FishingSpotType> OnFishingSpotEmpty { get; set; }
+        public Action<FishingSpotData> OnFishingSpotEmpty { get; set; }
         public GameObject BaseGameObject => gameObject;
-        
-        private FishingSpotType _fishingSpotType;
-        private int _amount;
+
+        private FishingSpotData _fishingSpotData;
         private bool _locked;
 
 
-        public void SetFishingSpot(FishingSpotType type, int amount)
+        public void SetFishingSpot(FishingSpotData fishingSpotData)
         {
-            _fishingSpotType = type;
-            _amount = amount;
-            gameObject.name = "Local " + Enum.GetName(typeof(FishingSpotType), _fishingSpotType) + " Fishing Spot";
-            OnFishingSpotSet?.Invoke(new Tuple<FishingSpotType, int>(_fishingSpotType, _amount));
+            _fishingSpotData = fishingSpotData;
+            gameObject.name = "Local " + Enum.GetName(typeof(FishingSpotType), _fishingSpotData.type) + " Fishing Spot";
+            OnFishingSpotSet?.Invoke(_fishingSpotData);
         }
 
-        public Tuple<FishingSpotType, int> GetFishingSpotData()
+        public FishingSpotData GetFishingSpotData()
         {
-            return new Tuple<FishingSpotType, int>(_fishingSpotType, _amount);
+            return _fishingSpotData;
         }
         
         public void TryFishing(GameObject fishingGameObject)
@@ -37,11 +36,11 @@ namespace FishingPrototype.Gameplay.FishingSpot
 
         public void OnCompletedFishing()
         {
-            _amount--;
-            OnFishAmountChanged?.Invoke(_amount);
-            if (_amount <= 0)
+            _fishingSpotData.amount--;
+            OnFishAmountChanged?.Invoke(_fishingSpotData.amount);
+            if (_fishingSpotData.amount <= 0)
             {
-                OnFishingSpotEmpty?.Invoke(_fishingSpotType);
+                OnFishingSpotEmpty?.Invoke(_fishingSpotData);
                 Destroy(gameObject);
             }
         }
