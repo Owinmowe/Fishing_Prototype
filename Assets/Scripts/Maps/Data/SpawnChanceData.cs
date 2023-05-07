@@ -1,4 +1,4 @@
-using System;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,7 +9,7 @@ namespace FishingPrototype.Gameplay.Maps.Data
     {
         public SpawnChances spawnChances;
 
-        public Tuple<FishingSpotType, int> RollChance()
+        public void RollChance(ref FishingSpotData fishingSpotData)
         {
             int typeIndex = 0;
             int roll = Random.Range(0, 100);
@@ -26,7 +26,9 @@ namespace FishingPrototype.Gameplay.Maps.Data
             int minPossibleAmount = spawnChances.chanceAmountMinList[typeIndex];
             int maxPossibleAmount = spawnChances.chanceAmountMaxList[typeIndex];
             int amount = Random.Range(minPossibleAmount, maxPossibleAmount + 1);
-            return new Tuple<FishingSpotType, int>(fishingSpotType, amount);
+
+            fishingSpotData.amount = amount;
+            fishingSpotData.type = fishingSpotType;
         }
     }
 }

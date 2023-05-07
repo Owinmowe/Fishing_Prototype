@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FishingPrototype.Gameplay.Data;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using FishingPrototype.Gameplay.GameMode;
 using FishingPrototype.Gameplay.GameMode.Data;
 using FishingPrototype.Gameplay.Maps;
@@ -101,25 +102,29 @@ namespace FishingPrototype.Gameplay.Logic
         
         private void NetworkSpawnFishingSpot(SpawnDifficulty difficulty)
         {
-            SpawnData spawnData = _mapObject.GetRandomSpawnData(difficulty);
-            Tuple<FishingSpotType, int> fishingSpotTuple = spawnData.spawnChanceData.RollChance();
+            FishingSpotData fishingSpotData = new FishingSpotData();
+            fishingSpotData.spawnDifficulty = difficulty;
+            SpawnData spawnData = _mapObject.GetRandomSpawnData(difficulty, out fishingSpotData.spawnIndex);
+            spawnData.spawnChanceData.RollChance(ref fishingSpotData);
+
+            
             IFishingSpot fishingSpot = Instantiate(networkFishingSpot, spawnData.spawnPosition);
             NetworkServer.Spawn(fishingSpot.BaseGameObject);
-            HostSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotTuple.Item1, fishingSpotTuple.Item2);
-            RpcSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotTuple.Item1, fishingSpotTuple.Item2);
+            HostSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotData);
+            RpcSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotData);
         }
 
         [ClientRpc]
-        private void RpcSetFishingSpot(GameObject go, FishingSpotType type, int amount)
+        private void RpcSetFishingSpot(GameObject go, FishingSpotData fishingSpotData)
         {
             IFishingSpot fishingSpot = go.GetComponent<IFishingSpot>();
-            fishingSpot.SetFishingSpot(type, amount);
+            fishingSpot.SetFishingSpot(fishingSpotData);
         }
 
-        private void HostSetFishingSpot(GameObject go, FishingSpotType type, int amount)
+        private void HostSetFishingSpot(GameObject go, FishingSpotData fishingSpotData)
         {
             IFishingSpot fishingSpot = go.GetComponent<IFishingSpot>();
-            fishingSpot.SetFishingSpot(type, amount);
+            fishingSpot.SetFishingSpot(fishingSpotData);
             fishingSpot.OnFishingSpotEmpty += OnFishingSpotEmpty;
         }
 
@@ -128,7 +133,7 @@ namespace FishingPrototype.Gameplay.Logic
             
         }
         
-        private void OnFishingSpotEmpty(FishingSpotType fishingSpotType)
+        private void OnFishingSpotEmpty(FishingSpotData fishingSpotData)
         {
             
         }

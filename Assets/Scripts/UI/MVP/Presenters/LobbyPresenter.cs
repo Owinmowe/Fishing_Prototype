@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using FishingPrototype.Boat.Data;
-using FishingPrototype.Gameplay.GameMode;
-using FishingPrototype.Gameplay.GameMode.Data;
 using FishingPrototype.Gameplay.Logic;
 using FishingPrototype.MVP.Data;
 using FishingPrototype.MVP.View;
 using FishingPrototype.Network.Data;
+using FishingPrototype.Player.Data;
 using Mirror;
 
 namespace FishingPrototype.MVP.Presenter

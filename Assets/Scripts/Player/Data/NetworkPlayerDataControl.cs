@@ -1,5 +1,6 @@
 using System;
-using FishingPrototype.Boat.Data;
+using FishingPrototype.Player;
+using FishingPrototype.Player.Data;
 using Mirror;
 
 namespace FishingPrototype.Gameplay.Boat

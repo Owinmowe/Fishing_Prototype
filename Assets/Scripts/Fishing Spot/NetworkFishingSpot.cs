@@ -1,4 +1,5 @@
 using System;
+using FishingPrototype.Gameplay.FishingSpot.Data;
 using Mirror;
 using UnityEngine;
 
@@ -7,14 +8,13 @@ namespace FishingPrototype.Gameplay.FishingSpot
     public class NetworkFishingSpot : NetworkBehaviour, IFishingSpot
     {
         public Action onSpawned;
-        public Action<Tuple<FishingSpotType, int>> OnFishingSpotSet { get; set; }
+        public Action<FishingSpotData> OnFishingSpotSet { get; set; }
         public Action<bool> OnFishingRequestProcessed { get; set; }
         public Action<int> OnFishAmountChanged { get; set; }
-        public Action<FishingSpotType> OnFishingSpotEmpty { get; set; }
+        public Action<FishingSpotData> OnFishingSpotEmpty { get; set; }
         public GameObject BaseGameObject => gameObject;
 
-        [SyncVar] private FishingSpotType _fishingSpotType;
-        [SyncVar(hook = nameof(UpdateFishAmount))] private int _amount;
+        [SyncVar(hook = nameof(UpdateFishAmount))] private FishingSpotData _fishingSpotData;
         private bool _locked;
 
         public void Start()
@@ -22,23 +22,22 @@ namespace FishingPrototype.Gameplay.FishingSpot
             onSpawned?.Invoke();
         }
         
-        public void SetFishingSpot(FishingSpotType type, int amount)
+        public void SetFishingSpot(FishingSpotData fishingSpotData)
         {
-            _fishingSpotType = type;
-            _amount = amount;
+            _fishingSpotData = fishingSpotData;
             RpcSetFishingSpot();
         }
 
         [ClientRpc(includeOwner = true)]
         private void RpcSetFishingSpot()
         {
-            gameObject.name = "Network " + Enum.GetName(typeof(FishingSpotType), _fishingSpotType) + " Fishing Spot";
-            OnFishingSpotSet?.Invoke(new Tuple<FishingSpotType, int>(_fishingSpotType, _amount));
+            gameObject.name = "Network " + Enum.GetName(typeof(FishingSpotType), _fishingSpotData.type) + " Fishing Spot";
+            OnFishingSpotSet?.Invoke(_fishingSpotData);
         }
         
-        public Tuple<FishingSpotType, int> GetFishingSpotData()
+        public FishingSpotData GetFishingSpotData()
         {
-            return new Tuple<FishingSpotType, int>(_fishingSpotType, _amount);
+            return _fishingSpotData;
         }
         
         public void TryFishing(GameObject fishingGameObject)
@@ -73,18 +72,19 @@ namespace FishingPrototype.Gameplay.FishingSpot
         [Command(requiresAuthority = false)]
         private void CmdCompletedFishing()
         {
-            _amount--;
-            if (_amount <= 0)
+            _fishingSpotData.amount--;
+            if (_fishingSpotData.amount <= 0)
             {
-                OnFishingSpotEmpty?.Invoke(_fishingSpotType);
+                OnFishingSpotEmpty?.Invoke(_fishingSpotData);
                 NetworkServer.UnSpawn(gameObject);
                 Destroy(gameObject);
             }
         }
         
-        void UpdateFishAmount(int oldAmount, int newAmount)
+        void UpdateFishAmount(FishingSpotData oldFishingSpotData, FishingSpotData newFishingSpotData)
         {
-            OnFishAmountChanged?.Invoke(newAmount);
+            if(oldFishingSpotData.amount != newFishingSpotData.amount)
+                OnFishAmountChanged?.Invoke(newFishingSpotData.amount);
         }
         
         public void OnCanceledFishing()
