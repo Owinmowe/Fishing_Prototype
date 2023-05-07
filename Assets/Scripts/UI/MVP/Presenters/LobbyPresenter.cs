@@ -59,7 +59,7 @@ namespace FishingPrototype.MVP.Presenter
 
         private void OnStartGamePressed()
         {
-            _gameLogic.StartGame(_lobbyData.gamesModeList.gameModes[0]); // TODO Replace with real game mode selection
+            _gameLogic.InitializeGame(_lobbyData.gamesModeList.gameModes[0], _lobbyData.mapsList.maps[0]); // TODO Replace with real selection in UI
         }
 
         private void OnGameStarted()

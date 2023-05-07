@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FishingPrototype.Gameplay.Data;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.Maps.Data;
 using FishingPrototype.Network.Data;
 using UnityEngine;
 
@@ -9,12 +10,17 @@ namespace FishingPrototype.Gameplay.GameMode
 {
     public abstract class GameModeBase : MonoBehaviour
     {
-        private Dictionary<ulong, PlayerReferences> _startingPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
-        private Dictionary<ulong, PlayerReferences> _currentPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
-        private event Func<FishingSpotType, int, IFishingSpot> SpawnFishingSpotSetAction;
+        protected Dictionary<ulong, PlayerReferences> _startingPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
+        protected Dictionary<ulong, PlayerReferences> _currentPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
+        public event Action<SpawnDifficulty> OnSpawnFishingSpot;
+        public event Action OnSpawnBoss;
         public event Action<GameSessionReport> OnGameEnded;
 
         protected void CallGameEndedEvent(GameSessionReport report) => OnGameEnded?.Invoke(report);
+
+        protected void CallSpawnFishingSpot(SpawnDifficulty difficulty) =>
+            OnSpawnFishingSpot?.Invoke(difficulty);
+        protected void CallSpawnBoss() => OnSpawnBoss?.Invoke();
         
         public void StartGame(Dictionary<ulong, PlayerReferences> players)
         {
@@ -35,10 +41,5 @@ namespace FishingPrototype.Gameplay.GameMode
         }
 
         protected abstract void RemovePlayerInternal();
-        
-        public void SetFishingSpotSpawnMethod(Func<FishingSpotType, int, IFishingSpot> newFishingSpotMethod) =>
-            SpawnFishingSpotSetAction = newFishingSpotMethod;
-        protected IFishingSpot SpawnFishingSpot(FishingSpotType type, int amount) =>
-            SpawnFishingSpotSetAction?.Invoke(type, amount);
     }
 }

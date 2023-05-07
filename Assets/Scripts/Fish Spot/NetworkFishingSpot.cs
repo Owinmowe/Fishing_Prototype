@@ -10,6 +10,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
         public Action<Tuple<FishingSpotType, int>> OnFishingSpotSet { get; set; }
         public Action<bool> OnFishingRequestProcessed { get; set; }
         public Action<int> OnFishAmountChanged { get; set; }
+        public Action<FishingSpotType> OnFishingSpotEmpty { get; set; }
         public GameObject BaseGameObject => gameObject;
 
         [SyncVar] private FishingSpotType _fishingSpotType;
@@ -75,6 +76,7 @@ namespace FishingPrototype.Gameplay.FishingSpot
             _amount--;
             if (_amount <= 0)
             {
+                OnFishingSpotEmpty?.Invoke(_fishingSpotType);
                 NetworkServer.UnSpawn(gameObject);
                 Destroy(gameObject);
             }
