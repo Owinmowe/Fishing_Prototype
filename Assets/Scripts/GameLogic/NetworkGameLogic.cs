@@ -62,6 +62,7 @@ namespace FishingPrototype.Gameplay.Logic
         {
             _gameModeBase = Instantiate(data.gameModeBase, transform);
             _gameModeBase.OnSpawnFishingSpot += NetworkSpawnFishingSpot;
+            _gameModeBase.OnSpawnBoss += SpawnBoss;
             _gameModeBase.OnGameEnded += GameEnded;
         }
 
@@ -98,12 +99,14 @@ namespace FishingPrototype.Gameplay.Logic
             OnGameStarted?.Invoke();
         }
         
-        private void NetworkSpawnFishingSpot(FishingSpotType type, int amount)
+        private void NetworkSpawnFishingSpot(SpawnDifficulty difficulty)
         {
-            IFishingSpot fishingSpot = Instantiate(networkFishingSpot, _mapObject.transform);
+            SpawnData spawnData = _mapObject.GetRandomSpawnData(difficulty);
+            Tuple<FishingSpotType, int> fishingSpotTuple = spawnData.spawnChanceData.RollChance();
+            IFishingSpot fishingSpot = Instantiate(networkFishingSpot, spawnData.spawnPosition);
             NetworkServer.Spawn(fishingSpot.BaseGameObject);
-            HostSetFishingSpot(fishingSpot.BaseGameObject, type, amount);
-            RpcSetFishingSpot(fishingSpot.BaseGameObject, type, amount);
+            HostSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotTuple.Item1, fishingSpotTuple.Item2);
+            RpcSetFishingSpot(fishingSpot.BaseGameObject, fishingSpotTuple.Item1, fishingSpotTuple.Item2);
         }
 
         [ClientRpc]
@@ -120,6 +123,11 @@ namespace FishingPrototype.Gameplay.Logic
             fishingSpot.OnFishingSpotEmpty += OnFishingSpotEmpty;
         }
 
+        private void SpawnBoss()
+        {
+            
+        }
+        
         private void OnFishingSpotEmpty(FishingSpotType fishingSpotType)
         {
             

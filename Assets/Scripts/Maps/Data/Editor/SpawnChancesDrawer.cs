@@ -109,11 +109,11 @@ namespace FishingPrototype.Gameplay.Maps.Data
                 GUIContent minAmountLabel = new GUIContent("Min Spawn Amount");
                 GUIContent maxAmountLabel = new GUIContent("Max Spawn Amount");
                 
-                float chanceValue = _chanceListProperty.GetArrayElementAtIndex(i).floatValue;
+                int chanceValue = _chanceListProperty.GetArrayElementAtIndex(i).intValue;
                 int minAmountValue = _minListProperty.GetArrayElementAtIndex(i).intValue;
                 int maxAmountValue = _maxListProperty.GetArrayElementAtIndex(i).intValue;
                 
-                _chanceListProperty.GetArrayElementAtIndex(i).floatValue = EditorGUI.Slider(rectProperties, chanceLabel, chanceValue, 0, 100);
+                _chanceListProperty.GetArrayElementAtIndex(i).intValue = EditorGUI.IntSlider(rectProperties, chanceLabel, chanceValue, 0, 100);
                 rectProperties.y += EditorGUI.GetPropertyHeight(SerializedPropertyType.Enum, enumLabel);
                 _minListProperty.GetArrayElementAtIndex(i).intValue = EditorGUI.IntSlider(rectProperties, minAmountLabel, minAmountValue, 1, maxAmountValue);
                 rectProperties.y += EditorGUI.GetPropertyHeight(SerializedPropertyType.Enum, enumLabel);

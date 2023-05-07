@@ -9,7 +9,7 @@ namespace FishingPrototype.Gameplay.Maps.Data
         [Header("Map General")]
         public string mapName;
         public MapObject mapObject;
-        
+
         [Header("Water")]
         public Material waterMaterial;
         public WaveConfiguration waveConfiguration;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FishingPrototype.Gameplay.Data;
 using FishingPrototype.Gameplay.FishingSpot;
+using FishingPrototype.Gameplay.Maps.Data;
 using FishingPrototype.Network.Data;
 using UnityEngine;
 
@@ -11,13 +12,15 @@ namespace FishingPrototype.Gameplay.GameMode
     {
         protected Dictionary<ulong, PlayerReferences> _startingPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
         protected Dictionary<ulong, PlayerReferences> _currentPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
-        public event Action<FishingSpotType, int> OnSpawnFishingSpot;
+        public event Action<SpawnDifficulty> OnSpawnFishingSpot;
+        public event Action OnSpawnBoss;
         public event Action<GameSessionReport> OnGameEnded;
 
         protected void CallGameEndedEvent(GameSessionReport report) => OnGameEnded?.Invoke(report);
 
-        protected void CallSpawnFishingSpot(FishingSpotType type, int amount) =>
-            OnSpawnFishingSpot?.Invoke(type, amount);
+        protected void CallSpawnFishingSpot(SpawnDifficulty difficulty) =>
+            OnSpawnFishingSpot?.Invoke(difficulty);
+        protected void CallSpawnBoss() => OnSpawnBoss?.Invoke();
         
         public void StartGame(Dictionary<ulong, PlayerReferences> players)
         {

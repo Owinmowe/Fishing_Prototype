@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 994d262433dddcc488a6d4f518f45e47, type: 3}
-  m_Name: Spawns Position Data
+  m_Name: 1 - Medium Spawn Chance Data
   m_EditorClassIdentifier: 
   spawnChances:
     chanceTypeList:
