@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using FishingPrototype.Gameplay.Boat;
 using FishingPrototype.Gameplay.Data;
 using FishingPrototype.Gameplay.FishingSpot;
 using FishingPrototype.Gameplay.FishingSpot.Data;
@@ -23,12 +25,14 @@ namespace FishingPrototype.Gameplay.Logic
 
         [SerializeField] private NetworkFishingSpot networkFishingSpot;
         
-        private readonly SyncDictionary<ulong, PlayerReferences> _syncPlayers = new SyncDictionary<ulong, PlayerReferences>();
+        private readonly SyncDictionary<int, PlayerReferences> _syncPlayers = new SyncDictionary<int, PlayerReferences>();
 
         private GameModeBase _gameModeBase;
-        private MapObject _mapObject;
         
-        private void Start()
+        private MapObject _mapObject;
+        private MapData _mapData;
+        
+        private void Awake()
         {
             CustomNetworkManager.Instance.OnPlayerIdentify += AddPlayer;
             CustomNetworkManager.Instance.OnPlayerDisconnect += RemovePlayer;
@@ -43,13 +47,13 @@ namespace FishingPrototype.Gameplay.Logic
 
         private void AddPlayer(PlayerReferences references, NetworkConnection connection)
         {
-            _syncPlayers.Add(references.clientCSteamID.m_SteamID, references);
+            _syncPlayers.Add(connection.connectionId, references);
         }
 
-        private void RemovePlayer(PlayerReferences references)
+        private void RemovePlayer(PlayerReferences references, int connectionId)
         {
-            _syncPlayers.Remove(references.clientCSteamID.m_SteamID);
-            if(_gameModeBase != null) _gameModeBase.RemovePlayer(references.clientCSteamID.m_SteamID);
+            _syncPlayers.Remove(connectionId);
+            if(_gameModeBase != null) _gameModeBase.RemovePlayer(connectionId);
         }
         
         public void InitializeGame(GameModeData gameModeData, MapData mapData)
@@ -62,6 +66,7 @@ namespace FishingPrototype.Gameplay.Logic
         private void SetGameMode(GameModeData data)
         {
             _gameModeBase = Instantiate(data.gameModeBase, transform);
+            _gameModeBase.OnChangeMap += ChangeMap;
             _gameModeBase.OnSpawnFishingSpot += NetworkSpawnFishingSpot;
             _gameModeBase.OnSpawnFishingSpotWithData += NetworkSpawnFishingSpotWithData;
             _gameModeBase.OnSpawnAllFishingSpot += NetworkSpawnAllFishingSpots;
@@ -71,13 +76,12 @@ namespace FishingPrototype.Gameplay.Logic
 
         private void SetMap(MapData data)
         {
-            _mapObject = Instantiate(data.mapObject, transform);
-            WaveManager.Get().ChangeMaterial(data.waterMaterial, data.waveConfiguration);
+            _mapData = data;
         }
 
         private void StartGame()
         {
-            Dictionary<ulong, PlayerReferences> playersDictionary = _syncPlayers.ToDictionary(playerPair => playerPair.Key, playerPair => playerPair.Value);
+            Dictionary<int, PlayerReferences> playersDictionary = _syncPlayers.ToDictionary(playerPair => playerPair.Key, playerPair => playerPair.Value);
             _gameModeBase.StartGame(playersDictionary);
             OnGameStarted?.Invoke();
             RpcStartGame();
@@ -85,6 +89,7 @@ namespace FishingPrototype.Gameplay.Logic
         
         private void RemoveGameMode()
         {
+            _gameModeBase.OnChangeMap -= ChangeMap;
             _gameModeBase.OnSpawnFishingSpot -= NetworkSpawnFishingSpot;
             _gameModeBase.OnSpawnFishingSpotWithData -= NetworkSpawnFishingSpotWithData;
             _gameModeBase.OnSpawnAllFishingSpot -= NetworkSpawnAllFishingSpots;
@@ -104,6 +109,36 @@ namespace FishingPrototype.Gameplay.Logic
         private void RpcStartGame()
         {
             OnGameStarted?.Invoke();
+        }
+
+        private async void ChangeMap()
+        {
+            _mapObject = Instantiate(_mapData.mapObject, transform);
+
+            List<ITeleportComponent> teleportComponents = new List<ITeleportComponent>();
+            foreach (var playerPair in _syncPlayers)
+            {
+                teleportComponents.Add(playerPair.Value.playerGameObject.GetComponent<ITeleportComponent>());
+            }
+
+            Task[] tasks = new Task[teleportComponents.Count];
+            for (int i = 0; i < teleportComponents.Count; i++)
+            {
+                tasks[i] = teleportComponents[i].Dissolve();
+            }
+
+            await Task.WhenAll(tasks);
+            
+            NetworkSpawnAllFishingSpots();
+            
+            await WaveManager.Get().ChangeMaterial(_mapData.waterMaterial, _mapData.waveConfiguration);
+            
+            SendAllPlayersToSpawnPositions();
+            
+            foreach (var teleportComponent in teleportComponents)
+            {
+                teleportComponent.UnDissolve();
+            }
         }
 
         private void NetworkSpawnAllFishingSpots()
@@ -175,6 +210,32 @@ namespace FishingPrototype.Gameplay.Logic
         private void OnFishingSpotEmpty(FishingSpotData fishingSpotData)
         {
             _gameModeBase.OnFishingSpotEmpty(fishingSpotData);
+        }
+
+        private void SendAllPlayersToSpawnPositions()
+        {
+            int index = 0;
+            foreach (var playerPair in _syncPlayers)
+            {
+                playerPair.Value.playerGameObject.transform.position = _mapObject.PlayersSpawnPosition[index].position;
+                index++;
+            }
+        }
+        
+        private void DissolveAllPlayers()
+        {
+            foreach (var playerPair in _syncPlayers)
+            {
+                playerPair.Value.playerGameObject.GetComponent<ITeleportComponent>().Dissolve();
+            }
+        }
+
+        private void UnDissolveAllPlayers()
+        {
+            foreach (var playerPair in _syncPlayers)
+            {
+                playerPair.Value.playerGameObject.GetComponent<ITeleportComponent>().UnDissolve();
+            }
         }
         
         private void GameEnded(GameSessionReport gameSessionReport)

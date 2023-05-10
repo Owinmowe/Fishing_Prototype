@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using FishingPrototype.Utils;
 using UnityEngine;
 
@@ -6,7 +7,6 @@ namespace FishingPrototype.Waves
 {
     public class WaveManager : MonoBehaviour
     {
-
         [Header("Wave Configuration")] 
         [SerializeField] private WaveConfiguration waveConfiguration;
         [SerializeField] private float materialChangeSpeed = .5f;
@@ -58,7 +58,7 @@ namespace FishingPrototype.Waves
             _waterMaterial.SetFloat(_materialPropertiesHelper.GetPropertyId(LENGHT_PROPERTY_NAME), waveConfiguration.lenght);
         }
 
-        public void ChangeMaterial(Material waterMaterial, WaveConfiguration newWaveConfiguration = null)
+        public async Task ChangeMaterial(Material waterMaterial, WaveConfiguration newWaveConfiguration = null)
         {
             if (!WaterMaterialIsValid(waterMaterial))
             {
@@ -67,13 +67,10 @@ namespace FishingPrototype.Waves
                 Debug.LogWarning("Material: " + waterMaterial.name);
                 return;
             }
-
-            if(_changeMaterialIEnumerator != null) StopCoroutine(_changeMaterialIEnumerator);
-            _changeMaterialIEnumerator = ChangingMaterial(waterMaterial, newWaveConfiguration);
-            StartCoroutine(_changeMaterialIEnumerator);
+            await ChangingMaterial(waterMaterial, newWaveConfiguration);
         }
 
-        private IEnumerator ChangingMaterial(Material waterMaterial, WaveConfiguration newWaveConfiguration = null)
+        private async Task ChangingMaterial(Material waterMaterial, WaveConfiguration newWaveConfiguration = null)
         {
             if (newWaveConfiguration != null)
             {
@@ -89,7 +86,7 @@ namespace FishingPrototype.Waves
             {
                 LerpWaveConfigurations(waterMaterial, t, startingSpeed, endSpeed);
                 t += Time.deltaTime * materialChangeSpeed;
-                yield return null;
+                await Task.Yield();
             }
 
             waveConfiguration.speed = endSpeed;

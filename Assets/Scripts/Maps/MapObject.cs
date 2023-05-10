@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FishingPrototype.Gameplay.FishingSpot.Data;
 using FishingPrototype.Gameplay.Maps.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;

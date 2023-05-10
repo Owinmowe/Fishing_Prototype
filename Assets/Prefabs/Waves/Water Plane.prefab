@@ -100,4 +100,4 @@ MonoBehaviour:
     speed: 1
     amplitude: 0.2
     lenght: 1
-  materialChangeSpeed: 0.01
+  materialChangeSpeed: 0.5
