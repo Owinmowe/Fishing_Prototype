@@ -10,25 +10,25 @@ namespace FishingPrototype.Gameplay.GameMode
 {
     public abstract class GameModeBase : MonoBehaviour
     {
-        protected Dictionary<ulong, PlayerReferences> _startingPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
-        protected Dictionary<ulong, PlayerReferences> _currentPlayersDictionary = new Dictionary<ulong, PlayerReferences>();
+        protected Dictionary<int, PlayerReferences> _startingPlayersDictionary = new Dictionary<int, PlayerReferences>();
+        protected Dictionary<int, PlayerReferences> _currentPlayersDictionary = new Dictionary<int, PlayerReferences>();
         public event Action<SpawnDifficulty> OnSpawnFishingSpot;
         public event Action<FishingSpotData> OnSpawnFishingSpotWithData;
+        public event Action OnChangeMap;
         public event Action OnSpawnAllFishingSpot;
         public event Action OnSpawnBoss;
         public event Action<GameSessionReport> OnGameEnded;
 
         protected void CallGameEndedEvent(GameSessionReport report) => OnGameEnded?.Invoke(report);
-
         protected void CallSpawnFishingSpot(SpawnDifficulty difficulty) =>
             OnSpawnFishingSpot?.Invoke(difficulty);
-        
         protected void CallSpawnFishingSpotWithData(FishingSpotData fishingSpotData) =>
             OnSpawnFishingSpotWithData?.Invoke(fishingSpotData);
         protected void CallSpawnAllFishingSpot() => OnSpawnAllFishingSpot?.Invoke();
         protected void CallSpawnBoss() => OnSpawnBoss?.Invoke();
+        protected void CallChangeMap() => OnChangeMap?.Invoke();
         
-        public void StartGame(Dictionary<ulong, PlayerReferences> players)
+        public void StartGame(Dictionary<int, PlayerReferences> players)
         {
             foreach (var playerPair in players)
             {
@@ -40,9 +40,9 @@ namespace FishingPrototype.Gameplay.GameMode
 
         protected abstract void StartGameModeInternal();
         
-        public void RemovePlayer(ulong steamId)
+        public void RemovePlayer(int connectionId)
         {
-            _currentPlayersDictionary.Remove(steamId);
+            _currentPlayersDictionary.Remove(connectionId);
             RemovePlayerInternal();
         }
 

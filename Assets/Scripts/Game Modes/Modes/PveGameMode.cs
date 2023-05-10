@@ -4,7 +4,7 @@ namespace FishingPrototype.Gameplay.GameMode
     {
         protected override void StartGameModeInternal()
         {
-            CallSpawnAllFishingSpot();
+            CallChangeMap();
         }
         
         protected override void RemovePlayerInternal()

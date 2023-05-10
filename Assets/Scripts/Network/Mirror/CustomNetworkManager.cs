@@ -11,9 +11,9 @@ namespace FishingPrototype.Network
 {
     public class CustomNetworkManager : NetworkManager
     {
-        public event System.Action<PlayerReferences> OnPlayerConnect;
+        public event System.Action<PlayerReferences, int> OnPlayerConnect;
         public event System.Action<PlayerReferences, NetworkConnection> OnPlayerIdentify;
-        public event System.Action<PlayerReferences> OnPlayerDisconnect;
+        public event System.Action<PlayerReferences, int> OnPlayerDisconnect;
 
         public event System.Action OnLobbyCreateOk;
         public event System.Action OnLobbyCreateFailed;
@@ -85,7 +85,7 @@ namespace FishingPrototype.Network
         public override void OnStopHost()
         {
             base.OnStopHost();
-            _serverMessageManager.AuthenticationServerMessageHandler.StopListening();
+            if(NetworkServer.active) _serverMessageManager.AuthenticationServerMessageHandler.StopListening();
         }
         
         private void OnClientAuthenticate(NetworkConnectionToClient conn, AuthenticateMessage message)
@@ -110,7 +110,7 @@ namespace FishingPrototype.Network
             if (!_playersDictionary.ContainsKey(conn.connectionId))
             {
                 _playersDictionary.Add(conn.connectionId, playerReferences);
-                OnPlayerConnect?.Invoke(playerReferences);
+                OnPlayerConnect?.Invoke(playerReferences, conn.connectionId);
             }
         }
         
@@ -119,7 +119,7 @@ namespace FishingPrototype.Network
             base.OnServerDisconnect(conn);
             if (_playersDictionary.ContainsKey(conn.connectionId))
             {
-                OnPlayerDisconnect?.Invoke(_playersDictionary[conn.connectionId]);
+                OnPlayerDisconnect?.Invoke(_playersDictionary[conn.connectionId], conn.connectionId);
                 _playersDictionary.Remove(conn.connectionId);
             }
         }

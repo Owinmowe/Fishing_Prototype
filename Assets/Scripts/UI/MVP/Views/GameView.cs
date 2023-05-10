@@ -60,7 +60,7 @@ namespace FishingPrototype.MVP.View
         #region LOBBY_SCREEN_EVENTS
         
         public event Action<PlayerReferences, NetworkConnection> OnPlayerConnectEvent;
-        public event Action<PlayerReferences> OnPlayerDisconnectEvent;
+        public event Action<PlayerReferences, int> OnPlayerDisconnectEvent;
         public event Action OnStartGamePressed;
         public event Action OnGameStarted;
         

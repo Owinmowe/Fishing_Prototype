@@ -49,7 +49,7 @@ namespace FishingPrototype.MVP.Presenter
             view.SetConnectedPlayersPanel(_playersData.ToArray());
         }
 
-        private void OnPlayerDisconnected(PlayerReferences playerReferences)
+        private void OnPlayerDisconnected(PlayerReferences playerReferences, int connectionId)
         {
             _playersData.Remove(playerReferences.playerData);
             view.SetConnectedPlayersPanel(_playersData.ToArray());
